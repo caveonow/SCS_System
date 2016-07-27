@@ -4,17 +4,17 @@ class SessionsController < ApplicationController
   
   def create
     @student = Student.find_by_StudentEmail(params[:session][:email])
-    #if @student && @student.authenticate(params[:session][:password])
-      #session[:user_id] = @student.id
-      redirect_to 'http://localhost:3000/students#'
-    #else
-     # redirect_to 'login'
-    #end 
+    if @student && @student.authenticate(params[:session][:password])
+      session[:id] = @student.id
+      redirect_to root_url 
+    else
+      redirect_to root_url 
+    end 
   end
   
   def destroy 
-    session[:user_id] = nil 
-    redirect_to '/' 
+    session[:id] = nil 
+    redirect_to root_url 
   end
 
 end

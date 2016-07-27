@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'advertisements#index'
+  
   resources :staffs
   resources :students
   resources :subanswers
@@ -13,6 +15,8 @@ Rails.application.routes.draw do
   resources :studanswers
   resources :formanswers
   
+  get 'home' => 'advertisements#index'
+  get 'signup' => 'students#new'
   get 'login'  => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'

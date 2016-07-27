@@ -10,40 +10,39 @@
       </ul>
     </div>
   <% end %>
-
+  
+	<div class="signup">
+		<h1>Registration</h1>
   <div class="field">
-    <%= f.label :StudentName %><br>
-    <%= f.text_field :StudentName %>
+    <%= f.label :Name %><br>
+    <%= f.text_field :StudentName , :placeholder => "Julian"%>
   </div>
   <div class="field">
-    <%= f.label :StudentIC %><br>
-    <%= f.text_field :StudentIC %>
+    <%= f.label :"IC Number"%><br>
+    <%= f.text_field :StudentIC , :placeholder => "930423-13-5365"%>
   </div>
   <div class="field">
-    <%= f.label :StudentAge %><br>
-    <%= f.number_field :StudentAge %>
+    <%= f.label :Age %><br>
+    <%= f.number_field :StudentAge%>
   </div>
   <div class="field">
-    <%= f.label :StudentProgramme %><br>
+    <%= f.label :Email %><br>
+    <%= f.text_field :StudentEmail , :placeholder => "abc@mail.com"%>
+  </div>
+  <div class="field">
+    <%= f.label :Programme %><br>
     <%= f.text_field :StudentProgramme %>
   </div>
   <div class="field">
     <%= f.label :password %><br>
-    <%= f.password_field :password %>
+    <%= f.password_field :password , :placeholder => "password"%>
   </div>
   <div class="field">
     <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="field">
-    <%= f.label :StudentEmail %><br>
-    <%= f.text_field :StudentEmail %>
-  </div>
-  <div class="field">
-    <%= f.label :StudentLogAccess %><br>
-    <%= f.datetime_select :StudentLogAccess %>
+    <%= f.password_field :password_confirmation , :placeholder => "password"%>
   </div>
   <div class="actions">
     <%= f.submit %>
+  </div>
   </div>
 <% end %>
