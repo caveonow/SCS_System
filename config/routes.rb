@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :staffs
+  resources :students
   resources :subanswers
   resources :answers
   resources :subquestions
@@ -7,11 +9,9 @@ Rails.application.routes.draw do
   resources :backgrounds
   resources :translators
   resources :forms
-  resources :staffs
   resources :advertisements
   resources :studanswers
   resources :formanswers
-  resources :students
   
   get 'login'  => 'sessions#new'
   post 'login' => 'sessions#create'

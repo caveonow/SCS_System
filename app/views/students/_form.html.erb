@@ -12,30 +12,38 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :'Student Name' %><br>
+    <%= f.label :StudentName %><br>
     <%= f.text_field :StudentName %>
   </div>
   <div class="field">
-    <%= f.label :'IC Number'%><br>
+    <%= f.label :StudentIC %><br>
     <%= f.text_field :StudentIC %>
   </div>
   <div class="field">
-    <%= f.label :Age %><br>
+    <%= f.label :StudentAge %><br>
     <%= f.number_field :StudentAge %>
   </div>
   <div class="field">
-    <%= f.label :Programme %><br>
+    <%= f.label :StudentProgramme %><br>
     <%= f.text_field :StudentProgramme %>
   </div>
   <div class="field">
-    <%= f.label :Password %><br>
-    <%= f.text_field :StudentPassword %>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :Email %><br>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label :StudentEmail %><br>
     <%= f.text_field :StudentEmail %>
   </div>
+  <div class="field">
+    <%= f.label :StudentLogAccess %><br>
+    <%= f.datetime_select :StudentLogAccess %>
+  </div>
   <div class="actions">
-    <%= f.submit "Create An Account" %>
+    <%= f.submit %>
   </div>
 <% end %>

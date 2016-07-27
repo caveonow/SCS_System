@@ -5,15 +5,15 @@ one:
   StudentIC: MyString
   StudentAge: 1
   StudentProgramme: MyString
-  StudentPassword: MyString
+  password_digest: <%= BCrypt::Password.create('secret') %>
   StudentEmail: MyString
-  StudentLogAccess: 2016-07-27 09:03:58
+  StudentLogAccess: 2016-07-28 01:02:35
 
 two:
   StudentName: MyString
   StudentIC: MyString
   StudentAge: 1
   StudentProgramme: MyString
-  StudentPassword: MyString
+  password_digest: <%= BCrypt::Password.create('secret') %>
   StudentEmail: MyString
-  StudentLogAccess: 2016-07-27 09:03:58
+  StudentLogAccess: 2016-07-28 01:02:35

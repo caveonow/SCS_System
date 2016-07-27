@@ -69,6 +69,6 @@ class StaffsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def staff_params
-      params.require(:staff).permit(:StaffName, :StaffAge, :StaffIC, :StaffEmail, :StaffPassword, :StaffLogAccess)
+      params.require(:staff).permit(:StaffName, :StaffIC, :StaffAge, :StaffEmail, :password, :password_confirmation, :StaffLogAccess)
     end
 end
