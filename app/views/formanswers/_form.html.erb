@@ -1,0 +1,25 @@
+<%= form_for(@formanswer) do |f| %>
+  <% if @formanswer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@formanswer.errors.count, "error") %> prohibited this formanswer from being saved:</h2>
+
+      <ul>
+      <% @formanswer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :FormAnswer %><br>
+    <%= f.text_field :FormAnswer %>
+  </div>
+  <div class="field">
+    <%= f.label :StudAnswerDateTime %><br>
+    <%= f.datetime_select :StudAnswerDateTime %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

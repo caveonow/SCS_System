@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Advertisementname:</strong>
+  <%= @advertisement.AdvertisementName %>
+</p>
+
+<p>
+  <strong>Advertisementdescription:</strong>
+  <%= @advertisement.AdvertisementDescription %>
+</p>
+
+<%= link_to 'Edit', edit_advertisement_path(@advertisement) %> |
+<%= link_to 'Back', advertisements_path %>

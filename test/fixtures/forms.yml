@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  FormName: MyString
+  FormDescription: MyText
+  FormDateTime: 2016-07-27 09:11:57
+  FormStatus: MyString
+
+two:
+  FormName: MyString
+  FormDescription: MyText
+  FormDateTime: 2016-07-27 09:11:57
+  FormStatus: MyString

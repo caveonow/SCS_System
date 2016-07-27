@@ -1,0 +1,25 @@
+<%= form_for(@subanswer) do |f| %>
+  <% if @subanswer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subanswer.errors.count, "error") %> prohibited this subanswer from being saved:</h2>
+
+      <ul>
+      <% @subanswer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :SubAnswerDesc %><br>
+    <%= f.text_area :SubAnswerDesc %>
+  </div>
+  <div class="field">
+    <%= f.label :SubAnswerCount %><br>
+    <%= f.number_field :SubAnswerCount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

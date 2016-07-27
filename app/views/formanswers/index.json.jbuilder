@@ -1,0 +1,1 @@
+json.array! @formanswers, partial: 'formanswers/formanswer', as: :formanswer

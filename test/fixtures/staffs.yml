@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  StaffName: MyString
+  StaffAge: 1
+  StaffIC: 1
+  StaffEmail: MyString
+  StaffPassword: MyString
+  StaffLogAccess: 2016-07-27 09:09:20
+
+two:
+  StaffName: MyString
+  StaffAge: 1
+  StaffIC: 1
+  StaffEmail: MyString
+  StaffPassword: MyString
+  StaffLogAccess: 2016-07-27 09:09:20

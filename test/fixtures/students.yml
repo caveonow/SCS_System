@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  StudentName: MyString
+  StudentIC: MyString
+  StudentAge: 1
+  StudentProgramme: MyString
+  StudentPassword: MyString
+  StudentEmail: MyString
+  StudentLogAccess: 2016-07-27 09:03:58
+
+two:
+  StudentName: MyString
+  StudentIC: MyString
+  StudentAge: 1
+  StudentProgramme: MyString
+  StudentPassword: MyString
+  StudentEmail: MyString
+  StudentLogAccess: 2016-07-27 09:03:58

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Subanswerdesc:</strong>
+  <%= @subanswer.SubAnswerDesc %>
+</p>
+
+<p>
+  <strong>Subanswercount:</strong>
+  <%= @subanswer.SubAnswerCount %>
+</p>
+
+<%= link_to 'Edit', edit_subanswer_path(@subanswer) %> |
+<%= link_to 'Back', subanswers_path %>

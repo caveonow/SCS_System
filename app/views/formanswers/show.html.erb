@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Formanswer:</strong>
+  <%= @formanswer.FormAnswer %>
+</p>
+
+<p>
+  <strong>Studanswerdatetime:</strong>
+  <%= @formanswer.StudAnswerDateTime %>
+</p>
+
+<%= link_to 'Edit', edit_formanswer_path(@formanswer) %> |
+<%= link_to 'Back', formanswers_path %>

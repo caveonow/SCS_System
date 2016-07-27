@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Formanswers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Formanswer</th>
+      <th>Studanswerdatetime</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @formanswers.each do |formanswer| %>
+      <tr>
+        <td><%= formanswer.FormAnswer %></td>
+        <td><%= formanswer.StudAnswerDateTime %></td>
+        <td><%= link_to 'Show', formanswer %></td>
+        <td><%= link_to 'Edit', edit_formanswer_path(formanswer) %></td>
+        <td><%= link_to 'Destroy', formanswer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Formanswer', new_formanswer_path %>

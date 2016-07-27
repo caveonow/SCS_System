@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Backgroundname:</strong>
+  <%= @background.BackgroundName %>
+</p>
+
+<p>
+  <strong>Backgroundpic:</strong>
+  <%= @background.BackgroundPic %>
+</p>
+
+<%= link_to 'Edit', edit_background_path(@background) %> |
+<%= link_to 'Back', backgrounds_path %>

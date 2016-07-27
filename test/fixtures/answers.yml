@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  AnswerDesc: MyText
+  isSubAnswer: false
+  AnswerCount: 1
+
+two:
+  AnswerDesc: MyText
+  isSubAnswer: false
+  AnswerCount: 1

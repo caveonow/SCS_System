@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Translatoreng:</strong>
+  <%= @translator.TranslatorEng %>
+</p>
+
+<p>
+  <strong>Translatorchinese:</strong>
+  <%= @translator.TranslatorChinese %>
+</p>
+
+<p>
+  <strong>Translatordescription:</strong>
+  <%= @translator.TranslatorDescription %>
+</p>
+
+<%= link_to 'Edit', edit_translator_path(@translator) %> |
+<%= link_to 'Back', translators_path %>

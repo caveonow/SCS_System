@@ -1,0 +1,25 @@
+<%= form_for(@studanswer) do |f| %>
+  <% if @studanswer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@studanswer.errors.count, "error") %> prohibited this studanswer from being saved:</h2>
+
+      <ul>
+      <% @studanswer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :StudentAnswer %><br>
+    <%= f.text_field :StudentAnswer %>
+  </div>
+  <div class="field">
+    <%= f.label :StudentAnswer %><br>
+    <%= f.text_field :StudentAnswer %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

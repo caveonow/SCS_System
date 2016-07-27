@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  QuestionDesc: MyText
+  QuestionNumber: 1
+  isSubQuestion: false
+
+two:
+  QuestionDesc: MyText
+  QuestionNumber: 1
+  isSubQuestion: false
