@@ -2,16 +2,16 @@
 
 one:
   StaffName: MyString
+  StaffIC: MyString
   StaffAge: 1
-  StaffIC: 1
   StaffEmail: MyString
-  StaffPassword: MyString
-  StaffLogAccess: 2016-07-27 09:09:20
+  password_digest: <%= BCrypt::Password.create('secret') %>
+  StaffLogAccess: 2016-07-28 01:06:54
 
 two:
   StaffName: MyString
+  StaffIC: MyString
   StaffAge: 1
-  StaffIC: 1
   StaffEmail: MyString
-  StaffPassword: MyString
-  StaffLogAccess: 2016-07-27 09:09:20
+  password_digest: <%= BCrypt::Password.create('secret') %>
+  StaffLogAccess: 2016-07-28 01:06:54

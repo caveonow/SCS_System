@@ -5,7 +5,7 @@ class CreateStudents < ActiveRecord::Migration
       t.string :StudentIC
       t.integer :StudentAge
       t.string :StudentProgramme
-      t.string :StudentPassword
+      t.string :password_digest
       t.string :StudentEmail
       t.datetime :StudentLogAccess
 

@@ -1,0 +1,24 @@
+
+<head>
+<title>Public Layout</title>
+  </head>
+  <body>
+		<div class="login">
+			<h1>Log In</h1>
+			<%= form_for(:session, url: login_path) do |f| %>
+			<div class="field"> 
+			  <%= f.label :Email%> <br />
+			  <%= f.email_field :email, :placeholder => "abc@mail.com" %>
+			  </div>
+			  <div class="field">
+			  <%= f.label :Password%><br />
+			  <%= f.password_field :password, :placeholder => "password" %> 
+			  </div>
+			  <div class="field">
+			  <%= f.submit "Log in", class: "btn-submit" %>
+			  </div>
+			<% end %>
+
+		</div>
+  </body>
+</html>

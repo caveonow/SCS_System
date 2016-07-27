@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  root 'advertisements#index'
+  
+  resources :staffs
+  resources :students
   resources :subanswers
   resources :answers
   resources :subquestions
@@ -7,11 +11,15 @@ Rails.application.routes.draw do
   resources :backgrounds
   resources :translators
   resources :forms
-  resources :staffs
   resources :advertisements
   resources :studanswers
   resources :formanswers
-  resources :students
+  
+  get 'home' => 'advertisements#index'
+  get 'signup' => 'students#new'
+  get 'login'  => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

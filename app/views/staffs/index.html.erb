@@ -6,10 +6,9 @@
   <thead>
     <tr>
       <th>Staffname</th>
-      <th>Staffage</th>
       <th>Staffic</th>
+      <th>Staffage</th>
       <th>Staffemail</th>
-      <th>Staffpassword</th>
       <th>Stafflogaccess</th>
       <th colspan="3"></th>
     </tr>
@@ -19,10 +18,9 @@
     <% @staffs.each do |staff| %>
       <tr>
         <td><%= staff.StaffName %></td>
-        <td><%= staff.StaffAge %></td>
         <td><%= staff.StaffIC %></td>
+        <td><%= staff.StaffAge %></td>
         <td><%= staff.StaffEmail %></td>
-        <td><%= staff.StaffPassword %></td>
         <td><%= staff.StaffLogAccess %></td>
         <td><%= link_to 'Show', staff %></td>
         <td><%= link_to 'Edit', edit_staff_path(staff) %></td>

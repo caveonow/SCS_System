@@ -2,10 +2,10 @@ class CreateStaffs < ActiveRecord::Migration
   def change
     create_table :staffs do |t|
       t.string :StaffName
+      t.string :StaffIC
       t.integer :StaffAge
-      t.integer :StaffIC
       t.string :StaffEmail
-      t.string :StaffPassword
+      t.string :password_digest
       t.datetime :StaffLogAccess
 
       t.timestamps null: false
