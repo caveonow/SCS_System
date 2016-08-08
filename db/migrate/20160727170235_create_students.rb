@@ -8,6 +8,7 @@ class CreateStudents < ActiveRecord::Migration
       t.string :password_digest
       t.string :StudentEmail
       t.datetime :StudentLogAccess
+      t.string :role
 
       t.timestamps null: false
     end

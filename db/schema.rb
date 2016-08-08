@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160727170653) do
     t.string   "StaffEmail",      limit: 255
     t.string   "password_digest", limit: 255
     t.datetime "StaffLogAccess"
+    t.string   "role",            limit: 255
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 20160727170653) do
     t.string   "password_digest",  limit: 255
     t.string   "StudentEmail",     limit: 255
     t.datetime "StudentLogAccess"
+    t.string   "role",             limit: 255
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end

@@ -7,6 +7,7 @@ class CreateStaffs < ActiveRecord::Migration
       t.string :StaffEmail
       t.string :password_digest
       t.datetime :StaffLogAccess
+      t.string :role
 
       t.timestamps null: false
     end
