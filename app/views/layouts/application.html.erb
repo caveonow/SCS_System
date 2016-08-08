@@ -10,9 +10,9 @@
 
 <!-- Admin -->
 <div>
-	<% if current_user %>
+	<% if current_user && current_user.student? %>
 <ul>
-  <li><a class="active"><a href="home">Home</a></li>
+  <li><a class="active"><a href="home">Admin</a></li>
   <li class="dropdown">
   	<a href="#" class="dropbtn">Survey</a>
   	 <div class="dropdown-content">
@@ -36,6 +36,34 @@
   <li style="color: white"><a><%= current_user.StudentEmail %></a></li>
   <li style="float:right"><%= link_to "Log out", logout_path, method: "delete" %></li>
 </ul>
+
+	<% elsif current_user && current_user.admin? %>
+<ul>
+  <li><a class="active"><a href="home">Student</a></li>
+  <li class="dropdown">
+  	<a href="#" class="dropbtn">Survey</a>
+  	 <div class="dropdown-content">
+      <a href="#">Forms</a>
+      <a href="#">Results</a>
+      <a href="#">Questions</a>
+      <a href="#">Answers</a>
+    </div>
+  	</li>
+  <li class="dropdown">
+    <a href="#" class="dropbtn">Report</a>
+    <div class="dropdown-content">
+      <a href="#">Generate Reports</a>
+      <a href="#">Manage Reports</a>
+    </div>
+  </li>
+  <li><a href="#">Import User</a></li>
+  <li><a href="#">Advertisement</a></li>
+  <li><a href="#">Background</a></li>
+  <li><a href="#">About</a></li>
+  <li style="color: white"><a></a></li>
+  <li style="float:right"><%= link_to "Log out", logout_path, method: "delete" %></li>
+</ul>
+
 <% else %>
 <ul>
   <li><a class="active"><a href="home">Home</a></li>

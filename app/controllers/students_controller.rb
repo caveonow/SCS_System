@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
+  after_create_commit :assign_default_role
 
   # GET /students
   # GET /students.json
@@ -35,6 +36,12 @@ class StudentsController < ApplicationController
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  
+  # After Create role assign
+  def assign_default_role
+    self.role = [ "student" ]
   end
 
   # PATCH/PUT /students/1
