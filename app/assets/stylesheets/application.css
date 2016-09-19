@@ -13,58 +13,71 @@
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
-
+ *= require foundation
  */
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: black;
-    border-radius: 10px;
+body {margin-top: 2rem;}
+
+$menu-background: #333;
+
+.title-bar {
+  background: $menu-background;
+  padding: 0.9rem;
 }
 
-li {
-    float: left;
+.top-bar {
+  background: $menu-background;
+  
+  ul {
+    background: $menu-background;
+  
+    li {
+      background: $menu-background;
+    
+        a {
+          color: #fff;
+      }
+    }
+  }
 }
 
-li a, .dropbtn {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+.menu-text {
+  color: #fff;
+  
+  @media only screen and (max-width: 40em) {
+    display: none !important;
+  }
 }
 
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
+@media only screen and (min-width: 40em) {
+  .menu:last-child {
+    border-left: 1px solid #4e4e4e;
+  }
+
+  .menu:first-child {
+    border-left: none;
+  }
+
+  .menu {
+    li:not(:last-child) {
+      border-right: 1px solid #4e4e4e;
+    }
+  }
 }
 
-li.dropdown {
-    display: inline-block;
+.dropdown.menu .submenu {
+  border: none;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+.dropdown.menu .is-dropdown-submenu-parent.is-right-arrow>a::after {
+  border-color: #fff transparent transparent;
 }
 
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
+.is-drilldown-submenu-parent>a::after {
+  border-color: transparent transparent transparent #fff;
 }
 
-.dropdown-content a:hover {
-  background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
+.js-drilldown-back::before {
+  border-color: transparent #fff transparent transparent;
 }
 

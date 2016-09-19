@@ -5,8 +5,4 @@ class Student < ActiveRecord::Base
   self.role == 'student' 
   end
 
-  def admin? 
-  self.role == 'admin' 
-  end
-
 end
