@@ -1,4 +1,5 @@
 class AdvertisementsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
 
   # GET /advertisements
@@ -24,6 +25,7 @@ class AdvertisementsController < ApplicationController
   # POST /advertisements
   # POST /advertisements.json
   def create
+    #@advertisement.user_id = current_user.id
     @advertisement = Advertisement.new(advertisement_params)
 
     respond_to do |format|

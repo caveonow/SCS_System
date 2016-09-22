@@ -12,37 +12,25 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :Name %><br>
-    <%= f.text_field :Name %>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :ICNumber %><br>
-    <%= f.text_field :ICNumber %>
+    <%= f.label :role_id %><br>
+    <%= collection_select(:user, :role_id, Role.all, :id, :name, {prompt: true}) %>
+    <!--<%= f.text_field :role_id %>!-->
   </div>
+  
   <div class="field">
-    <%= f.label :Age %><br>
-    <%= f.text_field :Age %>
+  <%= f.label :email %><br>
+  <%= f.text_field :email %>
   </div>
+  <!--
   <div class="field">
-    <%= f.label :Programme %><br>
-    <%= f.text_field :Programme %>
-  </div>
-  <div class="field">
-    <%= f.label :passwrod_digest %><br>
-    <%= f.text_field :passwrod_digest %>
-  </div>
-  <div class="field">
-    <%= f.label :Email %><br>
-    <%= f.text_field :Email %>
-  </div>
-  <div class="field">
-    <%= f.label :LogAccess %><br>
-    <%= f.datetime_select :LogAccess %>
-  </div>
-  <div class="field">
-    <%= f.label :Role %><br>
-    <%= f.text_field :Role %>
-  </div>
+  <%= f.label :password %><br>
+  <%= f.password_field :password, placeholder: "Leave blank if unchanged" %>
+	</div>-->
+	
   <div class="actions">
     <%= f.submit %>
   </div>

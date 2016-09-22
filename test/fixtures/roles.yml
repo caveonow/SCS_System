@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  role_id: 
+  description: MyString
 
 two:
   name: MyString
-  role_id: 
+  description: MyString

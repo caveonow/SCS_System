@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users
+  scope "/admin" do
   resources :users
+  end
+  resources :users
+  resources :roles
   root 'advertisements#index'
   
   resources :staffs
@@ -16,11 +21,12 @@ Rails.application.routes.draw do
   resources :studanswers
   resources :formanswers
   
-  get 'home' => 'advertisements#index'
-  get 'signup' => 'students#new'
-  get 'login'  => 'sessions#new'
-  post 'login' => 'sessions#create'
-  delete 'logout' => 'sessions#destroy'
+  #get 'home' => 'advertisements#index'
+  #get 'signup' => 'students#new'
+  #get 'login'  => 'sessions#new'
+  #post 'login' => 'sessions#create'
+  #delete 'logout' => 'sessions#destroy'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
