@@ -3,12 +3,13 @@ Rails.application.routes.draw do
   scope "/admin" do
   resources :users
   end
-  resources :users
-  resources :roles
-  root 'advertisements#index'
   
-  resources :staffs
-  resources :students
+  authenticated :user do
+    root :to => 'welcome#index', as: :authenticated_root
+  end
+    root :to => 'welcome#index'
+  
+  resources :roles
   resources :subanswers
   resources :answers
   resources :subquestions

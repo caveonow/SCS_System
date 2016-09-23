@@ -16,11 +16,23 @@
       <tr>
         <td><%= advertisement.AdvertisementName %></td>
         <td><%= advertisement.AdvertisementDescription %></td>
-        <td><%= link_to 'Show', advertisement %></td>
-        <td><%= link_to 'Edit', edit_advertisement_path(advertisement) %></td>
-        <td><%= link_to 'Destroy', advertisement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+        <td>
+		  <% if can? :update, advertisement %>
+		    <%= link_to 'Edit', edit_advertisement_path(advertisement) %>
+		  <% end %>
+		</td>
+		
+		<td>
+		  <% if can? :destroy, advertisement %>
+		    <%= link_to 'Destroy', advertisement, method: :delete, data: { confirm: 'Are you sure?' } %>
+		  <% end %>
+		</td>
+		
+		<% if can? :create, advertisement %>
+		  <%= link_to 'New Item', new_advertisement_path %>
+		<% end %>
+		      </tr>
+		    <% end %>
   </tbody>
 </table>
 

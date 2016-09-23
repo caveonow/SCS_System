@@ -1,6 +1,6 @@
 class SubanswersController < ApplicationController
   before_action :set_subanswer, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
   # GET /subanswers
   # GET /subanswers.json
   def index

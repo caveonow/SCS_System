@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
   # GET /forms
   # GET /forms.json
   def index

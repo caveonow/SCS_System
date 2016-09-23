@@ -1,6 +1,7 @@
 class AdvertisementsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
+  #before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /advertisements
   # GET /advertisements.json
@@ -15,18 +16,19 @@ class AdvertisementsController < ApplicationController
 
   # GET /advertisements/new
   def new
-    @advertisement = Advertisement.new
+    #@advertisement = Advertisement.new
   end
 
   # GET /advertisements/1/edit
   def edit
+    authorize! :edit, @advertisement
   end
 
   # POST /advertisements
   # POST /advertisements.json
   def create
     #@advertisement.user_id = current_user.id
-    @advertisement = Advertisement.new(advertisement_params)
+    #@advertisement = Advertisement.new(advertisement_params)
 
     respond_to do |format|
       if @advertisement.save
@@ -65,9 +67,9 @@ class AdvertisementsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_advertisement
-      @advertisement = Advertisement.find(params[:id])
-    end
+    #def set_advertisement
+    #  @advertisement = Advertisement.find(params[:id])
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advertisement_params
