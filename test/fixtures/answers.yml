@@ -4,8 +4,12 @@ one:
   AnswerDesc: MyText
   isSubAnswer: false
   AnswerCount: 1
+  subquestion_id: 
+  question_id: 
 
 two:
   AnswerDesc: MyText
   isSubAnswer: false
   AnswerCount: 1
+  subquestion_id: 
+  question_id: 

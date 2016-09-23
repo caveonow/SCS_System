@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+
   # GET /forms
   # GET /forms.json
   def index
@@ -69,6 +69,6 @@ class FormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def form_params
-      params.require(:form).permit(:FormName, :FormDescription, :FormDateTime, :FormStatus)
+      params.require(:form).permit(:FormName, :FormDescription, :FormDateTime, :FormStatus, :user_id)
     end
 end

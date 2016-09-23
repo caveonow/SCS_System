@@ -10,5 +10,15 @@
   <%= @formanswer.StudAnswerDateTime %>
 </p>
 
+<p>
+  <strong>User:</strong>
+  <%= @formanswer.user %>
+</p>
+
+<p>
+  <strong>Form:</strong>
+  <%= @formanswer.form %>
+</p>
+
 <%= link_to 'Edit', edit_formanswer_path(@formanswer) %> |
 <%= link_to 'Back', formanswers_path %>

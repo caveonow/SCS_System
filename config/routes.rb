@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :subanswers
+  resources :answers
+  resources :subquestions
+  resources :questions
+  resources :sections
+  resources :forms
+  resources :studanswers
+  resources :formanswers
   devise_for :users
   scope "/admin" do
   resources :users
@@ -10,17 +18,9 @@ Rails.application.routes.draw do
     root :to => 'welcome#index'
   
   resources :roles
-  resources :subanswers
-  resources :answers
-  resources :subquestions
-  resources :questions
-  resources :sections
   resources :backgrounds
   resources :translators
-  resources :forms
   resources :advertisements
-  resources :studanswers
-  resources :formanswers
   
   #get 'home' => 'advertisements#index'
   #get 'signup' => 'students#new'

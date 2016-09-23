@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Subquestiondesc</th>
+      <th>Question</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
     <% @subquestions.each do |subquestion| %>
       <tr>
         <td><%= subquestion.SubquestionDesc %></td>
+        <td><%= subquestion.question %></td>
         <td><%= link_to 'Show', subquestion %></td>
         <td><%= link_to 'Edit', edit_subquestion_path(subquestion) %></td>
         <td><%= link_to 'Destroy', subquestion, method: :delete, data: { confirm: 'Are you sure?' } %></td>

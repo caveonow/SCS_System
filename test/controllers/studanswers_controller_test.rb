@@ -18,7 +18,7 @@ class StudanswersControllerTest < ActionController::TestCase
 
   test "should create studanswer" do
     assert_difference('Studanswer.count') do
-      post :create, studanswer: { StudentAnswer: @studanswer.StudentAnswer, StudentAnswer: @studanswer.StudentAnswer }
+      post :create, studanswer: { StudentAnswer: @studanswer.StudentAnswer, formanswer_id: @studanswer.formanswer_id }
     end
 
     assert_redirected_to studanswer_path(assigns(:studanswer))
@@ -35,7 +35,7 @@ class StudanswersControllerTest < ActionController::TestCase
   end
 
   test "should update studanswer" do
-    patch :update, id: @studanswer, studanswer: { StudentAnswer: @studanswer.StudentAnswer, StudentAnswer: @studanswer.StudentAnswer }
+    patch :update, id: @studanswer, studanswer: { StudentAnswer: @studanswer.StudentAnswer, formanswer_id: @studanswer.formanswer_id }
     assert_redirected_to studanswer_path(assigns(:studanswer))
   end
 

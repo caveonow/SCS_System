@@ -69,6 +69,6 @@ class StudanswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def studanswer_params
-      params.require(:studanswer).permit(:StudentAnswer, :StudentAnswer)
+      params.require(:studanswer).permit(:StudentAnswer, :formanswer_id)
     end
 end

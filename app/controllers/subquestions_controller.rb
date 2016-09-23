@@ -1,6 +1,6 @@
 class SubquestionsController < ApplicationController
   before_action :set_subquestion, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+
   # GET /subquestions
   # GET /subquestions.json
   def index
@@ -69,6 +69,6 @@ class SubquestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subquestion_params
-      params.require(:subquestion).permit(:SubquestionDesc)
+      params.require(:subquestion).permit(:SubquestionDesc, :question_id)
     end
 end

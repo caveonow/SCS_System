@@ -5,5 +5,10 @@
   <%= @subquestion.SubquestionDesc %>
 </p>
 
+<p>
+  <strong>Question:</strong>
+  <%= @subquestion.question %>
+</p>
+
 <%= link_to 'Edit', edit_subquestion_path(@subquestion) %> |
 <%= link_to 'Back', subquestions_path %>

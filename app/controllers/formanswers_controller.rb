@@ -1,6 +1,6 @@
 class FormanswersController < ApplicationController
   before_action :set_formanswer, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+
   # GET /formanswers
   # GET /formanswers.json
   def index
@@ -69,6 +69,6 @@ class FormanswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def formanswer_params
-      params.require(:formanswer).permit(:FormAnswer, :StudAnswerDateTime)
+      params.require(:formanswer).permit(:FormAnswer, :StudAnswerDateTime, :user_id, :form_id)
     end
 end

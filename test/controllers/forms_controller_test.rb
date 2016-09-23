@@ -18,7 +18,7 @@ class FormsControllerTest < ActionController::TestCase
 
   test "should create form" do
     assert_difference('Form.count') do
-      post :create, form: { FormDateTime: @form.FormDateTime, FormDescription: @form.FormDescription, FormName: @form.FormName, FormStatus: @form.FormStatus }
+      post :create, form: { FormDateTime: @form.FormDateTime, FormDescription: @form.FormDescription, FormName: @form.FormName, FormStatus: @form.FormStatus, user_id: @form.user_id }
     end
 
     assert_redirected_to form_path(assigns(:form))
@@ -35,7 +35,7 @@ class FormsControllerTest < ActionController::TestCase
   end
 
   test "should update form" do
-    patch :update, id: @form, form: { FormDateTime: @form.FormDateTime, FormDescription: @form.FormDescription, FormName: @form.FormName, FormStatus: @form.FormStatus }
+    patch :update, id: @form, form: { FormDateTime: @form.FormDateTime, FormDescription: @form.FormDescription, FormName: @form.FormName, FormStatus: @form.FormStatus, user_id: @form.user_id }
     assert_redirected_to form_path(assigns(:form))
   end
 
