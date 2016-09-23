@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920085407) do
+ActiveRecord::Schema.define(version: 20160923161621) do
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "AdvertisementName",        limit: 255
@@ -21,12 +21,17 @@ ActiveRecord::Schema.define(version: 20160920085407) do
   end
 
   create_table "answers", force: :cascade do |t|
-    t.text     "AnswerDesc",  limit: 65535
+    t.text     "AnswerDesc",     limit: 65535
     t.boolean  "isSubAnswer"
-    t.integer  "AnswerCount", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "AnswerCount",    limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "subquestion_id", limit: 4
+    t.integer  "question_id",    limit: 4
   end
+
+  add_index "answers", ["question_id"], name: "fk_rails_3d5ed4418f", using: :btree
+  add_index "answers", ["subquestion_id"], name: "fk_rails_3b9d556abe", using: :btree
 
   create_table "backgrounds", force: :cascade do |t|
     t.string   "BackgroundName", limit: 255
@@ -40,7 +45,12 @@ ActiveRecord::Schema.define(version: 20160920085407) do
     t.datetime "StudAnswerDateTime"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "user_id",            limit: 4
+    t.integer  "form_id",            limit: 4
   end
+
+  add_index "formanswers", ["form_id"], name: "fk_rails_a27b4ad479", using: :btree
+  add_index "formanswers", ["user_id"], name: "fk_rails_5b71c87443", using: :btree
 
   create_table "forms", force: :cascade do |t|
     t.string   "FormName",        limit: 255
@@ -49,7 +59,10 @@ ActiveRecord::Schema.define(version: 20160920085407) do
     t.string   "FormStatus",      limit: 255
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.integer  "user_id",         limit: 4
   end
+
+  add_index "forms", ["user_id"], name: "fk_rails_cf8d802097", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "QuestionDesc",   limit: 65535
@@ -57,7 +70,10 @@ ActiveRecord::Schema.define(version: 20160920085407) do
     t.boolean  "isSubQuestion"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "section_id",     limit: 4
   end
+
+  add_index "questions", ["section_id"], name: "fk_rails_c50eadc3e3", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -71,51 +87,38 @@ ActiveRecord::Schema.define(version: 20160920085407) do
     t.text     "SectionDescription", limit: 65535
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "form_id",            limit: 4
   end
 
-  create_table "staffs", force: :cascade do |t|
-    t.string   "StaffName",       limit: 255
-    t.string   "StaffIC",         limit: 255
-    t.integer  "StaffAge",        limit: 4
-    t.string   "StaffEmail",      limit: 255
-    t.string   "password_digest", limit: 255
-    t.datetime "StaffLogAccess"
-    t.string   "role",            limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
+  add_index "sections", ["form_id"], name: "fk_rails_5e56f08fae", using: :btree
 
   create_table "studanswers", force: :cascade do |t|
     t.string   "StudentAnswer", limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "formanswer_id", limit: 4
   end
 
-  create_table "students", force: :cascade do |t|
-    t.string   "StudentName",      limit: 255
-    t.string   "StudentIC",        limit: 255
-    t.integer  "StudentAge",       limit: 4
-    t.string   "StudentProgramme", limit: 255
-    t.string   "password_digest",  limit: 255
-    t.string   "StudentEmail",     limit: 255
-    t.datetime "StudentLogAccess"
-    t.string   "role",             limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-  end
+  add_index "studanswers", ["formanswer_id"], name: "fk_rails_d3254c96b6", using: :btree
 
   create_table "subanswers", force: :cascade do |t|
     t.text     "SubAnswerDesc",  limit: 65535
     t.integer  "SubAnswerCount", limit: 4
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "answer_id",      limit: 4
   end
+
+  add_index "subanswers", ["answer_id"], name: "fk_rails_679cb6c5cd", using: :btree
 
   create_table "subquestions", force: :cascade do |t|
     t.text     "SubquestionDesc", limit: 65535
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.integer  "question_id",     limit: 4
   end
+
+  add_index "subquestions", ["question_id"], name: "fk_rails_9f941a7dcf", using: :btree
 
   create_table "translators", force: :cascade do |t|
     t.string   "TranslatorEng",         limit: 255
@@ -127,6 +130,9 @@ ActiveRecord::Schema.define(version: 20160920085407) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255
+    t.string   "ICNo",                   limit: 255
+    t.integer  "age",                    limit: 4
+    t.string   "programme",              limit: 255
     t.integer  "role_id",                limit: 4
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
@@ -140,14 +146,21 @@ ActiveRecord::Schema.define(version: 20160920085407) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.string   "ICNo",                   limit: 255
-    t.integer  "age",                    limit: 4
-    t.string   "programme",              limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "subquestions"
+  add_foreign_key "formanswers", "forms"
+  add_foreign_key "formanswers", "users"
+  add_foreign_key "forms", "users"
+  add_foreign_key "questions", "sections"
+  add_foreign_key "sections", "forms"
+  add_foreign_key "studanswers", "formanswers"
+  add_foreign_key "subanswers", "answers"
+  add_foreign_key "subquestions", "questions"
   add_foreign_key "users", "roles"
 end
