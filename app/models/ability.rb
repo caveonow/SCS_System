@@ -9,8 +9,8 @@ class Ability
         if user.admin?
           can :manage, :all
         elsif user.staff?
-          can :read, Advertisement
-          can :create, Advertisement
+          can :read, :all
+          can :create, :all
           can :update, Advertisement do |advertisement|
             item.try(:user) == user
           end
@@ -18,7 +18,9 @@ class Ability
             item.try(:user) == user
           end
         elsif user.student?
-          can :read, Advertisement
+          can :read, Advertisement    
+        else
+           can :read, Advertisement
         end
     #
     # The first argument to `can` is the action you are giving the user

@@ -16,7 +16,9 @@
  *= require foundation
  */
 
-body {margin-top: 2rem;}
+@import "foundation_and_overrides";
+@import "foundation"
+ /*body {margin-top: 2rem;}*/
 
 $menu-background: #333;
 
@@ -81,3 +83,6 @@ $menu-background: #333;
   border-color: transparent #fff transparent transparent;
 }
 
+.default-text-size{
+	size =10; 	
+}

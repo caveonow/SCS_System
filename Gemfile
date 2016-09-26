@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'pg'
 # cancancan
 gem 'cancancan' , '~>1.10'
 # Use devise

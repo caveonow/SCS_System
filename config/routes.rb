@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   authenticated :user do
     root :to => 'welcome#index', as: :authenticated_root
   end
-    root :to => 'welcome#index'
+  
+  get 'welcome/index'
+  root :to => 'welcome#index'
   
   resources :roles
   resources :subanswers
