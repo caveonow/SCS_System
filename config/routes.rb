@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
+  #session controller
+  
   devise_for :users
   scope "/admin" do
   resources :users
   end
+  
+  resources :users do
+    collection { post :import }
+  end
+  
   
   authenticated :user do
     root :to => 'welcome#index', as: :authenticated_root

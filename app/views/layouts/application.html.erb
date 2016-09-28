@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "Main" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -12,13 +12,8 @@
   </head>
 
   <body>
-  	<!--
-  	<div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">
-  <button class="menu-icon" type="button" data-toggle></button>
-  <div class="title-bar-title">Menu</div>
-</div>-->
 
-<% if user_signed_in? && (current_user.admin? || current_user.staff?) %>
+	<% if user_signed_in? && (current_user.admin? || current_user.staff?) %>
 <div class="top-bar" id="main-menu">
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
@@ -64,7 +59,12 @@
 		  <li><%= link_to 'Show Translator', translators_path() %></li>
         </ul>
       </li>
-      <li><a href="#">Import User</a></li>
+      <li class="has-submenu">
+        <a href="#">User Management</a>
+        <ul class="submenu menu vertical" data-submenu>
+          <li><%= link_to 'View User', users_path() %></li>
+        </ul>
+      </li>
 	  <li><a href="#">About</a></li>
     </ul>
   </div>
@@ -135,7 +135,7 @@
 		<% end %>
 	</ul>
 	<% end %>
-
+	
     <%= yield %>
 
   </body>

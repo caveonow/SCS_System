@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   before_filter :configure_permitted_parameters, :configure_permitted_parameters_update, if: :devise_controller?
 
+  #devise configuration
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up)  do |user_params|
@@ -22,6 +23,7 @@ class ApplicationController < ActionController::Base
  
   protect_from_forgery with: :exception
   
+  #cancan denied unauthorized user
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "Access denied!"
     redirect_to root_url

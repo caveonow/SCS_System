@@ -92,18 +92,6 @@ ActiveRecord::Schema.define(version: 20160923161621) do
 
   add_index "sections", ["form_id"], name: "fk_rails_5e56f08fae", using: :btree
 
-  create_table "staffs", force: :cascade do |t|
-    t.string   "StaffName",       limit: 255
-    t.string   "StaffIC",         limit: 255
-    t.integer  "StaffAge",        limit: 4
-    t.string   "StaffEmail",      limit: 255
-    t.string   "password_digest", limit: 255
-    t.datetime "StaffLogAccess"
-    t.string   "role",            limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
   create_table "studanswers", force: :cascade do |t|
     t.string   "StudentAnswer", limit: 255
     t.datetime "created_at",                null: false
@@ -112,19 +100,6 @@ ActiveRecord::Schema.define(version: 20160923161621) do
   end
 
   add_index "studanswers", ["formanswer_id"], name: "fk_rails_d3254c96b6", using: :btree
-
-  create_table "students", force: :cascade do |t|
-    t.string   "StudentName",      limit: 255
-    t.string   "StudentIC",        limit: 255
-    t.integer  "StudentAge",       limit: 4
-    t.string   "StudentProgramme", limit: 255
-    t.string   "password_digest",  limit: 255
-    t.string   "StudentEmail",     limit: 255
-    t.datetime "StudentLogAccess"
-    t.string   "role",             limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-  end
 
   create_table "subanswers", force: :cascade do |t|
     t.text     "SubAnswerDesc",  limit: 65535
@@ -155,6 +130,9 @@ ActiveRecord::Schema.define(version: 20160923161621) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255
+    t.string   "ICNo",                   limit: 255
+    t.integer  "age",                    limit: 4
+    t.string   "programme",              limit: 255
     t.integer  "role_id",                limit: 4
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
@@ -168,11 +146,13 @@ ActiveRecord::Schema.define(version: 20160923161621) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.string   "ICNo",                   limit: 255
-    t.integer  "age",                    limit: 4
-    t.string   "programme",              limit: 255
+    t.string   "confirmation_token",     limit: 255
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email",      limit: 255
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
