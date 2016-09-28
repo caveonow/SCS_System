@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   resources :translators
   resources :advertisements
   
+  get 'form_test' => 'forms#newIndex'
+  get 'form_select' => 'forms#viewForm'
   #get 'home' => 'advertisements#index'
   #get 'signup' => 'students#new'
   #get 'login'  => 'sessions#new'

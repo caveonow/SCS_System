@@ -1,6 +1,18 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
 
+
+  def newIndex
+    @forms = Form.all
+    @sections = Section.all
+  end
+  
+  
+  def viewForm
+    @sections = Section.where("form_id = ?", params[:formId])
+    @questions = Question.where("section_id = ? ", @sections.id)
+  end
+
   # GET /forms
   # GET /forms.json
   def index
