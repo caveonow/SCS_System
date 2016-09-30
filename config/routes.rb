@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+
   #session controller
   
   devise_for :users
@@ -6,18 +8,20 @@ Rails.application.routes.draw do
   resources :users
   end
   
-  resources :users do
-    collection { post :import }
-  end
-  
-  
   authenticated :user do
     root :to => 'welcome#index', as: :authenticated_root
+  end
+  
+  resources :products do
+    collection do
+      post :import
+    end
   end
   
   get 'welcome/index'
   root :to => 'welcome#index'
   
+  resources :user_imports
   resources :roles
   resources :subanswers
   resources :answers

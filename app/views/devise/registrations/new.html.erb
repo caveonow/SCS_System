@@ -1,9 +1,8 @@
 
 <div class="row">
-  <div class="medium-6 medium-centered large-4 large-centered columns">
+<div class="medium-6 medium-centered large-4 large-centered columns">
 <div class="row column log-in-form">
-        <h4 class="text-center">Sign up</h4>
-
+	<h4 class="text-center">Sign up</h4>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -54,4 +53,3 @@
 </div>
 </div>
 <%= render "devise/shared/links" %>
-

@@ -3,9 +3,7 @@ class UsersController < ApplicationController
   #before_action :set_user, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
-  def user_params
-  params.require(:user).permit(:email, :password, :password_confirmation, :name, :ICNo ,:age , :programme, :role_id)
-  end
+  
 
   # GET /users
   # GET /users.json
@@ -99,12 +97,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :role_id)
-    end
-    
-    # Import CVS and Excel
-    def import
-      User.import(params[:file])
-      redirect_to root_url, notice: "Users imported."
+      params.require(:user).permit(:email, :password, :password_confirmation, :name, :ICNo ,:age , :role_id)
     end
 end

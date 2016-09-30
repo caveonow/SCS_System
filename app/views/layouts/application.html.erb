@@ -63,6 +63,7 @@
         <a href="#">User Management</a>
         <ul class="submenu menu vertical" data-submenu>
           <li><%= link_to 'View User', users_path() %></li>
+          <li><%= link_to 'Import User', new_user_import_path()%></li>
         </ul>
       </li>
 	  <li><a href="#">About</a></li>
@@ -73,11 +74,11 @@
   	<% if user_signed_in? %>
   		Signed in as <%= current_user.email %>. Not you?
   		<%= link_to "Edit profile", edit_user_registration_path %>
-  		<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+  		<%= link_to "Log out", destroy_user_session_path, :method => :delete %>
 	<% else %>
-  		<li><%= link_to "Sign up", new_user_registration_path %></li>
+  		<li><%= link_to "Register", new_user_registration_path %></li>
   		
-  		<li><%= link_to "Sign in", new_user_session_path %></li>
+  		<li><%= link_to "Log in", new_user_session_path %></li>
 	<% end %>
 		<% flash.each do |name, msg| %>
   		<%= content_tag :div, msg, id: "flash_#{name}" %>
@@ -87,7 +88,6 @@
 </div>
 
 	<% elsif  user_signed_in? && current_user.student? %>
-	
 		<div class="top-bar" id="main-menu">
 		  <div class="top-bar-left">
 		    <ul class="dropdown menu" data-dropdown-menu>  	
@@ -107,11 +107,11 @@
 		<% if user_signed_in? %>
 	  		Signed in as <%= current_user.email %>. Not you?
 	  		<%= link_to "Edit profile", edit_user_registration_path %>
-	  		<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	  		<%= link_to "Log out", destroy_user_session_path, :method => :delete %>
 		<% else %>
-  			<li><%= link_to "Sign up", new_user_registration_path %></li>
+  			<li><%= link_to "Register", new_user_registration_path %></li>
   		
-  			<li><%= link_to "Sign in", new_user_session_path %></li>
+  			<li><%= link_to "Log in", new_user_session_path %></li>
 		<% end %>
 			<% flash.each do |name, msg| %>
   			<%= content_tag :div, msg, id: "flash_#{name}" %>
@@ -121,19 +121,21 @@
 		</div>
 
 	<%else%>
+	<div class="top-bar" id="main-menu">
 	<ul class="menu" data-responsive-menu="drilldown medium-dropdown">
 		<% if user_signed_in? %>
 	  		Signed in as <%= current_user.email %>. Not you?
 	  		<%= link_to "Edit profile", edit_user_registration_path %>
-	  		<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	  		<%= link_to "Log out", destroy_user_session_path, :method => :delete %>
 		<% else %>
-  			<li><%= link_to "Sign up", new_user_registration_path %></li>
-  			<li><%= link_to "Sign in", new_user_session_path %></li>
+  			<li><%= link_to "Register", new_user_registration_path %></li>
+  			<li><%= link_to "Log in", new_user_session_path %></li>
 		<% end %>
 			<% flash.each do |name, msg| %>
   			<%= content_tag :div, msg, id: "flash_#{name}" %>
 		<% end %>
 	</ul>
+	</div>
 	<% end %>
 	
     <%= yield %>

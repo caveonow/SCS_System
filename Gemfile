@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# image uploader
+gem 'carrierwave'
 # cvs & excel
 gem 'roo'
 gem 'pg'
@@ -12,7 +14,6 @@ gem 'rails', '4.2.6'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.13', '< 0.5'
 
-group :asset do
   # Use SCSS for stylesheets
   gem 'sass-rails', '~> 5.0'
   # Use Uglifier as compressor for JavaScript assets
@@ -23,9 +24,8 @@ group :asset do
   # gem 'therubyracer', platforms: :ruby
   gem 'foundation-rails'
   gem 'zurb-foundation'
-  
+  gem 'font-awesome-sass'
   #gem 'jquery-database-rails'
-end
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
