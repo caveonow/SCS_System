@@ -1,0 +1,27 @@
+<%= form_for(@bannerslide) do |f| %>
+  <% if @bannerslide.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bannerslide.errors.count, "error") %> prohibited this bannerslide from being saved:</h2>
+
+      <ul>
+      <% @bannerslide.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name , "Title"%><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :imageBs , "Image file, only accept jpg, jpeg, gif and png files" %><br>
+    <%= f.file_field :imageBs %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+

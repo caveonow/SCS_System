@@ -1,14 +1,17 @@
 <p id="notice"><%= notice %></p>
 
+ 
+    <div class="row">
+    	<div class="large-4 columns">
+    	<p>This is Advertisement layout</p> 	
+      <%= image_tag @advertisement.imageAd_url(:thumb) if @advertisement.imageAd? %>
+      <div class="name">Title: <%= @advertisement.AdvertisementName %></div>
+      <div class="name">Description: <%= @advertisement.AdvertisementDescription %></div>  
+    	</div>
+    </div>
+    
+    
 <p>
-  <strong>Advertisementname:</strong>
-  <%= @advertisement.AdvertisementName %>
+  <%= link_to "Remove This Advertisement?", @advertisement, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Edit Advertisement", edit_advertisement_path %>
 </p>
-
-<p>
-  <strong>Advertisementdescription:</strong>
-  <%= @advertisement.AdvertisementDescription %>
-</p>
-
-<%= link_to 'Edit', edit_advertisement_path(@advertisement) %> |
-<%= link_to 'Back', advertisements_path %>

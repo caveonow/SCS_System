@@ -1,41 +1,21 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Advertisements</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Advertisementname</th>
-      <th>Advertisementdescription</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @advertisements.each do |advertisement| %>
-      <tr>
-        <td><%= advertisement.AdvertisementName %></td>
-        <td><%= advertisement.AdvertisementDescription %></td>
-        <td>
-		  <% if can? :update, advertisement %>
-		    <%= link_to 'Edit', edit_advertisement_path(advertisement) %>
-		  <% end %>
-		</td>
-		
-		<td>
-		  <% if can? :destroy, advertisement %>
-		    <%= link_to 'Destroy', advertisement, method: :delete, data: { confirm: 'Are you sure?' } %>
-		  <% end %>
-		</td>
-		
-		<% if can? :create, advertisement %>
-		  <%= link_to 'New Item', new_advertisement_path %>
-		<% end %>
-		      </tr>
-		    <% end %>
-  </tbody>
-</table>
-
+	
+	<div class="row small-up-1 medium-up-2 large-up-3">
+	<% @advertisements.each do |advertisement| %>
+	<div class="columns">
+      <%= image_tag advertisement.imageAd_url(:thumb) %>
+      <h4><%= link_to advertisement.AdvertisementName, advertisement %></h4>
+      <p><%= advertisement.AdvertisementDescription %></p>
+    </div>
+		<%end%>
+    </div>
 <br>
 
+
 <%= link_to 'New Advertisement', new_advertisement_path %>
+
+
+
+

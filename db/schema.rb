@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930154858) do
+ActiveRecord::Schema.define(version: 20161003064032) do
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "AdvertisementName",        limit: 255
     t.text     "AdvertisementDescription", limit: 65535
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.string   "image",                    limit: 255
+    t.string   "imageAd",                  limit: 255
   end
 
   create_table "answers", force: :cascade do |t|
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20160930154858) do
     t.binary   "BackgroundPic",  limit: 65535
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "bannerslides", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "imageBs",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "formanswers", force: :cascade do |t|

@@ -12,11 +12,12 @@ class AdvertisementsController < ApplicationController
   # GET /advertisements/1
   # GET /advertisements/1.json
   def show
+    @advertisement = Advertisement.find(params[:id])
   end
 
   # GET /advertisements/new
   def new
-    #@advertisement = Advertisement.new
+    @advertisement = Advertisement.new
   end
 
   # GET /advertisements/1/edit
@@ -28,7 +29,7 @@ class AdvertisementsController < ApplicationController
   # POST /advertisements.json
   def create
     #@advertisement.user_id = current_user.id
-    #@advertisement = Advertisement.new(advertisement_params)
+    @advertisement = Advertisement.new(advertisement_params)
 
     respond_to do |format|
       if @advertisement.save
@@ -73,6 +74,6 @@ class AdvertisementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advertisement_params
-      params.require(:advertisement).permit(:AdvertisementName, :AdvertisementDescription)
+      params.require(:advertisement).permit!
     end
 end

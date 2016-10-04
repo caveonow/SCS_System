@@ -1,0 +1,2 @@
+module BannerslidesHelper
+end

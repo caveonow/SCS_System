@@ -1,0 +1,1 @@
+json.array! @bannerslides, partial: 'bannerslides/bannerslide', as: :bannerslide

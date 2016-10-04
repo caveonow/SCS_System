@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   
 
-  #session controller
-  
+  resources :bannerslides
+  resources :bannerslides
+  #session controller, 
   devise_for :users
   scope "/admin" do
   resources :users
@@ -31,10 +32,11 @@ Rails.application.routes.draw do
   resources :backgrounds
   resources :translators
   resources :forms
-  resources :advertisements
   resources :studanswers
   resources :formanswers
   
+  # advertisement
+  resources :advertisements
   #get 'home' => 'advertisements#index'
   #get 'signup' => 'students#new'
   #get 'login'  => 'sessions#new'

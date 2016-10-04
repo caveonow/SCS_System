@@ -1,0 +1,1 @@
+json.partial! "bannerslides/bannerslide", bannerslide: @bannerslide

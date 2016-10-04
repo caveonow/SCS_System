@@ -1,7 +1,13 @@
 source 'https://rubygems.org'
 
+#query add
+gem 'jquery-datatables-rails' , :github => 'rweng/jquery-datatables-rails'
+gem 'jquery-ui-rails'
+  # refresh query
+  gem 'jquery-turbolinks'
 # image uploader
-gem 'carrierwave'
+gem "rmagick"
+gem "carrierwave"
 # cvs & excel
 gem 'roo'
 gem 'pg'
@@ -9,24 +15,25 @@ gem 'pg'
 gem 'cancancan' , '~>1.10'
 # Use devise
 gem 'devise'
+
+
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.1.0'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+gem 'foundation-rails'
+gem 'zurb-foundation'
+gem 'font-awesome-sass'
+#gem 'jquery-database-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.13', '< 0.5'
-
-  # Use SCSS for stylesheets
-  gem 'sass-rails', '~> 5.0'
-  # Use Uglifier as compressor for JavaScript assets
-  gem 'uglifier', '>= 1.3.0'
-  # Use CoffeeScript for .coffee assets and views
-  gem 'coffee-rails', '~> 4.1.0'
-  # See https://github.com/rails/execjs#readme for more supported runtimes
-  # gem 'therubyracer', platforms: :ruby
-  gem 'foundation-rails'
-  gem 'zurb-foundation'
-  gem 'font-awesome-sass'
-  #gem 'jquery-database-rails'
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
