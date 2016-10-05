@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :forms 
   get 'form_view' => 'forms#newIndex'
   get 'form_select' => 'forms#viewForm'
+  get 'form_start' => 'forms#startForm'
   resources :studanswers
   resources :formanswers
   devise_for :users

@@ -1,0 +1,69 @@
+<p id="notice">
+	<%= notice %>
+</p>
+
+<table>
+	<tbody>
+		<% @selectedSections.each do |s| %>	
+		<tr>
+			<td>
+				<%= s.SectionName %></td>
+			<td> 
+				<% obtain_questions(s.id).each do |q| %>
+				<tr>
+				<%if !q.isSubQuestion or q.isSubQuestion == 0%>
+			
+					<td> 
+					<%= q.QuestionNumber %>. <%= q.QuestionDesc %> 
+					</td>
+					<td>
+					<% obtain_answers(q.id).each do |a|%>	
+						<% if !a.isSubAnswer or a.isSubAnswer == 0%>
+								<br/>
+								<%= check_box_tag 'answer_ids[]', a.id -%>
+								<%= a.AnswerDesc%>
+							<%elsif  a.isSubAnswer or a.isSubAnswer == 1%>
+								<%= a.AnswerDesc%> [[[SubAnswer here]]]
+								<% obtain_subanswers(a.id).each do |sa|%>
+									<br/>
+									<%= check_box_tag 'subanswer_ids[]', sa.id -%>
+									<%= sa.SubAnswerDesc%>
+								<%end%>
+							<%end%>
+					<%end%>
+					</td>
+				<%elsif q.isSubQuestion or q.isSubQuestion == 1%>
+				<td>
+				<%= q.QuestionNumber %>1+1. <%= q.QuestionDesc%> 
+				</td>
+					<td>
+					<% obtain_subquestion(q.id).each do |sq|%>
+						<br />
+						<td>
+						subQUest DESCRIPTION - <%= sq.SubquestionDesc%>
+						<br/>
+						<% obtain_subquestionAnswers(sq.id).each do |sq_ans|%>
+						<% if !sq_ans.isSubAnswer or sq_ans.isSubAnswer == 0%>
+								<br/>
+								<%= check_box_tag 'answer_ids[]', sq_ans.id -%>
+								<%= sq_ans.AnswerDesc%>
+							<%elsif  sq_ans.isSubAnswer or sq_ans.isSubAnswer == 1%>
+								<%= a.AnswerDesc%> [[[SubAnswer here]]]
+								<% obtain_subanswers(sq_ans.id).each do |sa|%>
+									<br/>
+									<%= check_box_tag 'subanswer_ids[]', sa.id -%>
+									<%= sa.SubAnswerDesc%>
+								<%end%>
+							<%end%>
+						<%end%>
+					<%end%>
+					 </td>
+				<%end%>
+				</tr>
+		<%end%>
+		<td>HEHE</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<a href="#" class="button">Default Button</a>

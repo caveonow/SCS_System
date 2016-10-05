@@ -1,12 +1,36 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
 
-helper_method :obtain_question
+helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_subquestion , :obtain_subquestionAnswers
 
   def newIndex
     @forms = Form.all
       #this can remove later test retrieve first
     @sections = Section.all 
+  end
+  
+  def startForm 
+    @selectedSections = Section.where("form_id = ?", params[:formId])
+  end
+  
+  def obtain_questions(section_id)
+    Question.where( "questions.section_id= ?" , section_id)
+  end
+  
+  def obtain_answers(question_id)
+    Answer.where( "answers.question_id = ?", question_id)
+  end
+  
+  def obtain_subanswers(answer_id)
+    Subanswer.where( "subanswers.answer_id = ?", answer_id)
+  end
+  
+  def obtain_subquestion(question_id)
+    Subquestion.where( "subquestions.question_id = ?", question_id)
+  end  
+  
+  def obtain_subquestionAnswers(subquestion_id)
+    Answer.where(" answers.subquestion_id = ?", subquestion_id)
   end
   
   # select * from questions q left join sections s on q.section_id = s.id left join forms f on f.id = s.form_id where f.id = 1;
@@ -18,29 +42,49 @@ helper_method :obtain_question
  #left join forms f on s.form_id = f.id
  #where f.id = 1;
   def viewForm
+    #select all sections where FORM_ID = #
     @sections = Section.where("form_id = ?", params[:formId])
     
     #@bigValue = Subanswer.joins(answers:   [{   questions: :subquestions    }   ])
+   
     
+    #select all question where FORM_ID = #
     @questions = Section
-    .select("questions.id as qId ,questions.QuestionDesc, questions.QuestionNumber , sections.id as sId , sections.SectionName , sections.SectionDescription")
+    .select("questions.id as qId ,questions.QuestionDesc, questions.QuestionNumber, questions.isSubQuestion ,
+             sections.id as sId , sections.SectionName , sections.SectionDescription")
     .joins( :question)
     .where( "form_id= ?" , params[:formId])
  
- 
+     @subquestions = Section
+    .select("sections.form_id as form_id, subquestions.SubquestionDesc as subQuest_desc, subquestions.id as id")
+    .joins( :subquestion )
+    .where( "form_id = ?", params[:formId])
 # select *
 # from answers a
 # left join questions q on a.question_id = q.id
 # left join sections s on q.section_id = s.id
-# SELECT answers.* FROM answers
-#  INNER JOIN questions ON question.answer_id = a.id
-#  INNER JOIN sections ON sections.question_id = question.id
-#  == Answers.joins(question: :section)
-  
-    @answers = Answer
-    .select("section.form_id as form_id, answer.AnswerDesc , answer.isSubAnswer")
-    .joins( (:question, (question: :section) )
+
+# SELECT sections.form_id as form_id, answers.AnswerDesc , answers.isSubAnswer 
+# FROM `sections` 
+# INNER JOIN `questions` ON `questions`.`section_id` = `sections`.`id` 
+# INNER JOIN `answers` ON `answers`.`question_id` = `questions`.`id` 
+# WHERE (form_id = '1')
+
+    @answers = Section
+    .select("sections.form_id as form_id, answers.question_id as qId, answers.AnswerDesc , answers.isSubAnswer , answers.id as id")
+    .joins( :answer )
     .where( "form_id = ?", params[:formId])
+    
+    
+    @subanswers = Section
+    .select("sections.form_id as form_id, subanswers.SubAnswerDesc as subAns_desc, subanswers.id as id, subanswers.answer_id as aId")
+    .joins( :subanswer )
+    .where( "form_id = ?", params[:formId])
+    
+ #   @subQuestions = Subquestion
+ #   .select("subquestions.SubquestionDesc as subQ_desc, question.id as qId")
+  #  .joins( :question )
+   # .where("qId = ?", questionId)
    # @formSections = Section.where("form_id = ? ", params[:formId])
 
          
@@ -48,10 +92,6 @@ helper_method :obtain_question
   
   end
   
-  def obtain_question(sectionId)
-    @questions = Question.where("section_id = ?", sectionId)
-  end
-
   # GET /forms
   # GET /forms.json
   def index

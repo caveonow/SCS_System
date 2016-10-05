@@ -2,6 +2,7 @@
 	<%= notice %>
 </p>
 
+
 <table>
 	<thead>
 		<tr>
@@ -19,17 +20,49 @@
 					<% @questions.each do |questions| %>
 					<% if sections.id == questions.sId%>
 					<tr>
-						<td><%= questions.QuestionNumber %>. <%= questions.QuestionDesc %> </td>
+					<%if !questions.isSubQuestion or questions.isSubQuestion == 0%>
+
+						<td>
+						<%= questions.QuestionNumber %>. <%= questions.QuestionDesc %> 
+						<td>
 						<% @answers.each do |ans|%>
-						<br/>
-						<%= ans.AnswerDesc%>
+							<%if questions.qId == ans.qId%>
+								<br/>
+								<% if ans.isSubAnswer == 0%>
+									<%= check_box_tag 'answer_ids[]', ans.id -%>
+									<%= ans.AnswerDesc%>
+								<%elsif ans.isSubAnswer == 1%>
+								<%= ans.AnswerDesc%> [[[SubAnswer here]]]
+									<% @subanswers.each do |subAns|%>
+									 <%if subAns.aId == ans.id %>
+									 <br/>
+									<%= check_box_tag 'subanswer_ids[]', subAns.id -%>
+									<%= subAns.subAns_desc%>
+									<%end%>
+									<%end%>
+								<%end%>
+							<%end%>
 						<%end%>
+						</td>
+						</td>	
+						<%elsif questions.isSubQuestion or questions.isSubQuestion == 1%>
+							<td>						
+								<%= questions.QuestionNumber %>1+1. <%= questions.QuestionDesc%>
+								<% obtain_subquestion(questions.qId).each do |test|%>
+								<br />
+								<%= test.SubquestionDesc%>
+								
+								<%end%>
+							<br />
+							<%end%> 
+							</td>
+							
 					</tr>
 						<%end%>
 				 <%end%>
-				</td>
-			<td><%= link_to 'View', '#', :onclick => (obtain_question(sections.id)) %></td>
+			<td>HEHE</td>
 		</tr>
 		<% end %>
 	</tbody>
 </table>
+<a href="#" class="button">Default Button</a>

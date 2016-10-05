@@ -22,7 +22,7 @@
         <td><%= testForm.FormDateTime %></td>
         <td><%= testForm.FormStatus %></td>
         <td><%= testForm.id %></td>
-        <td><%= link_to 'Select', form_select_path(:formId => testForm.id) %></td>
+        <td><%= link_to 'Select', form_select_path(:formId => testForm.id) %> <%= link_to 'TestNew', form_start_path(:formId => testForm.id) %></td>
       </tr>
     <% end %>
   </tbody>
