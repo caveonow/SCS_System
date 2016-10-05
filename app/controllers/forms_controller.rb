@@ -1,16 +1,55 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
 
+helper_method :obtain_question
 
   def newIndex
     @forms = Form.all
-    @sections = Section.all
+      #this can remove later test retrieve first
+    @sections = Section.all 
   end
   
-  
+  # select * from questions q left join sections s on q.section_id = s.id left join forms f on f.id = s.form_id where f.id = 1;
+ #select * from subanswers sa
+ #left join answers a on sa.answer_id = a.id 
+ #left join questions q on a.question_id = q.id
+ #left join subquestions sq on a.subquestion_id = sq.id
+ #left join sections s on q.section_id = s.id
+ #left join forms f on s.form_id = f.id
+ #where f.id = 1;
   def viewForm
     @sections = Section.where("form_id = ?", params[:formId])
-    @questions = Question.where("section_id = ? ", @sections.id)
+    
+    #@bigValue = Subanswer.joins(answers:   [{   questions: :subquestions    }   ])
+    
+    @questions = Section
+    .select("questions.id as qId ,questions.QuestionDesc, questions.QuestionNumber , sections.id as sId , sections.SectionName , sections.SectionDescription")
+    .joins( :question)
+    .where( "form_id= ?" , params[:formId])
+ 
+ 
+# select *
+# from answers a
+# left join questions q on a.question_id = q.id
+# left join sections s on q.section_id = s.id
+# SELECT answers.* FROM answers
+#  INNER JOIN questions ON question.answer_id = a.id
+#  INNER JOIN sections ON sections.question_id = question.id
+#  == Answers.joins(question: :section)
+  
+    @answers = Answer
+    .select("section.form_id as form_id, answer.AnswerDesc , answer.isSubAnswer")
+    .joins( (:question, (question: :section) )
+    .where( "form_id = ?", params[:formId])
+   # @formSections = Section.where("form_id = ? ", params[:formId])
+
+         
+   # @getQuestion = Section.joins( :question ).where( "form_id= ?" , params[:formId])
+  
+  end
+  
+  def obtain_question(sectionId)
+    @questions = Question.where("section_id = ?", sectionId)
   end
 
   # GET /forms
@@ -83,4 +122,5 @@ class FormsController < ApplicationController
     def form_params
       params.require(:form).permit(:FormName, :FormDescription, :FormDateTime, :FormStatus, :user_id)
     end
+    
 end

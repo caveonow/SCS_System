@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :subquestions
   resources :questions
   resources :sections
-  resources :forms
+  resources :forms 
+  get 'form_view' => 'forms#newIndex'
+  get 'form_select' => 'forms#viewForm'
   resources :studanswers
   resources :formanswers
   devise_for :users
@@ -22,8 +24,6 @@ Rails.application.routes.draw do
   resources :translators
   resources :advertisements
   
-  get 'form_test' => 'forms#newIndex'
-  get 'form_select' => 'forms#viewForm'
   #get 'home' => 'advertisements#index'
   #get 'signup' => 'students#new'
   #get 'login'  => 'sessions#new'
