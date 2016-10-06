@@ -1,10 +1,11 @@
 class BannerslidesController < ApplicationController
   before_action :set_bannerslide, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
+  before_filter :authenticate_user!
   # GET /bannerslides
   # GET /bannerslides.json
   def index
-    @bannerslides = Bannerslide.all
+    @bannerslides = Bannerslide.all  
   end
 
   # GET /bannerslides/1
@@ -60,6 +61,15 @@ class BannerslidesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def activebanner
+    #if @bannerslide != params[:bannerslide_id]
+    Bannerslide.all.each do |bannerslide|
+      Bannerslide.update_all(:statusBs => "deactive")
+      Bannerslide.where(id: params[:bannerslide_id]).update_all(:statusBs => "active")
+  end
+    redirect_to bannerslides_path
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +79,6 @@ class BannerslidesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bannerslide_params
-      params.require(:bannerslide).permit(:name, :imageBs)
+      params.require(:bannerslide).permit!
     end
 end

@@ -10,18 +10,24 @@
       </ul>
     </div>
   <% end %>
+<div class="row">
+	<div class="large-6 large-centered columns">
+	<div class="row column log-in-form">
 
-  <div class="field">
+  <div class="field field-padding">
     <%= f.label :name , "Title"%><br>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
+  <div class="field field-padding">
     <%= f.label :imageBs , "Image file, only accept jpg, jpeg, gif and png files" %><br>
     <%= f.file_field :imageBs %>
   </div>
-  <div class="actions">
+  <div class="actions field-padding">
     <%= f.submit %>
   </div>
+  </div>
+	</div>
+	</div>
 <% end %>
 
 

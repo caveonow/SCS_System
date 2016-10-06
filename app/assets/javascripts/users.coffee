@@ -18,7 +18,11 @@ jQuery ->
   $('#users').dataTable
    sPaginationType: "full_numbers"
    bJQueryUI: true
-   
+
+   buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+
 	
 
 

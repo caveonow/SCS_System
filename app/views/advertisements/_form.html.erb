@@ -10,20 +10,27 @@
       </ul>
     </div>
   <% end %>
+	<div class="row">
+	<div class="large-6 large-centered columns">
+	<div class="row column log-in-form">
 
-  <div class="field">
-    <%= f.label :AdvertisementName, "Title" %><br>
-    <%= f.text_field :AdvertisementName%>
-  </div>
-  <div class="field">
-    <%= f.label :AdvertisementDescription , "Description"  %><br>
-    <%= f.text_area :AdvertisementDescription %>
-  </div>  
-  <div class="field">
-    <%= f.label :imageAd, "Image file, only accept jpg, jpeg, gif and png files" %><br />
-    <%= f.file_field :imageAd %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	  <div class="field field-padding">
+	    <%= f.label :AdvertisementName, "Title" %><br>
+	    <%= f.text_field :AdvertisementName%>
+	  </div>
+	  <div class="field field-padding">
+	    <%= f.label :AdvertisementDescription , "Description"  %><br>
+	    <%= f.text_area :AdvertisementDescription %>
+	  </div>  
+	  <div class="field field-padding">
+	    <%= f.label :imageAd, "Image file, only accept jpg, jpeg, gif and png files" %><br />
+	    <%= f.file_field :imageAd %>
+	  </div>
+	  <div class="actions field-padding">
+	    <%= f.submit %>
+	  </div>	  
+	</div>
+	</div>
+	</div>
 <% end %>
+

@@ -65,12 +65,21 @@ class AdvertisementsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+   def activeadvertisement
+     #@advertisement = Advertisement.all
+     Advertisement.all.each do |advertisement|
+        Advertisement.update_all(:statusAd => "deactive") 
+        Advertisement.where(id: params[:advertisement_id]).update_all(:statusAd => "active")    
+    end
+      redirect_to advertisements_path
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    #def set_advertisement
-    #  @advertisement = Advertisement.find(params[:id])
-    #end
+    def set_advertisement
+      @advertisement = Advertisement.find(params[:id])
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advertisement_params

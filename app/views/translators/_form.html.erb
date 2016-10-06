@@ -10,20 +10,25 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
+<div class="row">
+	<div class="large-6 large-centered columns">
+	<div class="row column log-in-form">
+  <div class="field field-padding">
     <%= f.label :TranslatorEng ,"English"%><br>
     <%= f.text_field :TranslatorEng %>
   </div>
-  <div class="field">
+  <div class="field field-padding">
     <%= f.label :TranslatorChinese, "Chinese" %><br>
     <%= f.text_field :TranslatorChinese %>
   </div>
-  <div class="field">
+  <div class="field field-padding">
     <%= f.label :TranslatorDescription, "Description" %><br>
     <%= f.text_area :TranslatorDescription %>
   </div>
-  <div class="actions">
+  <div class="actions field-padding">
     <%= f.submit %>
   </div>
+  </div>
+	</div>
+	</div>
 <% end %>

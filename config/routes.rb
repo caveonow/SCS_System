@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   
 
-  resources :bannerslides
-  resources :bannerslides
   #session controller, 
   devise_for :users
   scope "/admin" do
@@ -36,7 +34,10 @@ Rails.application.routes.draw do
   resources :formanswers
   
   # advertisement
+  resources :bannerslides
+  put 'bannerslides', to: 'bannerslides#activebanner', as: :selectBss
   resources :advertisements
+  put 'advertisements', to: 'advertisements#activeadvertisement', as: :selectAds
   #get 'home' => 'advertisements#index'
   #get 'signup' => 'students#new'
   #get 'login'  => 'sessions#new'

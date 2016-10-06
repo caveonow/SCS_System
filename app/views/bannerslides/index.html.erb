@@ -3,15 +3,23 @@
 <h1>Listing Bannerslides</h1>
 
 <br>
+	<p>Select a banner needed to display in main page</p>
+	<%= form_tag selectBss_path ,method: :put do %>
 	
 	<div class="row small-up-1 medium-up-2 large-up-3">
 	<% @bannerslides.each do |bannerslide| %>
-	<div class="columns">
-      <%= image_tag bannerslide.imageBs_url(:thumb) %>
-      <h4><%= link_to bannerslide.name, bannerslide %></h4>
+	<div class="columns adbsbox">
+      <%= image_tag bannerslide.imageBs_url(:thumb), :style => "height:200px; width:400px;" %>
+      <h4>Title :<%= link_to bannerslide.name, bannerslide %></h4>
+      <%= check_box_tag 'bannerslide_id[]', bannerslide.id %>
+      <%= bannerslide.statusBs %>
     </div>
 		<%end%>
     </div>
 <br>
+<%= submit_tag "Activate Selected Banner" %>
+<% end %>
 
+<!--
 <%= link_to 'New Bannerslide', new_bannerslide_path %>
+-->
