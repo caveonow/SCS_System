@@ -14,6 +14,10 @@
 #  $("#Refresh").on "click", (event) ->
 #   sprWellTable.fnDraw()
 
+
+
+
+
 jQuery ->
   $('#users').dataTable
    sPaginationType: "full_numbers"

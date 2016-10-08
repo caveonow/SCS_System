@@ -86,6 +86,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def editmuluser
+
+      @useredits = User.find(id: params[:user_ids])  
+    
+  end
+  
+  def updatemuluser
+   # @translators = Translator.update(params[:translator].keys, params[:translator].values).reject { |p| p.errors.empty? }
+   #if @translators.empty?  
+   if params[:update]
+     @useredits.reject! do |user|
+       user.update_attributes(update_user_params.reject {|k,v| v.blank?})
+     end
+        flash[:success] = "Profile updated"
+        redirect_to users_url 
+   else
+     @users = User.find(params[:translator_ids])
+     @users.reject! do |user|
+       user.destroy   
+     end 
+     redirect_to users_url 
+   end  
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     #def set_user
@@ -95,5 +119,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation, :name, :ICNo ,:age , :role_id)
+    end
+    
+    def update_user_params
+      params.require(:user).permit! if params[:user]
     end
 end

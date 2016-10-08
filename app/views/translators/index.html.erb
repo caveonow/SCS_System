@@ -1,6 +1,8 @@
+
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Translators</h1>
+
 <%= form_tag editmultranslate_translators_path, method: :get do %>
 <table id="translators" class="display">
   <thead>
@@ -28,8 +30,14 @@
     <% end %>
   </tbody>
 </table>
+
 <%= submit_tag "Edit Checked" %>
 <% end %>
 <br>
+<!--
+<a id="check-all" href="javascript:void(0);">check all</a>
+<a id="uncheck-all" href="javascript:void(0);">uncheck all</a> 
+-->
+
 
 <%= link_to 'New Translator', new_translator_path %>

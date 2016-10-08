@@ -31,5 +31,4 @@ class User < ActiveRecord::Base
     write_attribute(:name, s.to_s.titleize) # The to_s is in case you get nil/non-string
   end
   
-  
 end

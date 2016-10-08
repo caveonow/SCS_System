@@ -1,8 +1,8 @@
-
+<p id="notice"><%= notice %></p>
 
 <h1>Listing Users</h1>
-<%= form_tag selectBss_path ,method: :post do %>
-<table id="users" class="display">
+<%= form_tag editmuluser_users_path ,method: :get do %>
+<table id="users" class="display ">
   <thead>
     <tr>
       <th></th>
@@ -23,7 +23,7 @@
     <% end %>
   </tbody>
 </table>
+<%= submit_tag "Edit Checked" %>
 <% end %>
 <br>
 
-<%= link_to 'New User', new_user_path %>

@@ -1,0 +1,57 @@
+		<%= form_tag updatemuluser_users_path, method: :put do %>		
+		<h3 align="center">Details that needed to edit</h3>
+		<div class="row">
+				<div class="large-6 large-centered columns">
+				<div class="row column log-in-form">
+		<ul style="list-style: none;">
+			<% @users.each do |user| %>
+		<li>
+			<%= hidden_field_tag "user_ids[]", user.id %>
+			<%= user.name%></li>
+			<ul class="errors">
+				<% user.errors.full_messages.each do |msg| %>
+					<li><%= msg %> </li>
+				<%end%>
+			</ul>
+			</li>
+			<%end%>
+		</ul>
+		</div>
+		</div>
+		</div>
+		<hr />
+		<%= fields_for :user do |f| %>
+		
+		<div class="field">
+		    <%= f.label :name %><br>
+		    <%= f.text_field :name %>
+	  	</div>
+		  <div class="field">
+		    <%= f.label :role_id %><br>
+		    <%= collection_select(:user, :role_id, Role.all, :id, :name, {prompt: true}) %>
+		    <!--<%= collection_check_boxes(:user, :role_id, Role.all, :id, :name, {prompt: true}) %>
+		    <%= f.text_field :role_id %>!-->
+		  </div>
+	  
+		<div class="field">
+			<%= f.label :email %><br>
+			<%= f.text_field :email %>
+		 </div>
+		  <!--
+		  <div class="field">
+		  <%= f.label :password %><br>
+		  <%= f.password_field :password, placeholder: "Leave blank if unchanged" %>
+			</div>-->
+			
+		  		
+	<% end %>
+	
+		<div align="right" class="actions field-padding">
+			<%= link_to 'Back', translators_path %>
+		    <%= submit_tag "update" , :name => 'update'%>
+		    <%= submit_tag "delete" , data: { confirm: "Are you sure?" } %>
+		</div>
+		</div>
+			</div>
+		</div>
+<% end %>

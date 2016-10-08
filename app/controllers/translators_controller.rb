@@ -84,8 +84,7 @@ class TranslatorsController < ApplicationController
        translator.destroy   
      end 
      redirect_to translators_url 
-   end
-   
+   end  
   end
 
   private

@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+#chartkick graph report
+gem 'chartkick'
+gem 'groupdate' 
+gem 'active_median'
 #query add
 gem 'jquery-datatables-rails' , :github => 'rweng/jquery-datatables-rails'
 gem 'jquery-ui-rails'

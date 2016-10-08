@@ -3,8 +3,13 @@ Rails.application.routes.draw do
 
   #session controller, 
   devise_for :users
-  scope "/admin" do
-  resources :users
+    scope "/admin" do
+    resources :users do
+      collection do
+        get :editmuluser
+        put :updatemuluser
+      end
+    end
   end
   
   authenticated :user do
@@ -32,7 +37,6 @@ Rails.application.routes.draw do
     collection do
       get :editmultranslate
       put :updatemultranslate
-    
     end
   end
   resources :forms
