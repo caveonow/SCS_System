@@ -1,0 +1,54 @@
+		<%= form_tag updatemultranslate_translators_path, method: :put do %>		
+		<h3 align="center">Words that needed to edit</h3>
+		<div class="row">
+				<div class="large-6 large-centered columns">
+				<div class="row column log-in-form">
+		<ul style="list-style: none;">
+			<% @translators.each do |translator| %>
+		<li>
+			<%= hidden_field_tag "translator_ids[]", translator.id %>
+			<%= translator.TranslatorEng%></li>
+			<ul class="errors">
+				<% translator.errors.full_messages.each do |msg| %>
+					<li><%= msg %> </li>
+				<%end%>
+			</ul>
+			</li>
+			<%end%>
+		</ul>
+		</div>
+		</div>
+		</div>
+		<hr />
+		<%= fields_for :translator do |f| %>
+		
+			<div class="row">
+				<div class="large-6 large-centered columns">
+				<div class="row column log-in-form">
+				  <!--
+				  <div class="field field-padding">
+				    <%= f.label :TranslatorEng ,"English"%><br>
+				    <%= f.text_field :TranslatorEng %>
+				  </div>
+				  -->
+				  <div class="field field-padding">
+				    <%= f.label :TranslatorChinese, "Chinese" %><br>
+				    <%= f.text_field :TranslatorChinese %>
+				  </div>
+				  <div class="field field-padding">
+				    <%= f.label :TranslatorDescription, "Description" %><br>
+				    <%= f.text_area :TranslatorDescription %>
+				  </div>
+				  
+		  		
+	<% end %>
+	
+		<div align="right" class="actions field-padding">
+			<%= link_to 'Back', translators_path %>
+		    <%= submit_tag "update" , :name => 'update'%>
+		    <%= submit_tag "delete" , data: { confirm: "Are you sure?" } %>
+		</div>
+		</div>
+			</div>
+		</div>
+<% end %>

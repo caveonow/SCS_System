@@ -28,7 +28,13 @@ Rails.application.routes.draw do
   resources :questions
   resources :sections
   resources :backgrounds
-  resources :translators
+  resources :translators do
+    collection do
+      get :editmultranslate
+      put :updatemultranslate
+    
+    end
+  end
   resources :forms
   resources :studanswers
   resources :formanswers

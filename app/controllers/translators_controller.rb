@@ -61,6 +61,32 @@ class TranslatorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def editmultranslate
+    #
+      @translators = Translator.find(params[:translator_ids])  
+    
+  end
+  
+  def updatemultranslate
+   # @translators = Translator.update(params[:translator].keys, params[:translator].values).reject { |p| p.errors.empty? }
+   #if @translators.empty?  
+   if params[:update]
+     @translators = Translator.find(params[:translator_ids])
+     @translators.reject! do |translator|
+       translator.update_attributes(translator_params.reject {|k,v| v.blank?})
+     end
+        flash[:success] = "Profile updated"
+        redirect_to translators_url 
+   else
+     @translators = Translator.find(params[:translator_ids])
+     @translators.reject! do |translator|
+       translator.destroy   
+     end 
+     redirect_to translators_url 
+   end
+   
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -70,6 +96,8 @@ class TranslatorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def translator_params
-      params.require(:translator).permit(:TranslatorEng, :TranslatorChinese, :TranslatorDescription)
+      params.require(:translator).permit! if params[:translator]
     end
+    
+ 
 end

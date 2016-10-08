@@ -8,7 +8,7 @@ gem 'jquery-ui-rails'
 # image uploader
 gem "rmagick"
 gem "carrierwave"
-# cvs & excel
+# cvs 
 gem 'roo'
 gem 'pg'
 # cancancan

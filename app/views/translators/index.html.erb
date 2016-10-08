@@ -1,31 +1,35 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Translators</h1>
-
-<table>
+<%= form_tag editmultranslate_translators_path, method: :get do %>
+<table id="translators" class="display">
   <thead>
     <tr>
-      <th>Translatoreng</th>
-      <th>Translatorchinese</th>
-      <th>Translatordescription</th>
-      <th colspan="3"></th>
+      <th></th>
+      <th>English</th>
+      <th>Chinese</th>
+      <th>Description</th>
     </tr>
   </thead>
 
   <tbody>
     <% @translators.each do |translator| %>
       <tr>
+      	<td align="middle"><%= check_box_tag "translator_ids[]", translator.id %></td>
         <td><%= translator.TranslatorEng %></td>
         <td><%= translator.TranslatorChinese %></td>
         <td><%= translator.TranslatorDescription %></td>
+        <!--
         <td><%= link_to 'Show', translator %></td>
         <td><%= link_to 'Edit', edit_translator_path(translator) %></td>
         <td><%= link_to 'Destroy', translator, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        -->
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<%= submit_tag "Edit Checked" %>
+<% end %>
 <br>
 
 <%= link_to 'New Translator', new_translator_path %>

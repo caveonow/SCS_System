@@ -64,6 +64,7 @@ class BannerslidesController < ApplicationController
   
   def activebanner
     #if @bannerslide != params[:bannerslide_id]
+    #params[:product][:category_ids] ||= []
     Bannerslide.all.each do |bannerslide|
       Bannerslide.update_all(:statusBs => "deactive")
       Bannerslide.where(id: params[:bannerslide_id]).update_all(:statusBs => "active")
