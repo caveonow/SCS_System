@@ -17,6 +17,7 @@
 
 
 
+
 jQuery ->
   $('#users').dataTable
    sPaginationType: "full_numbers"
