@@ -23,7 +23,8 @@
 								<%= check_box_tag 'answer_ids[]', a.id -%>
 								<%= a.AnswerDesc%>
 							<%elsif  a.isSubAnswer or a.isSubAnswer == 1%>
-								<%= a.AnswerDesc%> [[[SubAnswer here]]]
+							<br/>
+								<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]
 								<% obtain_subanswers(a.id).each do |sa|%>
 									<br/>
 									<%= check_box_tag 'subanswer_ids[]', sa.id -%>
@@ -34,9 +35,12 @@
 					</td>
 				<%elsif q.isSubQuestion or q.isSubQuestion == 1%>
 				<td>
-				<%= q.QuestionNumber %>1+1. <%= q.QuestionDesc%> 
+				<%= q.QuestionNumber %>. <%= q.QuestionDesc%> 
 				</td>
-					<td>
+				<td>
+
+	<%-# IF ONLY EACH SUBQUESTION -%>
+				<td>
 					<% obtain_subquestion(q.id).each do |sq|%>
 						<br />
 						<td>
