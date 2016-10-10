@@ -11,59 +11,47 @@
 			<td> 
 				<% obtain_questions(s.id).each do |q| %>
 				<tr>
-				<%if !q.isSubQuestion or q.isSubQuestion == 0%>
-			
 					<td> 
 					<%= q.QuestionNumber %>. <%= q.QuestionDesc %> 
 					</td>
 					<td>
 					<% obtain_answers(q.id).each do |a|%>	
-						<% if !a.isSubAnswer or a.isSubAnswer == 0%>
-								<br/>
-								<%= check_box_tag 'answer_ids[]', a.id -%>
-								<%= a.AnswerDesc%>
-							<%elsif  a.isSubAnswer or a.isSubAnswer == 1%>
+					<%-#Assuming that  IF it is NOT a SubAnswer, it could have a subquestion -%>
+						<% if !a.IsSubAnswer or a.IsSubAnswer == 0%>
 							<br/>
-								<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]
-								<% obtain_subanswers(a.id).each do |sa|%>
-									<br/>
-									<%= check_box_tag 'subanswer_ids[]', sa.id -%>
-									<%= sa.SubAnswerDesc%>
+							<%= check_box_tag 'answer_ids[]', a.id -%>
+							<%= a.AnswerDesc%>
+								<%if a.IsSubQuestion or a.IsSubQuestion == 1%>
+									<br/>				
+									<% obtain_subquestion(a.id).each do |sq| %>
+									<table>
+										<tr>
+											<td>
+										<%=q.QuestionNumber%><%= sq.SQChar%>. <%= sq.SQDesc%>
+										<br/>
+										<% obtain_subquestionanswer(sq.id).each do |sqa|%>
+											<br/>
+											<%= check_box_tag 'SQAnswer_ids[]', sqa.id -%>
+											<%= sqa.SQAnswer%>		
+										<%end%>
+											</td>
+										</tr>
+									</table>
+									<%end%>
 								<%end%>
-							<%end%>
-					<%end%>
-					</td>
-				<%elsif q.isSubQuestion or q.isSubQuestion == 1%>
-				<td>
-				<%= q.QuestionNumber %>. <%= q.QuestionDesc%> 
-				</td>
-				<td>
-
-	<%-# IF ONLY EACH SUBQUESTION -%>
-				<td>
-					<% obtain_subquestion(q.id).each do |sq|%>
-						<br />
-						<td>
-						subQUest DESCRIPTION - <%= sq.SubquestionDesc%>
-						<br/>
-						<% obtain_subquestionAnswers(sq.id).each do |sq_ans|%>
-						<% if !sq_ans.isSubAnswer or sq_ans.isSubAnswer == 0%>
+						<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
+							<br/>
+							<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]
+							<br/>
+							<% obtain_subanswers(a.id).each do |sa|%>
 								<br/>
-								<%= check_box_tag 'answer_ids[]', sq_ans.id -%>
-								<%= sq_ans.AnswerDesc%>
-							<%elsif  sq_ans.isSubAnswer or sq_ans.isSubAnswer == 1%>
-								<%= a.AnswerDesc%> [[[SubAnswer here]]]
-								<% obtain_subanswers(sq_ans.id).each do |sa|%>
-									<br/>
-									<%= check_box_tag 'subanswer_ids[]', sa.id -%>
-									<%= sa.SubAnswerDesc%>
-								<%end%>
-							<%end%>
+								<%= check_box_tag 'subanswer_ids[]', sa.id -%>
+								<%= sa.SADesc%>
 						<%end%>
 					<%end%>
-					 </td>
 				<%end%>
-				</tr>
+				</td>
+			</tr>
 		<%end%>
 		<td>HEHE</td>
 		</tr>

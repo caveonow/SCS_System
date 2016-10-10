@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sqanswer:</strong>
+  <%= @subquestionanswer.SQAnswer %>
+</p>
+
+<p>
+  <strong>Sqanswercount:</strong>
+  <%= @subquestionanswer.SQAnswerCount %>
+</p>
+
+<p>
+  <strong>Subquestion:</strong>
+  <%= @subquestionanswer.subquestion %>
+</p>
+
+<%= link_to 'Edit', edit_subquestionanswer_path(@subquestionanswer) %> |
+<%= link_to 'Back', subquestionanswers_path %>

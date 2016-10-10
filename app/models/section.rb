@@ -4,6 +4,6 @@ class Section < ActiveRecord::Base
   
   has_many :answer, through: :question
   has_many :subanswer, through: :answer
-  has_many :subquestion, through: :question
- 
+  has_many :subquestion, through: :answer
+  has_many :subquestionanswer, through: :subquestion
 end

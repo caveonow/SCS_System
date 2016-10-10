@@ -1,7 +1,7 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
 
-helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_subquestion , :obtain_subquestionAnswers
+helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_subquestion , :obtain_subquestionanswer
 
   def newIndex
     @forms = Form.all
@@ -25,12 +25,12 @@ helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_s
     Subanswer.where( "subanswers.answer_id = ?", answer_id)
   end
   
-  def obtain_subquestion(question_id)
-    Subquestion.where( "subquestions.question_id = ?", question_id)
+  def obtain_subquestion(answer_id)
+    Subquestion.where( "subquestions.answer_id = ?", answer_id)
   end  
   
-  def obtain_subquestionAnswers(subquestion_id)
-    Answer.where(" answers.subquestion_id = ?", subquestion_id)
+  def obtain_subquestionanswer(subquestionanswers_id)
+    Subquestionanswer.where(" subquestionanswers.subquestion_id = ?", subquestionanswers_id)
   end
   
   # select * from questions q left join sections s on q.section_id = s.id left join forms f on f.id = s.form_id where f.id = 1;

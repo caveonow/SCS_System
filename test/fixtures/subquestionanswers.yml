@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  SQAnswer: MyString
+  SQAnswerCount: 1
+  subquestion_id: 
+
+two:
+  SQAnswer: MyString
+  SQAnswerCount: 1
+  subquestion_id: 

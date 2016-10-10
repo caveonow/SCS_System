@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :subquestionanswers
   resources :subanswers
   resources :answers
   resources :subquestions

@@ -1,0 +1,1 @@
+json.partial! "subquestionanswers/subquestionanswer", subquestionanswer: @subquestionanswer

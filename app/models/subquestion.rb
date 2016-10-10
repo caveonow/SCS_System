@@ -1,6 +1,5 @@
 class Subquestion < ActiveRecord::Base
-  belongs_to :question
-  has_many :answer
+  belongs_to :answer
+  has_many :subquestionanswer
   
-  has_many :subanswer, through: :answer
 end
