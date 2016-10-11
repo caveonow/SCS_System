@@ -125,6 +125,7 @@ GEM
     orm_adapter (0.5.0)
     pg (0.19.0)
     pkg-config (1.1.7)
+    puma (3.6.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -166,7 +167,6 @@ GEM
     roo (2.5.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
-    ruby (0.1.0)
     rubyzip (1.2.0)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -232,11 +232,11 @@ DEPENDENCIES
   jquery-ui-rails
   mysql2 (>= 0.3.13, < 0.5)
   pg
+  puma
   rails (= 4.2.6)
   rails_12factor
   rmagick
   roo
-  ruby
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
