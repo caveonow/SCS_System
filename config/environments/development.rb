@@ -53,16 +53,19 @@ Rails.application.configure do
   #user_name: ENV['GMAIL_USERNAME'],
   #password: ENV['GMAIL_PASSWORD']
   #}
+  #ENV['SENDMAIL_USERNAME'],
+  #ENV['SENDMAIL_PASSWORD'],
+  #ENV['MAIL_HOST']
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: ENV['MAIL_HOST'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name:      ENV['SENDMAIL_USERNAME'],
-    password:       ENV['SENDMAIL_PASSWORD'],
-    domain:         ENV['MAIL_HOST'],
-    address:       'smtp.gmail.com',
+    user_name:      'app57772936@heroku.com',
+    password:       'fe6967j50597',
+    domain:         'heroku.com',
+    address:       'smtp.sendgrid.net',
     port:          '587',
     authentication: :plain,
     enable_starttls_auto: true
