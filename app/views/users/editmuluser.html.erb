@@ -8,6 +8,7 @@
 		<li>
 			<%= hidden_field_tag "user_ids[]", user.id %>
 			<%= user.name%></li>
+			
 			<ul class="errors">
 				<% user.errors.full_messages.each do |msg| %>
 					<li><%= msg %> </li>

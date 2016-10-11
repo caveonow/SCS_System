@@ -87,9 +87,7 @@ class UsersController < ApplicationController
   end
 
   def editmuluser
-
-      @useredits = User.find(id: params[:user_ids])  
-    
+      @useredits = User.find(params[:user_ids])  
   end
   
   def updatemuluser

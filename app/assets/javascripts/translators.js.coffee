@@ -9,6 +9,3 @@ jQuery ->
    sPaginationType: "full_numbers"
    bJQueryUI: true
 
-
- 
-    
