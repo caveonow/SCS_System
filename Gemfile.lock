@@ -230,7 +230,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
-  mysql2 (>= 0.3.13, < 0.5)
+  mysql2 (>= 0.3.13)
   pg
   puma
   rails (= 4.2.6)
