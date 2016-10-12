@@ -3,7 +3,9 @@ source 'https://rubygems.org'
 # heroku requirement
 ruby '2.3.0'
 gem 'puma'
-
+# 
+gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
+gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
 
 #chartkick graph report
 gem 'chartkick'
