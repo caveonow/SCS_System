@@ -8,7 +8,7 @@
   </head>
 
   <body>
-	<% if user_signed_in? && (@current_user.admin? || @current_user.staff?) %>
+	<% if user_signed_in? && (current_user.admin? || current_user.staff?) %>
 <div class="top-bar" id="main-menu">
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
@@ -82,7 +82,7 @@
   	</div>
 </div>
 
-	<% elsif  user_signed_in? && @current_user.student? %>
+	<% elsif  user_signed_in? && current_user.student? %>
 		<div class="top-bar" id="main-menu">
 		  <div class="top-bar-left">
 		    <ul class="dropdown menu" data-dropdown-menu>  	
