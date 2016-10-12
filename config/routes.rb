@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   resources :questions
   resources :sections
   resources :forms 
-  get 'form_view' => 'forms#newIndex'
-  get 'form_select' => 'forms#viewForm'
-  get 'form_start' => 'forms#startForm'
+    get '/form_view'   => 'forms#newIndex',    as: 'form_view'
+    get '/form_select' => 'forms#viewForm',    as: 'form_select'
+    get '/form_start'  => 'forms#startForm',   as: 'form_start'
+    get '/form_answer'   => 'forms#answerForm',  as: 'form_answer'
   resources :studanswers
   resources :formanswers
   devise_for :users

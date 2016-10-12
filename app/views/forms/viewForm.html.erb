@@ -2,67 +2,7 @@
 	<%= notice %>
 </p>
 
-
-<table>
-	<thead>
-		<tr>
-			<th>Sectionname:</th>
-			<th>Questions:</th>
-			<th>Form:</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<% @sections.each do |sections| %>
-		<tr>
-			<td><%= sections.SectionName %></td>
-				<td>
-					<% @questions.each do |questions| %>
-					<% if sections.id == questions.sId%>
-					<tr>
-					<%if !questions.isSubQuestion or questions.isSubQuestion == 0%>
-
-						<td>
-						<%= questions.QuestionNumber %>. <%= questions.QuestionDesc %> 
-						<td>
-						<% @answers.each do |ans|%>
-							<%if questions.qId == ans.qId%>
-								<br/>
-								<% if ans.isSubAnswer == 0%>
-									<%= check_box_tag 'answer_ids[]', ans.id -%>
-									<%= ans.AnswerDesc%>
-								<%elsif ans.isSubAnswer == 1%>
-								<%= ans.AnswerDesc%> [[[SubAnswer here]]]
-									<% @subanswers.each do |subAns|%>
-									 <%if subAns.aId == ans.id %>
-									 <br/>
-									<%= check_box_tag 'subanswer_ids[]', subAns.id -%>
-									<%= subAns.subAns_desc%>
-									<%end%>
-									<%end%>
-								<%end%>
-							<%end%>
-						<%end%>
-						</td>
-						</td>	
-						<%elsif questions.isSubQuestion or questions.isSubQuestion == 1%>
-							<td>						
-								<%= questions.QuestionNumber %>1+1. <%= questions.QuestionDesc%>
-								<% obtain_subquestion(questions.qId).each do |test|%>
-								<br />
-								<%= test.SubquestionDesc%>
-								
-								<%end%>
-							<br />
-							<%end%> 
-							</td>
-							
-					</tr>
-						<%end%>
-				 <%end%>
-			<td>HEHE</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
-<a href="#" class="button">Default Button</a>
+<%@sections.each do |section|%>
+<h1><%= link_to section.SectionName, form_answer_path(:section_id => section.id, :question_number => section.id) %> </h1>
+<%end%>
+ 

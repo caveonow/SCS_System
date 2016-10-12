@@ -41,10 +41,19 @@ helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_s
  #left join sections s on q.section_id = s.id
  #left join forms f on s.form_id = f.id
  #where f.id = 1;
+ 
+  def answerForm
+    @selected_section = Section.where("id = ?", params[:section_id]).first
+    obtain_question
+    
+  end
+ 
+
+  
   def viewForm
     #select all sections where FORM_ID = #
     @sections = Section.where("form_id = ?", params[:formId])
-    
+
     #@bigValue = Subanswer.joins(answers:   [{   questions: :subquestions    }   ])
    
     
@@ -161,6 +170,10 @@ helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_s
     # Never trust parameters from the scary internet, only allow the white list through.
     def form_params
       params.require(:form).permit(:FormName, :FormDescription, :FormDateTime, :FormStatus, :user_id)
+    end
+    
+    def obtain_question
+      @question = Question.where("id = ?", params[:question_number]).first
     end
     
 end

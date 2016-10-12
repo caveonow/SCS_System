@@ -1,3 +1,28 @@
 // Place all the styles related to the Forms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.container{
+    height: 70vh;
+    width: 100vh;
+    background-color : rgba(10,10, 10,0.7); 
+    border: 2px solid white;
+    border-radius: 25px;
+    position : relative;
+    margin: 0 auto;
+    top : 50px;
+    padding: 10px 10px 10px 10px;
+    box-shadow: 10px 10px 5px black;
+
+    h1{
+      color: silver;
+      font-size: 30px;
+    }
+    p{
+      color: rgb(242, 242, 242);
+      font-family:monospace;
+      font-size: 15px;
+    }
+}
