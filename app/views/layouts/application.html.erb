@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
-
-    <%= stylesheet_link_tag    "application" %>
+    <title><%= content_for?(:title) ? yield(:title) : "Survey Diamond" %></title>
+    <%= stylesheet_link_tag    "application" , media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-
 	<% if user_signed_in? && (current_user.admin? || current_user.staff?) %>
 <div class="top-bar" id="main-menu">
   <div class="top-bar-left">
