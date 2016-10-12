@@ -20,9 +20,11 @@ class User < ActiveRecord::Base
   def admin?
     self.role.name == "Admin"
   end
+  
   def staff?
     self.role.name == "Staff"
   end
+  
   def student?
     self.role.name == "Student"
   end

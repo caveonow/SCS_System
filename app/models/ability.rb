@@ -14,11 +14,11 @@ class Ability
           can :update, Advertisement do |advertisement|
             item.try(:user) == user
           end
-          can :destroy, Item do |item|
-            item.try(:user) == user
-          end
+          #can :destroy, Item do |item|
+          #  item.try(:user) == user
+          #end
         elsif user.student?
-          can :read, Advertisement    
+          can :read, :all    
         else
            can :read, Advertisement
         end

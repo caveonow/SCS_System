@@ -119,6 +119,10 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :password_confirmation, :name, :ICNo ,:age , :role_id)
     end
     
+    def needs_password?(user, params)
+      params[:password].present?
+    end
+    
     def update_user_params
       params.require(:user).permit! if params[:user]
     end

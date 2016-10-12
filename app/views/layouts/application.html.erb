@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <title><%= content_for?(:title) ? yield(:title) : "Survey Diamond" %></title>
+
     <%= stylesheet_link_tag    "application" , media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
+	<% if user_signed_in? && (current_user.admin? || current_user.staff?) %>
 <div class="top-bar" id="main-menu">
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
@@ -81,6 +84,52 @@
   	</div>
 </div>
 
+	<% elsif  user_signed_in? && current_user.student? %>
+		<div class="top-bar" id="main-menu">
+		  <div class="top-bar-left">
+		    <ul class="dropdown menu" data-dropdown-menu>  	
+		      <li class="menu-text" style="color: black">Home</li>
+		    </ul>
+		  </div>
+		  <div class="top-bar-left">
+		    <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
+		    	<li class="has-submenu">
+        			<a href="#">Survey</a>
+        		</li>
+        	</ul>
+        </div>
+        
+        <div class="top-bar-right">
+  		<ul class="menu" data-responsive-menu="drilldown medium-dropdown">
+		<% if user_signed_in? %>
+	  		Signed in as <%= current_user.email %>. Not you?
+	  		<%= link_to "Edit profile", edit_user_registration_path %>
+	  		<%= link_to "Log out", destroy_user_session_path, :method => :delete %>
+		<% else %>
+  			<li><%= link_to "Register", new_user_registration_path %></li>
+  		
+  			<li><%= link_to "Log in", new_user_session_path %></li>
+		<% end %>
+			
+		</ul>
+		</div>
+		</div>
+
+	<%else%>
+	<div class="top-bar" id="main-menu">
+	<ul class="menu" data-responsive-menu="drilldown medium-dropdown">
+		<% if user_signed_in? %>
+	  		Signed in as <%= current_user.email %>. Not you?
+	  		<%= link_to "Edit profile", edit_user_registration_path %>
+	  		<%= link_to "Log out", destroy_user_session_path, :method => :delete %>
+		<% else %>
+  			<li><%= link_to "Register", new_user_registration_path %></li>
+  			<li><%= link_to "Log in", new_user_session_path %></li>
+		<% end %>
+			
+	</ul>
+	</div>
+	<% end %>
 	
 	<div style="margin-top: 20px">
     <%= yield %>
