@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :age
       t.string :programme
       t.belongs_to :role, index: true, foreign_key: true
-
+      
       t.timestamps null: false
     end
   end
