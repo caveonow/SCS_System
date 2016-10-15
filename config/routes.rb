@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     get '/form_view'   => 'forms#newIndex',    as: 'form_view'
     get '/form_select' => 'forms#viewForm',    as: 'form_select'
     get '/form_start'  => 'forms#startForm',   as: 'form_start'
-    get '/form_answer'   => 'forms#answerForm',  as: 'form_answer'
+    get '/form_answer' => 'forms#answerForm',  as: 'form_answer'
+    get '/form_display'=> 'forms#testDisplay', as: 'form_display'
+    get '/form_save'   => 'forms#testSave',    as: 'form_save'
   resources :studanswers
   resources :formanswers
   devise_for :users

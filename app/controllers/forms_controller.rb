@@ -1,7 +1,7 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
-
-helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_subquestion , :obtain_subquestionanswer
+  respond_to :html, :js
+  helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_subquestion , :obtain_subquestionanswer
 
   def newIndex
     @forms = Form.all
@@ -49,14 +49,40 @@ helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_s
   end
  
 
+  def testDisplay
+    @selected_section = Section.where("id = ?", params[:section_id]).first
+
+    
+    if params[:question_number] == "0"
+      obtain_first_question
+    else
+      obtain_question
+    end
+    
+      respond_to do |format|
+      format.js
+    end  
+    
+  end
+  
+  #actualy test show subquestion
+  def testSave   
+        
+    @subQ = Subquestion.where( "subquestions.answer_id = ?", params[:answer_id])
+    @qNum = Answer.select( " questions.QuestionNumber " )
+                  .joins( :question)
+                  .where(" answers.id = ?", params[:answer_id]).first
+      respond_to do |format|
+      format.js
+    end  
+  end
   
   def viewForm
     #select all sections where FORM_ID = #
     @sections = Section.where("form_id = ?", params[:formId])
 
     #@bigValue = Subanswer.joins(answers:   [{   questions: :subquestions    }   ])
-   
-    
+
     #select all question where FORM_ID = #
     @questions = Section
     .select("questions.id as qId ,questions.QuestionDesc, questions.QuestionNumber, questions.isSubQuestion ,
@@ -175,5 +201,9 @@ helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_s
     def obtain_question
       @question = Question.where("id = ?", params[:question_number]).first
     end
-    
+    def obtain_first_question
+      @question = Question
+      .order("questions.QuestionNumber")
+      .where("questions.section_id = ?", params[:section_id]).first  
+    end
 end

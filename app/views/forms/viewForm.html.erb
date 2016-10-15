@@ -1,8 +1,15 @@
 <p id="notice">
 	<%= notice %>
 </p>
-
+<header class="header">
+  <h1 class="headline">Form  <small>by Nick</small></h1>
+  <ul class="header-subnav">
 <%@sections.each do |section|%>
-<h1><%= link_to section.SectionName, form_answer_path(:section_id => section.id, :question_number => section.id) %> </h1>
-<%end%>
+<li><%= link_to section.SectionName, form_display_path(:section_id => section.id, :question_number => "0"), :id => section.id, remote: true , :onclick => 'setClass(this.id)'%> </li></h1>
+<%end%>  	
+  </ul>
+</header>
+
+
+<div id="testDisplay" class="container"></div>
  
