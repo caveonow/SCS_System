@@ -75,6 +75,7 @@ class TranslatorsController < ApplicationController
      @translators = Translator.find(params[:translator_ids])
      @translators.reject! do |translator|
        translator.update_attributes(translator_params.reject {|k,v| v.blank?})
+       translator.save
      end
         flash[:success] = "Profile updated"
         redirect_to translators_url 

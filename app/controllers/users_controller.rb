@@ -70,11 +70,6 @@ class UsersController < ApplicationController
       end
     end
   end
-  
-  protected
-  def needs_password?(user, params)
-      params[:password].present?
-  end
 
   # DELETE /users/1
   # DELETE /users/1.json
@@ -93,19 +88,26 @@ class UsersController < ApplicationController
   def updatemuluser
    # @translators = Translator.update(params[:translator].keys, params[:translator].values).reject { |p| p.errors.empty? }
    #if @translators.empty?  
+   @useredits = User.find(params[:user_ids]) 
    if params[:update]
      @useredits.reject! do |user|
        user.update_attributes(update_user_params.reject {|k,v| v.blank?})
+       user.save
      end
         flash[:success] = "Profile updated"
         redirect_to users_url 
    else
-     @users = User.find(params[:translator_ids])
-     @users.reject! do |user|
+     @useredits = User.find(params[:translator_ids])
+     @useredits.reject! do |user|
        user.destroy   
      end 
      redirect_to users_url 
    end  
+  end
+  
+  protected
+  def needs_password?(user, params)
+      params[:password].present?
   end
 
   private

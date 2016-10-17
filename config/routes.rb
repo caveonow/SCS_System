@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  resources :reports
   #session controller, 
   devise_for :users
     scope "/admin" do

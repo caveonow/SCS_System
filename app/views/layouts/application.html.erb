@@ -13,9 +13,8 @@
 	<% if user_signed_in? && (current_user.admin? || current_user.staff?) %>
 <div class="top-bar" id="main-menu">
   <div class="top-bar-left">
-    <ul class="dropdown menu" data-dropdown-menu>
-    	
-      <li class="menu-text" style="color: black">Survey</li>
+    <ul class="menu" data-dropdown-menu>
+    		<%= link_to(image_tag("/assets/Survey-logo.jpg", :alt => "logo", :title => "Home", :style=>"max-height:35px;max-width: 150px;"),'/') %>
     </ul>
   </div>
   <div class="top-bar-left">
@@ -31,8 +30,8 @@
       <li class="has-submenu">
         <a href="#">Report</a>
         <ul class="submenu menu vertical" data-submenu>
-          <li><a href="#">Generate Reports</a></li>
-          <li><a href="#">Manage Reports</a></li>
+          <li><%= link_to 'Generate Report', new_report_path() %></li>
+		  <li><%= link_to 'Manage Report', reports_path() %></li>
         </ul>
       </li>
       <li class="has-submenu">
@@ -61,6 +60,7 @@
       <li class="has-submenu">
         <a href="#">User Management</a>
         <ul class="submenu menu vertical" data-submenu>
+          <!--<li><%= link_to 'Create User', new_user_path() %></li>-->
           <li><%= link_to 'View User', users_path() %></li>
           <li><%= link_to 'Import User', new_user_import_path()%></li>
         </ul>
@@ -69,15 +69,19 @@
     </ul>
   </div>
   	<div class="top-bar-right">
-  		<ul class="menu" data-responsive-menu="drilldown medium-dropdown">
+  		<ul class="menu" data-responsive-menu="drilldown">
+  			
   	<% if user_signed_in? %>
-  		Signed in as <%= current_user.email %>. Not you?
+  		<li>Signed in as <%= current_user.email %>. Not you?</li>
   		<%= link_to "Edit profile", edit_user_registration_path %>
   		<%= link_to "Log out", destroy_user_session_path, :method => :delete %>
 	<% else %>
   		<li><%= link_to "Register", new_user_registration_path %></li>
   		
   		<li><%= link_to "Log in", new_user_session_path %></li>
+	<% end %>
+	<% flash.each do |name, msg| %>
+  		<%= content_tag :div, msg, id: "flash_#{name}" %>
 	<% end %>
 		
 	</ul>
@@ -110,6 +114,9 @@
   		
   			<li><%= link_to "Log in", new_user_session_path %></li>
 		<% end %>
+		<% flash.each do |name, msg| %>
+  		<%= content_tag :div, msg, id: "flash_#{name}" %>
+	<% end %>
 			
 		</ul>
 		</div>
@@ -126,6 +133,9 @@
   			<li><%= link_to "Register", new_user_registration_path %></li>
   			<li><%= link_to "Log in", new_user_session_path %></li>
 		<% end %>
+		<% flash.each do |name, msg| %>
+  		<%= content_tag :div, msg, id: "flash_#{name}" %>
+	<% end %>
 			
 	</ul>
 	</div>

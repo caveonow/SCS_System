@@ -4,9 +4,12 @@
 
 <!-- Advertisement -->
 	<div class="row align-center">
+		<div class="orbit " role="region" data-orbit ">
 		<% @welcomeAd.each do |advertisement| %>
 		<%= image_tag advertisement.imageAd_url(:thumb),:style=>"height:450px; width:1200px;"%>
+		<figcaption class="orbit-caption"><%= advertisement.AdvertisementName %></figcaption>
       <% end %>
+      </div>
 	</div>
 <hr />
 <!-- First Banners (Slider) -->

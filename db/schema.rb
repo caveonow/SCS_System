@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005082446) do
+ActiveRecord::Schema.define(version: 20161017074359) do
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "AdvertisementName",        limit: 255
@@ -84,6 +84,11 @@ ActiveRecord::Schema.define(version: 20161005082446) do
   end
 
   add_index "questions", ["section_id"], name: "fk_rails_c50eadc3e3", using: :btree
+
+  create_table "reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",        limit: 255

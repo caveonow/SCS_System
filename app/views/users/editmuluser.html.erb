@@ -4,7 +4,7 @@
 				<div class="large-6 large-centered columns">
 				<div class="row column log-in-form">
 		<ul style="list-style: none;">
-			<% @users.each do |user| %>
+			<% @useredits.each do |user| %>
 		<li>
 			<%= hidden_field_tag "user_ids[]", user.id %>
 			<%= user.name%></li>

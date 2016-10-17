@@ -7,10 +7,10 @@ class User < ActiveRecord::Base
   belongs_to :role
   has_many :advertisements
   
-  validates_presence_of :name,:ICNo,:age,:programme
-  validates_uniqueness_of :ICNo, :email
-  validates_format_of :ICNo, :with => /\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])-\d{2}-\d{4}/
-  before_save :assign_role 
+  #validates_presence_of :name
+  #validates_uniqueness_of :ICNo, :email
+  #validates_format_of :ICNo, :with => /\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])-\d{2}-\d{4}/
+  before_save :assign_role
   
   #assign role when new user sign up
   def assign_role
@@ -32,5 +32,7 @@ class User < ActiveRecord::Base
   def name=(s)
     write_attribute(:name, s.to_s.titleize) # The to_s is in case you get nil/non-string
   end
+  
+  
   
 end

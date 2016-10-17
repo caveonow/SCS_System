@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Users</h1>
+<h1>Users Record</h1>
 <%= form_tag editmuluser_users_path ,method: :get do %>
 <table id="users" class="display ">
   <thead>
@@ -15,10 +15,12 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
+      	<div id="checkboxes">
       	<td align="middle"><%= check_box_tag "user_ids[]", user.id %></td>
       	<td><%= user.email %></td>
         <td><%= user.name %></td>
         <td><%= user.role.name %></td>
+        </div>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +28,3 @@
 <%= submit_tag "Edit Checked" %>
 <% end %>
 <br>
-
