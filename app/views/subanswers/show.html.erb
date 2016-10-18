@@ -10,5 +10,10 @@
   <%= @subanswer.SubAnswerCount %>
 </p>
 
+<p>
+  <strong>Answer:</strong>
+  <%= @subanswer.answer %>
+</p>
+
 <%= link_to 'Edit', edit_subanswer_path(@subanswer) %> |
 <%= link_to 'Back', subanswers_path %>

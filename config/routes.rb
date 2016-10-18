@@ -1,8 +1,23 @@
 Rails.application.routes.draw do
-  
+
+  resources :subquestionanswers
+  resources :subanswers
+  resources :answers
+  resources :subquestions
+  resources :questions
+  resources :sections
+  resources :studanswers
+  resources :formanswers  
+  resources :forms
+    get '/form_view'   => 'forms#newIndex',    as: 'form_view'
+    get '/form_select' => 'forms#viewForm',    as: 'form_select'
+    get '/form_start'  => 'forms#startForm',   as: 'form_start'
+    get '/form_answer' => 'forms#answerForm',  as: 'form_answer'
+    get '/form_display'=> 'forms#testDisplay', as: 'form_display'
+    get '/form_save'   => 'forms#testSave',    as: 'form_save'
 
   resources :reports
-  #session controller, 
+  
   devise_for :users
     scope "/admin" do
     resources :users do
@@ -28,11 +43,6 @@ Rails.application.routes.draw do
   
   resources :user_imports
   resources :roles
-  resources :subanswers
-  resources :answers
-  resources :subquestions
-  resources :questions
-  resources :sections
   resources :backgrounds
   resources :translators do
     collection do
@@ -40,10 +50,7 @@ Rails.application.routes.draw do
       put :updatemultranslate
     end
   end
-  resources :forms
-  resources :studanswers
-  resources :formanswers
-  
+
   # advertisement
   resources :bannerslides
   put 'bannerslides', to: 'bannerslides#activebanner', as: :selectBss

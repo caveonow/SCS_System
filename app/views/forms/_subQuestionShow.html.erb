@@ -1,0 +1,10 @@
+<div class = "row">
+	<% @subQ.each do |sq| %>
+	<h1><%=@qNum.QuestionNumber%><%= sq.SQChar%>. <%= sq.SQDesc%></h1>
+	<% obtain_subquestionanswer(sq.id).each do |sqa|%>
+		<br/>
+		<p><%= check_box_tag 'SQAnswer_ids[]', sqa.id -%>
+		<%= sqa.SQAnswer%> </p>
+	<%end%>
+<%end%>
+</div>

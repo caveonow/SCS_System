@@ -8,6 +8,8 @@
       <th>Answerdesc</th>
       <th>Issubanswer</th>
       <th>Answercount</th>
+      <th>Subquestion</th>
+      <th>Question</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +20,18 @@
         <td><%= answer.AnswerDesc %></td>
         <td><%= answer.isSubAnswer %></td>
         <td><%= answer.AnswerCount %></td>
+        <td><% if answer.subquestion.present?  %>         	  
+        	<%= answer.subquestion.id %>
+        	<%else%>  
+        	<%= answer.subquestion %>
+        	<%end%>
+        </td>
+        <td><% if answer.question.present?  %>         	  
+        	<%= answer.question.id %>
+        	<%else%>  
+        	<%= answer.question %>
+        	<%end%>
+        </td>
         <td><%= link_to 'Show', answer %></td>
         <td><%= link_to 'Edit', edit_answer_path(answer) %></td>
         <td><%= link_to 'Destroy', answer, method: :delete, data: { confirm: 'Are you sure?' } %></td>

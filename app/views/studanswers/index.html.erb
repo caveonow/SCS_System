@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Studentanswer</th>
-      <th>Studentanswer</th>
+      <th>Formanswer</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,7 +15,7 @@
     <% @studanswers.each do |studanswer| %>
       <tr>
         <td><%= studanswer.StudentAnswer %></td>
-        <td><%= studanswer.StudentAnswer %></td>
+        <td><%= studanswer.formanswer %></td>
         <td><%= link_to 'Show', studanswer %></td>
         <td><%= link_to 'Edit', edit_studanswer_path(studanswer) %></td>
         <td><%= link_to 'Destroy', studanswer, method: :delete, data: { confirm: 'Are you sure?' } %></td>

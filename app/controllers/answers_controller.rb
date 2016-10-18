@@ -1,5 +1,4 @@
 class AnswersController < ApplicationController
-  before_filter :authenticate_user!
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
 
   # GET /answers
@@ -70,6 +69,6 @@ class AnswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def answer_params
-      params.require(:answer).permit(:AnswerDesc, :isSubAnswer, :AnswerCount)
+      params.require(:answer).permit(:AnswerDesc, :isSubAnswer, :AnswerCount, :subquestion_id, :question_id)
     end
 end

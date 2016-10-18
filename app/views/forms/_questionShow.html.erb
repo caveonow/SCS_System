@@ -1,0 +1,39 @@
+
+		<div class="columns">
+					<h1><%= @question.QuestionNumber %>. <%= @question.QuestionDesc %></h1> 
+
+					<% obtain_answers(@question.id).each do |a|%>	
+					<%-#Assuming that  IF it is NOT a SubAnswer, it could have a subquestion -%>
+						<%if !a.IsSubAnswer or a.IsSubAnswer == 0%>
+							<br/>
+							<%if !a.IsSubQuestion or a.IsSubQuestion == 0%>							
+								<p><%= check_box_tag  'answer_id', a.id  -%>
+								<%= a.AnswerDesc%></p> 
+							<%elsif a.IsSubQuestion or a.IsSubQuestion == 1%>
+								<p><%= check_box_tag  'answer_id', a.id, false , data: { url: form_save_path(:test => a.id), remote: true}  -%>
+								<%= a.AnswerDesc%></p> 
+							<%end%>
+								
+								
+								
+						<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
+							<br/>
+							<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]
+							<br/>
+							<% obtain_subanswers(a.id).each do |sa|%>
+								<br/>
+								<%= check_box_tag 'subanswer_ids[]', sa.id -%>
+								<%= sa.SADesc%>
+						<%end%>
+					<%end%>
+					<%end%>
+						<div id="displaySubQuestion"></div>
+			<br/><br/<br/>
+		
+		<% obtain_questions(@selected_section.id).each do |q| %>
+			<%= link_to form_display_path(:question_number => q.id, :section_id => @selected_section.id), remote: true do %>
+				<div style="width:40px;height:20px;background-color:#F9F9F9;color:black;border: 2px solid #BBBBBB"> <%= q.QuestionNumber%> 
+				</div>
+			<%end%>
+		<%end%>
+		</div>

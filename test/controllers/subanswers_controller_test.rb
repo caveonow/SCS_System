@@ -18,7 +18,7 @@ class SubanswersControllerTest < ActionController::TestCase
 
   test "should create subanswer" do
     assert_difference('Subanswer.count') do
-      post :create, subanswer: { SubAnswerCount: @subanswer.SubAnswerCount, SubAnswerDesc: @subanswer.SubAnswerDesc }
+      post :create, subanswer: { SubAnswerCount: @subanswer.SubAnswerCount, SubAnswerDesc: @subanswer.SubAnswerDesc, answer_id: @subanswer.answer_id }
     end
 
     assert_redirected_to subanswer_path(assigns(:subanswer))
@@ -35,7 +35,7 @@ class SubanswersControllerTest < ActionController::TestCase
   end
 
   test "should update subanswer" do
-    patch :update, id: @subanswer, subanswer: { SubAnswerCount: @subanswer.SubAnswerCount, SubAnswerDesc: @subanswer.SubAnswerDesc }
+    patch :update, id: @subanswer, subanswer: { SubAnswerCount: @subanswer.SubAnswerCount, SubAnswerDesc: @subanswer.SubAnswerDesc, answer_id: @subanswer.answer_id }
     assert_redirected_to subanswer_path(assigns(:subanswer))
   end
 

@@ -126,13 +126,25 @@ ActiveRecord::Schema.define(version: 20161017074359) do
 
   add_index "subanswers", ["answer_id"], name: "fk_rails_679cb6c5cd", using: :btree
 
+  create_table "subquestionanswers", force: :cascade do |t|
+    t.string   "SQAnswer",       limit: 255
+    t.integer  "SQAnswerCount",  limit: 4,   default: 0, null: false
+    t.integer  "subquestion_id", limit: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "subquestionanswers", ["subquestion_id"], name: "fk_rails_90056cfaf9", using: :btree
+
   create_table "subquestions", force: :cascade do |t|
     t.text     "SubquestionDesc", limit: 65535
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "question_id",     limit: 4
+    t.integer  "answer_id",       limit: 4
   end
 
+  add_index "subquestions", ["answer_id"], name: "fk_rails_44169a4c53", using: :btree
   add_index "subquestions", ["question_id"], name: "fk_rails_9f941a7dcf", using: :btree
 
   create_table "translators", force: :cascade do |t|
@@ -187,6 +199,8 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   add_foreign_key "sections", "forms"
   add_foreign_key "studanswers", "formanswers"
   add_foreign_key "subanswers", "answers"
+  add_foreign_key "subquestionanswers", "subquestions"
+  add_foreign_key "subquestions", "answers"
   add_foreign_key "subquestions", "questions"
   add_foreign_key "users", "roles"
 end

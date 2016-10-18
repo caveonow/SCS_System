@@ -1,0 +1,29 @@
+<%= form_for(@subquestionanswer) do |f| %>
+  <% if @subquestionanswer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subquestionanswer.errors.count, "error") %> prohibited this subquestionanswer from being saved:</h2>
+
+      <ul>
+      <% @subquestionanswer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :SQAnswer %><br>
+    <%= f.text_field :SQAnswer %>
+  </div>
+  <div class="field">
+    <%= f.label :SQAnswerCount %><br>
+    <%= f.number_field :SQAnswerCount %>
+  </div>
+  <div class="field">
+    <%= f.label :subquestion_id %><br>
+    <%= f.text_field :subquestion_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

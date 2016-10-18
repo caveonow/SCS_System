@@ -18,7 +18,7 @@ class SubquestionsControllerTest < ActionController::TestCase
 
   test "should create subquestion" do
     assert_difference('Subquestion.count') do
-      post :create, subquestion: { SubquestionDesc: @subquestion.SubquestionDesc }
+      post :create, subquestion: { SubquestionDesc: @subquestion.SubquestionDesc, question_id: @subquestion.question_id }
     end
 
     assert_redirected_to subquestion_path(assigns(:subquestion))
@@ -35,7 +35,7 @@ class SubquestionsControllerTest < ActionController::TestCase
   end
 
   test "should update subquestion" do
-    patch :update, id: @subquestion, subquestion: { SubquestionDesc: @subquestion.SubquestionDesc }
+    patch :update, id: @subquestion, subquestion: { SubquestionDesc: @subquestion.SubquestionDesc, question_id: @subquestion.question_id }
     assert_redirected_to subquestion_path(assigns(:subquestion))
   end
 

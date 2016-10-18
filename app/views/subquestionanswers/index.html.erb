@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Subquestionanswers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sqanswer</th>
+      <th>Sqanswercount</th>
+      <th>Subquestion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subquestionanswers.each do |subquestionanswer| %>
+      <tr>
+        <td><%= subquestionanswer.SQAnswer %></td>
+        <td><%= subquestionanswer.SQAnswerCount %></td>
+        <td><%= subquestionanswer.subquestion %></td>
+        <td><%= link_to 'Show', subquestionanswer %></td>
+        <td><%= link_to 'Edit', edit_subquestionanswer_path(subquestionanswer) %></td>
+        <td><%= link_to 'Destroy', subquestionanswer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Subquestionanswer', new_subquestionanswer_path %>

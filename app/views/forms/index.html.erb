@@ -9,6 +9,7 @@
       <th>Formdescription</th>
       <th>Formdatetime</th>
       <th>Formstatus</th>
+      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
         <td><%= form.FormDescription %></td>
         <td><%= form.FormDateTime %></td>
         <td><%= form.FormStatus %></td>
+        <td><%= form.user %></td>
         <td><%= link_to 'Show', form %></td>
         <td><%= link_to 'Edit', edit_form_path(form) %></td>
         <td><%= link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -31,3 +33,5 @@
 <br>
 
 <%= link_to 'New Form', new_form_path %>
+
+<%= link_to 'New Test', form_view_path %>

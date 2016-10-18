@@ -1,0 +1,1 @@
+json.array! @subquestionanswers, partial: 'subquestionanswers/subquestionanswer', as: :subquestionanswer

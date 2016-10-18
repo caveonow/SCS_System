@@ -1,6 +1,6 @@
 class SubanswersController < ApplicationController
   before_action :set_subanswer, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+
   # GET /subanswers
   # GET /subanswers.json
   def index
@@ -69,6 +69,6 @@ class SubanswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subanswer_params
-      params.require(:subanswer).permit(:SubAnswerDesc, :SubAnswerCount)
+      params.require(:subanswer).permit(:SubAnswerDesc, :SubAnswerCount, :answer_id)
     end
 end

@@ -7,6 +7,8 @@
     <tr>
       <th>Formanswer</th>
       <th>Studanswerdatetime</th>
+      <th>User</th>
+      <th>Form</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +18,8 @@
       <tr>
         <td><%= formanswer.FormAnswer %></td>
         <td><%= formanswer.StudAnswerDateTime %></td>
+        <td><%= formanswer.user %></td>
+        <td><%= formanswer.form %></td>
         <td><%= link_to 'Show', formanswer %></td>
         <td><%= link_to 'Edit', edit_formanswer_path(formanswer) %></td>
         <td><%= link_to 'Destroy', formanswer, method: :delete, data: { confirm: 'Are you sure?' } %></td>

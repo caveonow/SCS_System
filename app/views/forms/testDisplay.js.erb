@@ -1,0 +1,7 @@
+$('#testDisplay').html("<%= j (render 'questionShow') %>");
+$('#testDisplay').slideDown(350);
+
+function setClass(someId){	
+	$('#'+ someId).toggleClass('is-active');
+	
+}

@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   #  user_params.permit({ roles: [] },  :email, :name, :ICNo ,:age , :programme, :password, :password_confirmation)
   #  end
   #end
-  
+ 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])
@@ -27,16 +27,16 @@ class ApplicationController < ActionController::Base
  
   protect_from_forgery with: :exception
   
-  #cancan denied unauthorized user
+  #cancan denied unauthorized user 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "Access denied!"
     redirect_to root_url
   end
+
   
   private
   def after_sign_out_path_for(resource_or_scope)
     root_path
   end
-  
   
 end
