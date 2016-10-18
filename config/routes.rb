@@ -5,13 +5,29 @@ Rails.application.routes.draw do
   resources :subquestions
   resources :questions
   resources :sections
-  resources :forms 
-    get '/form_view'   => 'forms#newIndex',    as: 'form_view'
-    get '/form_select' => 'forms#viewForm',    as: 'form_select'
-    get '/form_start'  => 'forms#startForm',   as: 'form_start'
-    get '/form_answer' => 'forms#answerForm',  as: 'form_answer'
-    get '/form_display'=> 'forms#testDisplay', as: 'form_display'
-    get '/form_save'   => 'forms#testSave',    as: 'form_save'
+  resources :forms do
+    collection do 
+      get 'create_survey' #create_survey_form_path 
+    end
+  end
+    #---------------------------------- FORM CREATION ----------------------------------#
+    # get '/form_create' => 'forms#createForm',   as: 'form_create'
+    #---------------------------------- FORM CREATION ----------------------------------#
+   
+   
+   #---------------------------------- FORM ANSWERING ----------------------------------#
+    get '/form_view'      => 'forms#viewForm',    as: 'form_view'
+    get '/form_select'    => 'forms#selectForm',    as: 'form_select'
+    get '/form_start'     => 'forms#startForm',   as: 'form_start'
+    get '/form_displayQ'   => 'forms#displayQ', as: 'form_display_question'
+    get '/form_displaySQ' => 'forms#displaySubQ', as: 'form_display_subquestion'
+    get '/form_displaySA' => 'forms#displaySubA', as: 'form_display_subanswer'
+    post '/form_saveAns'  => 'forms#saveAns', as: 'form_saveAns'
+    post '/form_saveSAns'  => 'forms#saveSAns', as: 'form_saveSAns'
+    post '/form_saveSQAns'  => 'forms#saveSQAns', as: 'form_saveSQAns'
+    #---------------------------------- FORM ANSWERING ----------------------------------#
+    
+    
   resources :studanswers
   resources :formanswers
   devise_for :users

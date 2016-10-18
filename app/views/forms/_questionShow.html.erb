@@ -6,34 +6,74 @@
 					<%-#Assuming that  IF it is NOT a SubAnswer, it could have a subquestion -%>
 						<%if !a.IsSubAnswer or a.IsSubAnswer == 0%>
 							<br/>
-							<%if !a.IsSubQuestion or a.IsSubQuestion == 0%>							
-								<p><%= check_box_tag  'answer_id', a.id  -%>
-								<%= a.AnswerDesc%></p> 
+							<%if !a.IsSubQuestion or a.IsSubQuestion == 0%>			
+
+								<% if check_answered(params[:formanswer_id], a.id).empty? %>
+									<% @value = false%>																		
+								<%else%>
+									<% @value = true%>			
+								<%end%> 											
+
+									<p><%= check_box_tag  'answer_id', a.id, @value , data: {url: form_saveAns_path(:answer_id => a.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
+									<%= a.AnswerDesc%></p>		
+	
+							
 							<%elsif a.IsSubQuestion or a.IsSubQuestion == 1%>
-								<p><%= check_box_tag  'answer_id', a.id, false , data: { url: form_save_path(:test => a.id), remote: true}  -%>
-								<%= a.AnswerDesc%></p> 
+							
+								<!-- Find better way later !-->
+								<% if check_answered(params[:formanswer_id], a.id).empty? %>
+									<% @value = false%>																		
+								<%else%>
+									<% @value = true%>	
+								<%end%> 
+								############################## this one need to add something new ##################################################
+									<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: { url: form_display_subquestion_path(:formanswer_id => params[:formanswer_id]), remote: true}  -%>
+									<%= a.AnswerDesc%></p> 
 							<%end%>
 								
 								
 								
 						<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
 							<br/>
+							<p><%= radio_button_tag  'radio_answer_id', a.id, false , data: { url: form_display_subanswer_path, remote: true}  -%>
 							<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]
 							<br/>
-							<% obtain_subanswers(a.id).each do |sa|%>
-								<br/>
-								<%= check_box_tag 'subanswer_ids[]', sa.id -%>
-								<%= sa.SADesc%>
 						<%end%>
 					<%end%>
-					<%end%>
-						<div id="displaySubQuestion"></div>
+						<div id="displaySubQuestion" style="display:none"></div>
+						<div id="displaySubAnswer"  style="display:none"></div>
 			<br/><br/<br/>
 		
-		<% obtain_questions(@selected_section.id).each do |q| %>
-			<%= link_to form_display_path(:question_number => q.id, :section_id => @selected_section.id), remote: true do %>
-				<div style="width:40px;height:20px;background-color:#F9F9F9;color:black;border: 2px solid #BBBBBB"> <%= q.QuestionNumber%> 
-				</div>
+		
+		<!--  Find a way to simplify this later!-->
+		
+		<% @allQuestions.each do |q| %>
+			<%if @allQuestions.first.id == @question.id %>
+				<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+					<div id="prevBtn" class ="prev_question">	
+						<input type="button" name="prev_button" value="Previous" disabled />
+					</div>
+				<%end%>
+			<%elsif (q.QuestionNumber+1) == @question.QuestionNumber%>
+				<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+					<div id="prevBtn" class ="prev_question">	
+						<input type="button" name="prev_button" value="Previous"  />
+					</div>
+				<%end%>
+			<%end%>
+			
+			<%if @allQuestions.last.id == @question.id %>
+				<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+					<div id="nextBtn" class = "next_question">
+						 <input type="button" name="next_button" value="Next" disabled>
+					</div>
+				<%end%>
+			<%elsif (q.QuestionNumber-1) == @question.QuestionNumber %>
+				<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+					<div id="nextBtn" class = "next_question">
+						 <input type="button" name="next_button" value="Next">
+					</div>
+				<%end%>
 			<%end%>
 		<%end%>
-		</div>
+			

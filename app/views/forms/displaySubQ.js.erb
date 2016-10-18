@@ -1,0 +1,9 @@
+$('#displaySubQuestion').slideUp(350);
+$('#displaySubQuestion').html("<%= j (render 'subQuestionShow') %>");
+$('#displaySubQuestion').slideDown(350);
+
+############################## this one need to add something new ##################################################
+	$.ajax({
+	    type:'POST',
+	    url:'/form_saveAns?answer_id=<%= @qNum.id%>&formanswer_id=<%= @formAnswer.id%>'
+	});

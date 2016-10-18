@@ -1,0 +1,17 @@
+
+$('#displayQuestion').slideUp(350);
+$('#displayQuestion').html("<%= j (render 'questionShow') %>");
+$('#displayQuestion').slideDown(350);
+
+<%@sectionTest.each do |test|%>
+	<%if test.id == @selected_section.id %>
+		if (!$('#<%= test.id%>').hasClass('is-active')){
+			$('#<%= @selected_section.id%>').toggleClass('is-active');	
+		}
+		
+	<%elsif test.id != @selected_section.id %>
+		$('#<%= test.id%>').removeClass('is-active');
+		$('#displayTitle').append('<%= @sectionTest.first.SectionName%>');
+		
+	<%end%>
+<%end%>

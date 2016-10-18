@@ -1,6 +1,6 @@
-<div class = "row">
+<div class = "row" style="margin-left:40px">
 	<% @subQ.each do |sq| %>
-	<h1><%=@qNum.QuestionNumber%><%= sq.SQChar%>. <%= sq.SQDesc%></h1>
+	<h2><%=@qNum.QuestionNumber%><%= sq.SQChar%>. <%= sq.SQDesc%></h2>
 	<% obtain_subquestionanswer(sq.id).each do |sqa|%>
 		<br/>
 		<p><%= check_box_tag 'SQAnswer_ids[]', sqa.id -%>
