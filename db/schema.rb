@@ -23,17 +23,16 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   end
 
   create_table "answers", force: :cascade do |t|
-    t.text     "AnswerDesc",     limit: 65535
-    t.boolean  "isSubAnswer"
-    t.integer  "AnswerCount",    limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "subquestion_id", limit: 4
-    t.integer  "question_id",    limit: 4
+    t.text     "AnswerDesc",    limit: 65535
+    t.boolean  "IsSubAnswer"
+    t.boolean  "IsSubQuestion"
+    t.integer  "AnswerCount",   limit: 4,     default: 0, null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "question_id",   limit: 4
   end
 
   add_index "answers", ["question_id"], name: "fk_rails_3d5ed4418f", using: :btree
-  add_index "answers", ["subquestion_id"], name: "fk_rails_3b9d556abe", using: :btree
 
   create_table "backgrounds", force: :cascade do |t|
     t.string   "BackgroundName", limit: 255
@@ -77,7 +76,6 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   create_table "questions", force: :cascade do |t|
     t.text     "QuestionDesc",   limit: 65535
     t.integer  "QuestionNumber", limit: 4
-    t.boolean  "isSubQuestion"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "section_id",     limit: 4
@@ -135,11 +133,11 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   add_index "studsubquestionanswers", ["formanswer_id"], name: "fk_rails_7df0c4b8f4", using: :btree
 
   create_table "subanswers", force: :cascade do |t|
-    t.text     "SubAnswerDesc",  limit: 65535
-    t.integer  "SubAnswerCount", limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "answer_id",      limit: 4
+    t.text     "SADesc",     limit: 65535
+    t.integer  "SACount",    limit: 4,     default: 0, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "answer_id",  limit: 4
   end
 
   add_index "subanswers", ["answer_id"], name: "fk_rails_679cb6c5cd", using: :btree
@@ -147,23 +145,22 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   create_table "subquestionanswers", force: :cascade do |t|
     t.string   "SQAnswer",       limit: 255
     t.integer  "SQAnswerCount",  limit: 4,   default: 0, null: false
-    t.integer  "subquestion_id", limit: 4
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.integer  "subquestion_id", limit: 4
   end
 
   add_index "subquestionanswers", ["subquestion_id"], name: "fk_rails_90056cfaf9", using: :btree
 
   create_table "subquestions", force: :cascade do |t|
-    t.text     "SubquestionDesc", limit: 65535
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.integer  "question_id",     limit: 4
-    t.integer  "answer_id",       limit: 4
+    t.text     "SQDesc",     limit: 65535
+    t.string   "SQChar",     limit: 10
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "answer_id",  limit: 4
   end
 
   add_index "subquestions", ["answer_id"], name: "fk_rails_44169a4c53", using: :btree
-  add_index "subquestions", ["question_id"], name: "fk_rails_9f941a7dcf", using: :btree
 
   create_table "translators", force: :cascade do |t|
     t.string   "TranslatorEng",         limit: 255
@@ -209,7 +206,6 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "answers", "subquestions"
   add_foreign_key "formanswers", "forms"
   add_foreign_key "formanswers", "users"
   add_foreign_key "forms", "users"
@@ -221,6 +217,5 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   add_foreign_key "subanswers", "answers"
   add_foreign_key "subquestionanswers", "subquestions"
   add_foreign_key "subquestions", "answers"
-  add_foreign_key "subquestions", "questions"
   add_foreign_key "users", "roles"
 end
