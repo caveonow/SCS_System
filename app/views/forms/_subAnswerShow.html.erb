@@ -1,0 +1,7 @@
+<div class="row" style="margin-left:40px">
+	<% @subA.each do |sa|%>
+		<br/>
+		<p><%= check_box_tag 'subanswer_ids[]', sa.id -%>
+		<%= sa.SADesc%></p>
+	<%end%>
+</div>

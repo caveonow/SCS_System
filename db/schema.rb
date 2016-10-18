@@ -108,13 +108,31 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   add_index "sections", ["form_id"], name: "fk_rails_5e56f08fae", using: :btree
 
   create_table "studanswers", force: :cascade do |t|
-    t.string   "StudentAnswer", limit: 255
+    t.string   "answer_id",     limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "formanswer_id", limit: 4
   end
 
   add_index "studanswers", ["formanswer_id"], name: "fk_rails_d3254c96b6", using: :btree
+
+  create_table "studsubanswers", force: :cascade do |t|
+    t.integer  "subanswer_id",  limit: 4
+    t.integer  "formanswer_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "studsubanswers", ["formanswer_id"], name: "fk_rails_34d49b8961", using: :btree
+
+  create_table "studsubquestionanswers", force: :cascade do |t|
+    t.string   "subquestionanswer_id", limit: 255
+    t.integer  "formanswer_id",        limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "studsubquestionanswers", ["formanswer_id"], name: "fk_rails_7df0c4b8f4", using: :btree
 
   create_table "subanswers", force: :cascade do |t|
     t.text     "SubAnswerDesc",  limit: 65535
@@ -198,6 +216,8 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   add_foreign_key "questions", "sections"
   add_foreign_key "sections", "forms"
   add_foreign_key "studanswers", "formanswers"
+  add_foreign_key "studsubanswers", "formanswers"
+  add_foreign_key "studsubquestionanswers", "formanswers"
   add_foreign_key "subanswers", "answers"
   add_foreign_key "subquestionanswers", "subquestions"
   add_foreign_key "subquestions", "answers"

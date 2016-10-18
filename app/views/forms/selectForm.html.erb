@@ -1,0 +1,23 @@
+<html>
+	<head>
+		
+	</head>
+	<body oncontextmenu="return false;">
+		
+	<p id="notice">
+		<%= notice %>
+	</p>
+	<header class="header">
+	  <h1 class="headline"><%= @formName.FormName%></h1>
+	  <ul class="header-subnav">
+	<%@sections.each do |section|%>
+	<li><%= link_to section.SectionName, form_display_question_path(:section_id => section.id, :question_id => "0", :formanswer_id => @formAnswer.first.id, :form_id => @formName.id), :id => section.id, remote: true%> </li></h1>
+	<%end%>  	
+	  </ul>
+	</header>
+	
+	<div id="displayQuestion" class="container" style="display:none"></div>
+	 
+
+	</body>
+</html>
