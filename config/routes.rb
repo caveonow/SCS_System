@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     end
   end
   resources :sections
-  resources :reports
+  resources :reports do
+    collection do
+   #   get 'report_test' #report_test_reports_path
+    end
+  end
   resources :forms do
     collection do 
       get 'create_survey' #create_survey_form_path 

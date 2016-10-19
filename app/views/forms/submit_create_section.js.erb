@@ -2,12 +2,13 @@
 <% if @save%>
 	var section_id = <%= @section.id%>;
 	var link = "<a href='/questions/new_create?section_id=" + section_id+ "'> Click ME! </a>";
+	var link2 = "<%= j link_to  'Link', new_advertisement_path %>"
 	$('#section_create').css('background-color', '#44e251');
 	$('#create_section_div').slideUp(350);
 	$('#create_section_div').hide();
 	$('#display_section_div').slideDown(350);
 	$('#display_section_div').append("Section Creation Success! <br/>");
-	$('#display_section_div').append("Begin Creating Questions > > > > > <h3>" + link + "</h3>");
+	$('#display_section_div').append("Begin Creating Questions > > > > > <h3>" + link2 + "</h3>");
 	
 	
 <%else%>

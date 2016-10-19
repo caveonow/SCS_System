@@ -1,6 +1,12 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy]
 
+  def report_test
+    @user = User.all
+  end
+
+
+
   # GET /reports
   # GET /reports.json
   def index
@@ -15,6 +21,7 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
+    @user = User.all
   end
 
   # GET /reports/1/edit

@@ -68,7 +68,7 @@
 		<div>
 			<p id="previewtitle" class="changeMe" style="line-height: 70%;text-align:center"></p>
 			<p id="previewsubtitle" class="changeMe1" style="line-height: 70%;text-align:center "></p>	
-			<p id="previewgraph"></p>		
+			<p id="previewgraph"><%= line_chart @user.group(:created_at).count, discrete: true %></p>		
 		</div >	
 		
 		<div class="small-4 columns">

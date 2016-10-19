@@ -140,7 +140,7 @@ class FormsController < ApplicationController
     @form = Form.new(form_params)
     @form.FormDateTime = Time.now
     @form.FormStatus = 'Available'
-    @form.user_id = "1" #change later
+    @form.user_id = current_user.id #change later
     
     respond_to do |format|
       if @form.save
@@ -205,7 +205,7 @@ class FormsController < ApplicationController
     @form = Form.new(form_params)
     @form.FormDateTime = Time.now
     @form.FormStatus = 'Available'
-    @form.user_id = "1" #change later
+    @form.user_id = current_user.id #change later
     respond_to do |format|
       if @form.save
         format.html { redirect_to @form, notice: 'Form was successfully created.' }
