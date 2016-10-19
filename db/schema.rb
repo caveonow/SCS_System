@@ -11,24 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017074359) do
+ActiveRecord::Schema.define(version: 20161123161621) do
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "AdvertisementName",        limit: 255
     t.text     "AdvertisementDescription", limit: 65535
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
     t.string   "imageAd",                  limit: 255
     t.string   "statusAd",                 limit: 255,   default: "deactive"
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
   end
 
   create_table "answers", force: :cascade do |t|
     t.text     "AnswerDesc",    limit: 65535
-    t.boolean  "IsSubAnswer"
+    t.boolean  "isSubAnswer"
     t.boolean  "IsSubQuestion"
-    t.integer  "AnswerCount",   limit: 4,     default: 0, null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.integer  "AnswerCount",   limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "question_id",   limit: 4
   end
 
@@ -44,9 +44,9 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   create_table "bannerslides", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "imageBs",    limit: 255
+    t.string   "statusBs",   limit: 255, default: "deactive"
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
-    t.string   "statusBs",   limit: 255, default: "deactive"
   end
 
   create_table "formanswers", force: :cascade do |t|
@@ -134,9 +134,9 @@ ActiveRecord::Schema.define(version: 20161017074359) do
 
   create_table "subanswers", force: :cascade do |t|
     t.text     "SADesc",     limit: 65535
-    t.integer  "SACount",    limit: 4,     default: 0, null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "SACount",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "answer_id",  limit: 4
   end
 
@@ -145,16 +145,16 @@ ActiveRecord::Schema.define(version: 20161017074359) do
   create_table "subquestionanswers", force: :cascade do |t|
     t.string   "SQAnswer",       limit: 255
     t.integer  "SQAnswerCount",  limit: 4,   default: 0, null: false
+    t.integer  "subquestion_id", limit: 4
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.integer  "subquestion_id", limit: 4
   end
 
   add_index "subquestionanswers", ["subquestion_id"], name: "fk_rails_90056cfaf9", using: :btree
 
   create_table "subquestions", force: :cascade do |t|
     t.text     "SQDesc",     limit: 65535
-    t.string   "SQChar",     limit: 10
+    t.string   "SQChar",     limit: 255
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "answer_id",  limit: 4
@@ -176,14 +176,14 @@ ActiveRecord::Schema.define(version: 20161017074359) do
     t.integer  "age",                    limit: 4
     t.string   "programme",              limit: 255
     t.integer  "role_id",                limit: 4
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
-    t.string   "email",                  limit: 255, default: "",         null: false
-    t.string   "encrypted_password",     limit: 255, default: "",         null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,          null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -192,7 +192,6 @@ ActiveRecord::Schema.define(version: 20161017074359) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",      limit: 255
-    t.string   "statusUs",               limit: 255, default: "deactive"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
