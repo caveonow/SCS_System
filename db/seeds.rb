@@ -16,8 +16,8 @@ r1 = Role.create({name: "Student", description: "Can read items"})
 r2 = Role.create({name: "Staff", description: "Can read and create items. Can update and destroy own items"})
 r3 = Role.create({name: "Admin", description: "Can perform any CRUD operation on any resource"})
 
-#u1 = User.create({name: "Sally", email: "sally@example.com",age: "12",ICNo:"930219-14-5252",programme:"RSD",  password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r1.id})
-#u1.confirm
+u1 = User.create({name: "Sally", email: "sally@example.com",age: "12",ICNo:"930219-14-5252",programme:"RSD",  password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r3.id})
+u1.confirm
 u2 = User.create({name: "Sue", email: "sue@example.com",age: "13",ICNo:"930219-14-5251",programme:"", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r3.id})
 u2.confirm
 u3 = User.create({name: "Kev", email: "kev@example.com",age: "14",ICNo:"930219-14-5253",programme:"", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r2.id})
