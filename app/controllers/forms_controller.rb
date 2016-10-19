@@ -133,12 +133,51 @@ class FormsController < ApplicationController
  
   
   def create_survey
+    @form = Form.new
+  end
+  
+  def submit_create_survey
+    @form = Form.new(form_params)
+    @form.FormDateTime = Time.now
+    @form.FormStatus = 'Available'
+    @form.user_id = "1" #change later
     
+    respond_to do |format|
+      if @form.save
+        @save = true;  
+        @section = Section.new
+        format.html
+        format.json
+        format.js
+        puts "success"
+      else
+        @save = false;
+        puts "fail"
+        format.html
+        format.json
+        format.js
+      end
+    end
+  end
+  def submit_create_section
+    @section = Section.new(section_params)    
+    respond_to do |format|
+      if @section.save
+        @save = true;  
+        format.html
+        format.json
+        format.js
+        puts "success"
+      else
+        @save = false;
+        puts "fail"
+        format.html
+        format.json
+        format.js
+      end
+    end
   end
   #---------------------------------- FORM CREATION ----------------------------------#
-  def createForm
-    
-  end
   
   # GET /forms
   # GET /forms.json
@@ -177,6 +216,9 @@ class FormsController < ApplicationController
       end
     end
   end
+
+
+
 
   # PATCH/PUT /forms/1
   # PATCH/PUT /forms/1.json
@@ -230,6 +272,9 @@ class FormsController < ApplicationController
       params.require(:form).permit(:FormName, :FormDescription)
     end
     
+    def section_params
+      params.require(:section).permit(:SectionName, :SectionDescription, :form_id)
+    end
     #---------------------------------- FORM ANSWERING ----------------------------------#
     def formanswer_params
       params.require(:formanswer).permit(:FormAnswer, :StudAnswerDateTime, :form_id)

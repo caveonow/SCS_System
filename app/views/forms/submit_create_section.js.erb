@@ -1,0 +1,16 @@
+
+<% if @save%>
+	var section_id = <%= @section.id%>;
+	var link = "<a href='/questions/new_create?section_id=" + section_id+ "'> Click ME! </a>";
+	$('#section_create').css('background-color', '#44e251');
+	$('#create_section_div').slideUp(350);
+	$('#create_section_div').hide();
+	$('#display_section_div').slideDown(350);
+	$('#display_section_div').append("Section Creation Success! <br/>");
+	$('#display_section_div').append("Begin Creating Questions > > > > > <h3>" + link + "</h3>");
+	
+	
+<%else%>
+	$('#section_create').css('background-color', 'red');
+	$('#section_error_message').append("<h1>Error empty fields</h1>"); 
+<%end%>

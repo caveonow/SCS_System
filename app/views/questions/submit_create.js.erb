@@ -1,0 +1,13 @@
+
+<% if @save%>
+	
+	$('#question_create').css('background-color', '#44e251');
+	$('#create_question_div').slideUp(350);
+	$('#create_question_div').hide();
+	$('#display_question_div').slideDown(350);
+	$('#display_question_div').append("question Creation Success!");
+	
+<%else%>
+	$('#question_create').css('background-color', 'red');
+	$('#question_error_message').append("<h1>Error empty fields</h1>"); 
+<%end%>

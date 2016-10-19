@@ -1,0 +1,18 @@
+
+<% if @save%>
+	
+	$('#form_create').css('background-color', '#44e251');
+	$('#create_form_div').slideUp(350);
+	$('#create_form_div').hide();
+	$('#form_error_message').hide();
+	$('#display_form_div').slideDown(350);
+	$('#display_form_div').append("Form Creation Success!");
+	
+	$('#form_name_add').append("'<b><%= @form.FormName%></b>'");
+	$('#section_create').show();
+	$('#create_section_div').html("<%= j (render 'newSection') %>");
+
+<%else%>
+	$('#form_create').css('background-color', 'red');
+	$('#form_error_message').append("<h1>Error empty fields</h1>"); 
+<%end%>

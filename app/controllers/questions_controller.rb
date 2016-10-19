@@ -1,6 +1,33 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
+
+
+  def new_create
+    @question = Question.new
+  end
+
+  def submit_create
+    @question = Question.new(question_params)
+   
+    respond_to do |format|
+      if @question.save
+        @save = true;  
+        format.html
+        format.json
+        format.js
+        puts "success"
+      else
+        @save = false;
+        puts "fail"
+        format.html
+        format.json
+        format.js
+      end
+    end
+  end
+
+
   # GET /questions
   # GET /questions.json
   def index
@@ -69,6 +96,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:QuestionDesc, :QuestionNumber, :isSubQuestion, :section_id)
+      params.require(:question).permit(:QuestionDesc, :QuestionNumber, :section_id)
     end
 end

@@ -14,13 +14,13 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: caveon3845
+  password: admin
   socket: /var/run/mysqld/mysqld.sock
-
+#password for nick is "admin"
 development:
   <<: *default
   database: SCS_System_development
-
+# database for nick is SCS_System_development2
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.

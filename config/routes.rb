@@ -4,12 +4,22 @@ Rails.application.routes.draw do
   resources :subanswers
   resources :answers
   resources :subquestions
-  resources :questions
+  resources :questions do
+    collection do
+      get 'new_create' #new_create_questions_path
+      post 'submit_create'
+    end
+  end
   resources :sections
   resources :reports
   resources :forms do
     collection do 
       get 'create_survey' #create_survey_form_path 
+      post 'submit_create_survey'
+      
+      #change this later with correct path
+      #get 'create_section'
+      post 'submit_create_section'
     end
   end
     #---------------------------------- FORM CREATION ----------------------------------#

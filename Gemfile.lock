@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/heroku/rails_log_stdout.git
-  revision: f9a92758f2d5dca5a88bf899a83256302f16ab6c
-  specs:
-    rails_log_stdout (0.0.1)
-
-GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
   revision: d486b31b192a2924b1913e080ad23460e6b96d31
   specs:
@@ -241,7 +235,6 @@ DEPENDENCIES
   puma
   rails (= 4.2.6)
   rails_12factor
-  rails_log_stdout!
   rmagick
   roo
   sass-rails (~> 5.0)

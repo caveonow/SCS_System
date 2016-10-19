@@ -1,8 +1,7 @@
-<%= form_for(@form) do |f| %>
+<%= form_for @form, :id => "form_creation" ,  :url => submit_create_survey_forms_path, remote: true do |f| %>
   <% if @form.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@form.errors.count, "error") %> prohibited this form from being saved:</h2>
-
       <ul>
       <% @form.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,65 +9,31 @@
       </ul>
     </div>
   <% end %>
-  
-  <div class="row">
-    <div class="large-6 columns">
-       <%= f.label :FormName, 'Form Name' %>
-        <%= f.text_field :FormName%>
-    </div>
-    
-    <div class="large-6 columns">
-	    <%= f.label :FormDescription, 'Form Description' %>
-	    <%= f.text_field :FormDescription%>
-    </div>  
- </div>  
-  
-  <div class="row">
-	<div class="large-5 columns">
-		<br/>
-	</div>
-	<div class="large-1 columns">
-		<%= f.submit data: { confirm: 'Are you sure?' }%>
-	</div>
+
+	<div class="row">
+		<div class="large-12 columns new_form">
+	        <%= f.label :FormName, 'Form Name' %>
+	        <%= f.text_field :FormName%>
+    	</div>
+	</div>  
+ 
+	<div class="row">
+ 		<div class="large-12 columns">
+		    <%= f.label :FormDescription, 'Form Description' %>
+		    <%= f.text_field :FormDescription%>
+		</div>  
+ 	</div>	
+ 	
+	<div class="row">
 	<div class="large-6 columns">
-		<br/>
-	</div>	
+		<%= f.submit data: { confirm: 'Are you sure?' }, :value => "Create"%>
+	</div>
+		<div class="large-6 columns">
+	<%= f.submit "clear", :type => "reset" %>
+	</div>
   </div>
 
 <% end %>
 
-
-  <div class="row">
-    <div class="large-12 columns">
-      <label>Select Box
-        <select>
-          <option value="husker">Husker</option>
-          <option value="starbuck">Starbuck</option>
-          <option value="hotdog">Hot Dog</option>
-          <option value="apollo">Apollo</option>
-        </select>
-      </label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-6 columns">
-      <label>Choose Your Favorite</label>
-      <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Red</label>
-      <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Blue</label>
-    </div>
-    <div class="large-6 columns">
-      <label>Check these out</label>
-      <input id="checkbox1" type="checkbox"><label for="checkbox1">Checkbox 1</label>
-      <input id="checkbox2" type="checkbox"><label for="checkbox2">Checkbox 2</label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns">
-      <label>Textarea Label
-        <textarea placeholder="small-12.columns"></textarea>
-      </label>
-    </div>
-  </div>
-</form>
 
 

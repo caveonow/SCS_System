@@ -16,19 +16,19 @@
     <%= f.text_area :AnswerDesc %>
   </div>
   <div class="field">
-    <%= f.label :isSubAnswer %><br>
-    <%= f.check_box :isSubAnswer %>
+    <%= f.label :IsSubAnswer %><br>
+    <%= f.check_box :IsSubAnswer %>
+  </div>
+  <div class="field">
+    <%= f.label :IsSubQuestion %><br>
+    <%= f.check_box :IsSubQuestion %>
   </div>
   <div class="field">
     <%= f.label :AnswerCount %><br>
     <%= f.number_field :AnswerCount %>
   </div>
   <div class="field">
-    <%= f.label :subquestion_id %><br>
-    <%= f.text_field :subquestion_id %>
-  </div>
-  <div class="field">
-    <%= f.label :question_id %><br>
+    <%= f.label :question_id , "Question ID"%><br>
     <%= f.text_field :question_id %>
   </div>
   <div class="actions">
