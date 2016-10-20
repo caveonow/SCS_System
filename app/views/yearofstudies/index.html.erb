@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Yearofstudies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Yeardetails</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @yearofstudies.each do |yearofstudy| %>
+      <tr>
+        <td><%= yearofstudy.year %></td>
+        <td><%= link_to 'Show', yearofstudy %></td>
+        <td><%= link_to 'Edit', edit_yearofstudy_path(yearofstudy) %></td>
+        <td><%= link_to 'Destroy', yearofstudy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Yearofstudy', new_yearofstudy_path %>

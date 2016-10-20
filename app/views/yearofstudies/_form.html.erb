@@ -1,0 +1,21 @@
+<%= form_for(@yearofstudy) do |f| %>
+  <% if @yearofstudy.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@yearofstudy.errors.count, "error") %> prohibited this yearofstudy from being saved:</h2>
+
+      <ul>
+      <% @yearofstudy.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :year %><br>
+    <%= f.text_field :year %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

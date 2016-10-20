@@ -1,0 +1,1 @@
+json.partial! "levelofstudies/levelofstudy", levelofstudy: @levelofstudy

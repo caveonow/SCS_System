@@ -36,13 +36,18 @@
 	</div>
 	
 	<div class="field field-padding">
-	  <%= f.label :age %><br />
-	  <%= f.text_field :age %>
+		<%= f.label :faculty_id %><br>
+		<%= collection_select(:programme, :faculty_id, Faculty.all, :id, :facultyname, {prompt: true}) %>  
 	</div>
-
+	
 	<div class="field field-padding">
-	  <%= f.label :programme %><br />
-	  <%= f.text_field :programme %>
+		<%= f.label :levelofstudy_id %><br>
+		<%= collection_select(:user, :levelofstudy_id, Levelofstudy.all, :id, :levelname, {prompt: true}) %>  
+	</div>
+	
+	<div class="field field-padding">
+		<%= f.label :yearofstudy_id %><br>
+		<%= collection_select(:user, :yearofstudy_id, Yearofstudy.all, :id, :year, {prompt: true}) %>  
 	</div>
 
   <div class="actions field-padding">

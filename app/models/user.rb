@@ -4,13 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable , :confirmable, :timeoutable
   
-  has_many :report       
+  has_many :reports      
   belongs_to :role
+  belongs_to :faculty
+  belongs_to :yearofstudy
+  belongs_to :levelofstudy
   has_many :advertisements
   
   validates_presence_of :name
   validates_uniqueness_of :ICNo, :email
-  validates :age, :numericality => { :only_integer => true}
   validates_format_of :ICNo, :with => /\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])-\d{2}-\d{4}/
   before_save :assign_role
   

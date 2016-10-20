@@ -1,0 +1,1 @@
+json.partial! "yearofstudies/yearofstudy", yearofstudy: @yearofstudy

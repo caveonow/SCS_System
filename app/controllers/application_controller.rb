@@ -5,22 +5,9 @@ class ApplicationController < ActionController::Base
 
   #devise configuration
   protected
- # def configure_permitted_parameters
- #   devise_parameter_sanitizer.permit(:sign_up)  do |user_params|
-  #  user_params.permit({ roles: [] },  :email, :name, :ICNo ,:age , :programme, :password, :password_confirmation)
-  #  end
- # end
-  
- # protected
-  #def configure_permitted_parameters_update
-  #  devise_parameter_sanitizer.permit(:account_update)  do |user_params|
-  #  user_params.permit({ roles: [] },  :email, :name, :ICNo ,:age , :programme, :password, :password_confirmation)
-  #  end
-  #end
- 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email,:name,:age,:ICNo,:programme])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email,:name,:age,:ICNo,:programme])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email,:name,:ICNo,:faculty,:levelofstudy,:yearofstudy])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email,:name,:ICNo])
   end
   
   helper_method :current_user 

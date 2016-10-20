@@ -1,0 +1,1 @@
+json.array! @levelofstudies, partial: 'levelofstudies/levelofstudy', as: :levelofstudy

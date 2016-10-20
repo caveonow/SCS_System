@@ -49,6 +49,12 @@ ActiveRecord::Schema.define(version: 20161123161621) do
     t.datetime "updated_at",                                  null: false
   end
 
+  create_table "faculties", force: :cascade do |t|
+    t.string   "facultyname", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "formanswers", force: :cascade do |t|
     t.string   "FormAnswer",         limit: 255
     t.datetime "StudAnswerDateTime"
@@ -72,6 +78,21 @@ ActiveRecord::Schema.define(version: 20161123161621) do
   end
 
   add_index "forms", ["user_id"], name: "fk_rails_cf8d802097", using: :btree
+
+  create_table "levelofstudies", force: :cascade do |t|
+    t.string   "levelname",  limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "programmes", force: :cascade do |t|
+    t.string   "programmename", limit: 255
+    t.integer  "faculty_id",    limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "programmes", ["faculty_id"], name: "index_programmes_on_faculty_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "QuestionDesc",   limit: 65535
@@ -173,9 +194,10 @@ ActiveRecord::Schema.define(version: 20161123161621) do
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255
     t.string   "ICNo",                   limit: 255
-    t.integer  "age",                    limit: 4
-    t.string   "programme",              limit: 255
     t.integer  "role_id",                limit: 4
+    t.integer  "faculty_id",             limit: 4
+    t.integer  "yearofstudy_id",         limit: 4
+    t.integer  "levelofstudy_id",        limit: 4
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "email",                  limit: 255, default: "", null: false
@@ -196,18 +218,28 @@ ActiveRecord::Schema.define(version: 20161123161621) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["faculty_id"], name: "index_users_on_faculty_id", using: :btree
+  add_index "users", ["levelofstudy_id"], name: "index_users_on_levelofstudy_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
+  add_index "users", ["yearofstudy_id"], name: "index_users_on_yearofstudy_id", using: :btree
 
   create_table "welcomes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "yearofstudies", force: :cascade do |t|
+    t.string   "year",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   add_foreign_key "answers", "questions"
   add_foreign_key "formanswers", "forms"
   add_foreign_key "formanswers", "users"
   add_foreign_key "forms", "users"
+  add_foreign_key "programmes", "faculties"
   add_foreign_key "questions", "sections"
   add_foreign_key "sections", "forms"
   add_foreign_key "studanswers", "formanswers"
@@ -216,5 +248,8 @@ ActiveRecord::Schema.define(version: 20161123161621) do
   add_foreign_key "subanswers", "answers"
   add_foreign_key "subquestionanswers", "subquestions"
   add_foreign_key "subquestions", "answers"
+  add_foreign_key "users", "faculties"
+  add_foreign_key "users", "levelofstudies"
   add_foreign_key "users", "roles"
+  add_foreign_key "users", "yearofstudies"
 end

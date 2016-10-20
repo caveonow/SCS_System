@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :faculties
+  resources :programmes
+  resources :levelofstudies
+  resources :yearofstudies
   resources :subquestionanswers
   resources :subanswers
   resources :answers

@@ -1,0 +1,1 @@
+json.array! @yearofstudies, partial: 'yearofstudies/yearofstudy', as: :yearofstudy

@@ -9,6 +9,7 @@
       <th></th>
       <th>Email</th>
       <th>Name</th>
+      <th>Last Login</th>
       <th>Role</th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
       	<td align="middle"><%= check_box_tag "user_ids[]", user.id ,false ,class: "checkbox"%></td>
       	<td><%= user.email %></td>
         <td><%= user.name %></td>
+        <td><%= user.last_sign_in_at %></td>
         <td><%= user.role.name %></td>
         </div>
       </tr>
