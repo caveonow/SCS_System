@@ -1,7 +1,7 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
   respond_to :html, :js
-  helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_subquestion , :obtain_subquestionanswer, :check_answered, :trySomething
+  helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_subquestion , :obtain_subquestionanswer, :check_answer, :check_subanswer, :check_subquestionanswer
 
 
 #---------------------------------- FORM ANSWERING ----------------------------------#
@@ -15,10 +15,18 @@ class FormsController < ApplicationController
     @selectedSections = Section.where("form_id = ?", params[:formId])
   end
   
-    def check_answered(fa_id, ans_id)
+    def check_answer(fa_id, ans_id)
       Studanswer.where("answer_id = ? AND formanswer_id = ?", ans_id, fa_id)
     end
-  
+    
+    def check_subanswer(fa_id, subans_id)
+      Studsubanswer.where("subanswer_id = ? AND formanswer_id = ?", subans_id, fa_id)
+    end
+    
+    def check_subquestionanswer(fa_id, subquestans_id)
+      Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?", subquestans_id, fa_id)
+    end
+     
     def obtain_questions(section_id)
       Question.where( "questions.section_id= ?" , section_id)
     end
@@ -59,7 +67,7 @@ class FormsController < ApplicationController
         @test.save
       end
       
-    
+     
   end
  
  #Display Question
@@ -82,10 +90,11 @@ class FormsController < ApplicationController
   #Display SubQuestion
   def displaySubQ   
     @subQ = Subquestion.where( "subquestions.answer_id = ?", params[:radio_answer_id])
-    @qNum = Answer.select( " questions.QuestionNumber , answers.id" )
+    @qNum = Answer.select( " questions.QuestionNumber , answers.id, answers.question_id" )
                   .joins( :question)
                   .where(" answers.id = ?", params[:radio_answer_id]).first
-    @formAnswer = Formanswer.where("id = ?", params[:formanswer_id]).first              
+    @formAnswer = Formanswer.where("id = ?", params[:formanswer_id]).first      
+      
     respond_to do |format|
       format.js
     end  
@@ -93,16 +102,14 @@ class FormsController < ApplicationController
   end
   
   def displaySubA
-        
     @subA = Subanswer.where( "subanswers.answer_id = ?", params[:radio_answer_id])
-
+    @formAnswer = Formanswer.where("id = ?", params[:formanswer_id]).first     
       respond_to do |format|
       format.js
     end  
   end
 
-  def saveAns
-    
+  def saveAns 
        @getAnswer =  Studanswer.where("answer_id = ? AND formanswer_id = ?",params[:answer_id],params[:formanswer_id])   
          if @getAnswer.empty?
               @answer = Studanswer.new do |a|
@@ -118,13 +125,80 @@ class FormsController < ApplicationController
     render :nothing => true
   end
   
+#      if StudAnswer.empty? (EMPTY)                  
+#      Check answer given (if ANSWER == @getquestionAnswer.id)
+#        Then ADD ANSWER
+#      Check answer given (if ANSWER != @getquestionAnswer.id)
+#        Do Nothing
+#        
+#    else !StudAnswer.empty? (NOT EMPTY)                 
+#     Check answer given (if ANSWER == @getquestionAnswer.id)
+#       Then Do Nothing
+#     Check answer given (if ANSWER != @getquestionAnswer.id)
+#       Then REMOVE ANSWER
+  
+  def saveAnsForSubs
+    @getQuestionAnswers = Answer.where("question_id = ?", params[:q_id])
+    @value = params[:answer_id]
+    @getQuestionAnswers.each do |getQA|
+      @getAnswer =  Studanswer.where("answer_id = ? AND formanswer_id = ?", getQA.id ,params[:formanswer_id])
+      if @getAnswer.empty?
+        puts "empty"
+        puts @value
+        puts getQA.id
+        if @value.to_i == getQA.id
+           #save answer
+           puts "I ADDS"
+           @answer = Studanswer.new do |a|
+             a.answer_id = params[:answer_id]
+             a.formanswer_id = params[:formanswer_id]
+           end
+           @answer.save
+         end
+      else !@getAnswer.empty?
+        puts "not empty"
+         #remove the answer
+         if @value.to_i != getQA.id
+           puts "I REMOVES"
+            @getAnswer.first.destroy
+            @getSubQuestionAnswer = Subquestionanswer.where("id = ?", )
+            @test =  Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?",params[:subQAnswer_id],params[:formanswer_id])   
+         end
+      end
+    end
+    
+     render :nothing => true
+  end
   
   
   def saveSAns
-    
+    ##recheck
+     @getAnswer =  Studsubanswer.where("subanswer_id = ? AND formanswer_id = ?",params[:subAnswer_id],params[:formanswer_id])   
+         if @getAnswer.empty?
+              @answer = Studsubanswer.new do |a|
+                a.subanswer_id = params[:subAnswer_id]
+                a.formanswer_id = params[:formanswer_id]
+              end
+              @answer.save
+         else 
+           @getAnswer.first.destroy
+         end
+ 
+   
+    render :nothing => true
   end
   def saveSQAns
-    
+         @getAnswer =  Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?",params[:subQAnswer_id],params[:formanswer_id])   
+         if @getAnswer.empty?
+              @answer = Studsubquestionanswer.new do |a|
+                a.subquestionanswer_id = params[:subQAnswer_id]
+                a.formanswer_id = params[:formanswer_id]
+              end
+              @answer.save
+         else 
+           @getAnswer.first.destroy
+         end   
+    render :nothing => true
   end
   #---------------------------------- FORM ANSWERING ----------------------------------#
   

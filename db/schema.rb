@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123161621) do
+ActiveRecord::Schema.define(version: 20161123161623) do
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "AdvertisementName",        limit: 255
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20161123161621) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "AnswerDesc",    limit: 65535
-    t.boolean  "isSubAnswer"
+    t.boolean  "IsSubAnswer"
     t.boolean  "IsSubQuestion"
     t.integer  "AnswerCount",   limit: 4
     t.datetime "created_at",                  null: false
@@ -166,9 +166,9 @@ ActiveRecord::Schema.define(version: 20161123161621) do
   create_table "subquestionanswers", force: :cascade do |t|
     t.string   "SQAnswer",       limit: 255
     t.integer  "SQAnswerCount",  limit: 4,   default: 0, null: false
-    t.integer  "subquestion_id", limit: 4
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.integer  "subquestion_id", limit: 4
   end
 
   add_index "subquestionanswers", ["subquestion_id"], name: "fk_rails_90056cfaf9", using: :btree

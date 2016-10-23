@@ -1,10 +1,16 @@
 <div class = "row" style="margin-left:40px">
 	<% @subQ.each do |sq| %>
-	<h2><%=@qNum.QuestionNumber%><%= sq.SQChar%>. <%= sq.SQDesc%></h2>
+		<h2><%=@qNum.QuestionNumber%><%= sq.SQChar%>. <%= sq.SQDesc%></h2>
 	<% obtain_subquestionanswer(sq.id).each do |sqa|%>
 		<br/>
-		<p><%= check_box_tag 'SQAnswer_ids[]', sqa.id -%>
-		<%= sqa.SQAnswer%> </p>
+			<% if check_subquestionanswer(params[:formanswer_id], sqa.id).empty? %>
+				<% @value = false%>																		
+			<%else%>
+				<% @value = true%>			
+			<%end%> 	
+									
+			<p><%= check_box_tag 'subQAnswer_id', sqa.id, @value , data: {url: form_saveSQAns_path(:subQAnswer_id => sqa.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
+			<%= sqa.SQAnswer%> </p>
+		<%end%>
 	<%end%>
-<%end%>
 </div>

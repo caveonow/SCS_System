@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :studsubquestionanswers
+  resources :studsubanswers
   resources :faculties
   resources :programmes
   resources :levelofstudies
@@ -45,6 +47,7 @@ Rails.application.routes.draw do
     post '/form_saveAns'  => 'forms#saveAns', as: 'form_saveAns'
     post '/form_saveSAns'  => 'forms#saveSAns', as: 'form_saveSAns'
     post '/form_saveSQAns'  => 'forms#saveSQAns', as: 'form_saveSQAns'
+    post '/form_saveAnsForSubs'  => 'forms#saveAnsForSubs', as: 'form_saveAnsForSubs'
     #---------------------------------- FORM ANSWERING ----------------------------------#  
   resources :studanswers
   resources :formanswers

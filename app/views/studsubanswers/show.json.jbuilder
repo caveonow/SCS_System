@@ -1,0 +1,1 @@
+json.partial! "studsubanswers/studsubanswer", studsubanswer: @studsubanswer

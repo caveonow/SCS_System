@@ -1,0 +1,1 @@
+json.array! @studsubanswers, partial: 'studsubanswers/studsubanswer', as: :studsubanswer

@@ -8,34 +8,34 @@
 							<br/>
 							<%if !a.IsSubQuestion or a.IsSubQuestion == 0%>			
 
-								<% if check_answered(params[:formanswer_id], a.id).empty? %>
+								<% if check_answer(params[:formanswer_id], a.id).empty? %>
 									<% @value = false%>																		
 								<%else%>
 									<% @value = true%>			
 								<%end%> 											
-
 									<p><%= check_box_tag  'answer_id', a.id, @value , data: {url: form_saveAns_path(:answer_id => a.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
 									<%= a.AnswerDesc%></p>		
-	
 							
-							<%elsif a.IsSubQuestion or a.IsSubQuestion == 1%>
-							
+							<%elsif a.IsSubQuestion or a.IsSubQuestion == 1%>							
 								<!-- Find better way later !-->
-								<% if check_answered(params[:formanswer_id], a.id).empty? %>
-									<% @value = false%>																		
+								<% if check_answer(params[:formanswer_id], a.id).empty? %>
+									<% @value = false%>																	
 								<%else%>
 									<% @value = true%>	
+																				    		
 								<%end%> 
-								############################## this one need to add something new ##################################################
-									<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: { url: form_display_subquestion_path(:formanswer_id => params[:formanswer_id]), remote: true}  -%>
-									<%= a.AnswerDesc%></p> 
+									<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: { url: form_display_subquestion_path(:formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true}  -%>
+									<%= a.AnswerDesc%></p> 	
+									<% if @value%>
+										<div id="displaySubQuestionButton" ><%= button_tag 'Display SubQuestion', :class => "button", data: { url: form_display_subquestion_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
+									<%end%>
+																
 							<%end%>
 								
 								
-								
 						<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
-							<br/>
-							<p><%= radio_button_tag  'radio_answer_id', a.id, false , data: { url: form_display_subanswer_path, remote: true}  -%>
+							<br/>##do dis
+							<p><%= radio_button_tag  'radio_answer_id', a.id, false , data: { url: form_display_subanswer_path(:formanswer_id => params[:formanswer_id]), remote: true}  -%>
 							<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]
 							<br/>
 						<%end%>

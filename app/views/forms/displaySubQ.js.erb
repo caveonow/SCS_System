@@ -2,7 +2,10 @@ $('#displaySubQuestion').slideUp(350);
 $('#displaySubQuestion').html("<%= j (render 'subQuestionShow') %>");
 $('#displaySubQuestion').slideDown(350);
 
+$('#displaySubQuestionButton').hide();
+
 	$.ajax({
 	    type:'POST',
-	    url:'/form_saveAns?answer_id=<%= @qNum.id%>&formanswer_id=<%= @formAnswer.id%>'
+	    url:'/form_saveAnsForSubs?q_id=<%=@qNum.question_id%>&answer_id=<%= @qNum.id%>&formanswer_id=<%= @formAnswer.id%>'
 	});
+
