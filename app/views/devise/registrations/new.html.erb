@@ -1,14 +1,14 @@
 
-<div class="row">
-<div class="medium-6 medium-centered large-4 large-centered columns">
-<div class="row column log-in-form">
-	<h4 class="text-center">Sign up</h4>
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <div class="large-centered">
   <%= devise_error_messages! %>
-
+  </div>
+<div class="row log-in-form">
+	<h4 class="text-center">Sign up </h4>
+<div class="small-6 columns">
+	
   <div class="field field-padding">
-    <%= f.label :email %><br />
+    <%= f.label :email , "Email"%><br />
     <%= f.email_field :email, autofocus: true, plcaeholder:"someone@example.com" %>
   </div>
 
@@ -26,35 +26,62 @@
   </div>
 
 	<div class="field field-padding">
-	  <%= f.label :name %><br />
+	  <%= f.label :name ,"Name"%><br />
 	  <%= f.text_field :name %>
 	</div>
 	
 	<div class="field field-padding">
-	  <%= f.label :ICNo, "IC number" %><br />
+	  <%= f.label :ICNo, "IC Number" %><br />
 	  <%= f.text_field :ICNo%>
 	</div>
 	
 	<div class="field field-padding">
-		<%= f.label :faculty_id %><br>
-		<%= collection_select(:programme, :faculty_id, Faculty.all, :id, :facultyname, {prompt: true}) %>  
+	  <%= f.label :DateOfBirth, "Date of Birth" %><br />
+	  <%= f.text_field :DateOfBirth%>
 	</div>
 	
 	<div class="field field-padding">
-		<%= f.label :levelofstudy_id %><br>
-		<%= collection_select(:user, :levelofstudy_id, Levelofstudy.all, :id, :levelname, {prompt: true}) %>  
+	  <%= f.label :age, "Age" %><br />
+	  <%= f.text_field :age ,:readonly => true%>
+	</div>
+	
+	
+</div>
+<div class="small-6 columns">
+	
+	<div class="field field-padding">
+	  <%= f.label :gender, "Gender" %><br />
+	  <%= f.radio_button :gender, 'Male', :checked => true %> 
+	  <%= label :gender, 'Male' %>
+	  <%= f.radio_button :gender, 'Female' %>
+	  <%= label :gender, 'Female' %>
+	</div>	
+	
+	<div class="field field-padding">
+		<%= f.label :faculty_id, "Faculty" %><br>
+		<%= collection_select(:user, :faculty_id, Faculty.where.not(facultyname: "All"), :id, :facultyname, {prompt: true}) %>  
 	</div>
 	
 	<div class="field field-padding">
-		<%= f.label :yearofstudy_id %><br>
-		<%= collection_select(:user, :yearofstudy_id, Yearofstudy.all, :id, :year, {prompt: true}) %>  
+		<%= f.label :programme_id , "Programme"%><br>
+		<%= collection_select(:user, :programme_id, Programme.where.not(programmename: "All"), :id, :programmename, {prompt: true}) %>  
 	</div>
-
+	
+	<div class="field field-padding">
+		<%= f.label :levelofstudy_id ,"Level"%><br>
+		<%= collection_select(:user, :levelofstudy_id, Levelofstudy.where.not(levelname: "All"), :id, :levelname, {prompt: true}) %>  
+	</div>
+	
+	<div class="field field-padding">
+		<%= f.label :yearofstudy_id , "Year"%><br>
+		<%= collection_select(:user, :yearofstudy_id, Yearofstudy.where.not(year: "All"), :id, :year, {prompt: true}) %>  
+	</div>
+</div>
   <div class="actions field-padding">
     <%= f.submit "Sign up", :class => 'button expanded' %>
   </div>
 <% end %>
 </div>
-</div>
-</div>
-<%= render "devise/shared/links" %>
+
+<!--
+<%= render "devise/shared/links" %>-->

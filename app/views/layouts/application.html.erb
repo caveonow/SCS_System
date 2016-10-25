@@ -39,6 +39,7 @@
         <ul class="submenu menu vertical" data-submenu>
 		  <li><%= link_to 'Create Advertisement', new_advertisement_path() %></li>
 		  <li><%= link_to 'Manage Advertisement', advertisements_path() %></li>
+		  <li><%= link_to 'Manage Group Advertisement'%></li>
 		  <li><%= link_to 'Create Banner', new_bannerslide_path() %></li>
 		  <li><%= link_to 'Manage Banner', bannerslides_path() %></li>
 		  </ul>
@@ -95,10 +96,10 @@
 	<% elsif  user_signed_in? && current_user.student? %>
 		<div class="top-bar" id="main-menu">
 		  <div class="top-bar-left">
-		    <ul class="dropdown menu" data-dropdown-menu>  	
-		      <li class="menu-text" style="color: black">Home</li>
-		    </ul>
-		  </div>
+    		<ul class="menu" data-dropdown-menu>
+    		<%= link_to(image_tag("/assets/Survey-logo.jpg", :alt => "logo", :title => "Home", :style=>"max-height:35px;max-width: 150px;"),'/') %>
+    		</ul>
+  		  </div>
 		  <div class="top-bar-left">
 		    <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
 		    	<li class="has-submenu">
@@ -128,6 +129,11 @@
 
 	<%else%>
 	<div class="top-bar" id="main-menu">
+		<div class="top-bar-left">
+		    <ul class="menu" data-dropdown-menu>
+		      <%= link_to(image_tag("/assets/Survey-logo.jpg", :alt => "logo", :title => "Home", :style=>"max-height:35px;max-width: 150px;"),'/') %>
+		    </ul>
+		</div>
 	<ul class="menu" data-responsive-menu="drilldown medium-dropdown">
 		<% if user_signed_in? %>
 	  		Signed in as <%= current_user.email %>. Not you?

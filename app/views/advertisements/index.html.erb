@@ -1,18 +1,59 @@
 <p id="notice"><%= notice %></p>
-	<div class="row align-right">
+	
+	<div class="row">
 		<%= link_to 'New Advertisement', new_advertisement_path %>
-	</div>	
-	<%= form_tag selectAds_path ,method: :put do %>
-	<div class="row small-up-1 medium-up-2 large-up-3">
-	<% @advertisements.each do |advertisement| %>
-	<div class="columns adbsbox">
-      <%= image_tag advertisement.imageAd_url(:thumb), :style => "height:200px; width:400px;"%>
-      <h4>Title: <%= link_to advertisement.AdvertisementName, advertisement %></h4>
-      <p>Description: <%= advertisement.AdvertisementDescription %></p>
-      <p>Select to active: <%= radio_button_tag 'advertisement_id[]', advertisement.id,true %></p>
+	</div>
+    
+	
+	<%= form_for selectAds_path ,method: :put do |f|%>
+	
+	
+	<div class="row">
+		<div class="small-4 columns adbsbox">
+			<h4>Select field allow group to view</h4>
+					
+		        <div class="field field-padding" ">				
+					<%= f.label :advertisement_id %><br>
+					<%= collection_select(:advertisement, :advertisement_id, Advertisement.all, :id, :AdvertisementName, {prompt: true}) %>  
+				</div>
+			
+				<div class="field field-padding" ">				
+					<%= f.label :faculty_id, "faculty" %><br>
+					<%= collection_select(:advertisement, :faculty_id, Faculty.all, :id, :facultyname, {prompt: true}) %>  
+				</div>
+				
+				<div class="field field-padding">
+					<%= f.label :programme_id , "programme"%><br>
+					<%= collection_select(:advertisement, :programme_id, Programme.all, :id, :programmename, {prompt: true}) %>  
+				</div>
+				
+				<div class="field field-padding">
+					<%= f.label :levelofstudy_id ,"level"%><br>
+					<%= collection_select(:advertisement, :levelofstudy_id, Levelofstudy.all, :id, :levelname, {prompt: true}) %>  
+				</div>
+				
+				<div class="field field-padding">
+					<%= f.label :yearofstudy_id , "year"%><br>
+					<%= collection_select(:advertisement, :yearofstudy_id, Yearofstudy.all, :id, :year, {prompt: true}) %>  
+				</div>
+
+    
+        </div>
+        
+        <div class="small-8 columns" style="height: 530px;overflow-y:scroll;">
+        <div class="row" >	
+		        <% @advertisements.each do |advertisement| %>
+			<div class="columns large-6 adbsbox" >
+		      <%= image_tag advertisement.imageAd_url(:thumb), :style => "height:200px; width:400px;"%>
+		      <h4>Title: <%= link_to advertisement.AdvertisementName, advertisement %></h4>
+		      <p>Description: <%= advertisement.AdvertisementDescription %></p>
+		      <p>Select to active: <%= radio_button_tag 'advertisement_id[]', advertisement.id,true %></p>
+		    </div>
+			  <%end%>
+        </div>
+        </div>
     </div>
-		<%end%>
-    </div>
+    
 <br>
 <div class="row align-right">
 <%= submit_tag "Activate Selected Advertisment" %>

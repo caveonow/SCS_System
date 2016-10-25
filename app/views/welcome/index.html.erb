@@ -1,17 +1,90 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css" />
 </head>
-
+  
+<div class="tabs-content" data-tabs-content="example-tabs">
+	<% if user_signed_in? %>
+	<% $tab = 1 %>
+	<div class="row ">
+	<ul class="tabs" data-tabs id="example-tabs">	
+		     
+		<% until $tab > @checkadverdcount%>
+			<% @tabAd = "panel"%>
+			<% @tabAd << $tab.to_s %>
+		    <% if $tab == 1 %>
+			  <li class="tabs-title  is-active">
+			  	<% @checkadverd.each do |advertisement| %>
+				  	<%if advertisement.id == $tab%>
+				  	<a href="#<%= @tabAd %>" aria-selected="true"><%=advertisement.advertisement.AdvertisementName%></a>
+				  	<%end%>
+			  	<%end%>
+			  </li>
+			  <% $tab += 1 %>
+			<%else%>
+			  <li class="tabs-title">
+			  	<% @checkadverd.each do |advertisement| %>
+				  	<%if advertisement.id == $tab%>
+				  	<a href="#<%= @tabAd %>" aria-selected="true"><%=advertisement.advertisement.AdvertisementName%></a>
+				  	<%end%>
+			  	<%end%>
+			  </li>
+			  <% $tab += 1 %>
+		    <%end%>  
+		<%end%>
+	</ul>
+		<% $panel = 1%>
+		<% $imageDisplay = 1%>
+		<% until $panel > @checkadverdcount%>
+			<% @panelAd = "panel"%>
+	    	<% @panelAd << $panel.to_s %>
+	    	<% if $panel == 1 %>
+	    	  <div class="tabs-panel is-active" id="<%= @panelAd %>">		  	
+					<div class="columns medium-8">
+					<%= image_tag @welcomeAd.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+				    </div>
+				    <div class="columns medium-4">
+					<p><%= @welcomeAd.AdvertisementDescription%></p>
+				  </div>
+			    <% $imageDisplay += 1%>
+		  	  </div>
+		  	  
+			  <% $panel += 1 %>
+			<%else%>
+			  <div class="tabs-panel" id="<%= @panelAd %>">
+			    <% @welcomeAd1.each do |advertisement| %>
+			    	<%if advertisement.id == $panel%>
+				    	<div class="columns medium-8">
+							<%= image_tag advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+				    	</div>
+				    	<div class="columns medium-4">
+							<p><%= advertisement.AdvertisementDescription%></p>
+					    </div>
+			    	<%end%>
+			    <%end%>
+			  </div>
+			  <% $panel += 1 %>
+			<%end%>  
+		<%end%>
+		</div>
+	</div>  	
+</div>  
+	<% else %>	
+	
 <!-- Advertisement -->
 	<div class="row align-center">
-		<div class="orbit " role="region" data-orbit ">
-		<% @welcomeAd.each do |advertisement| %>
-		<%= image_tag advertisement.imageAd_url(:thumb),:style=>"height:450px; width:1200px;"%>
-		<figcaption class="orbit-caption"><%= advertisement.AdvertisementName %></figcaption>
-      <% end %>
-      </div>
+	  	<%if @signoutAd != nil%>
+			<% @signoutAd.each do |advertisement| %>
+				<div class="columns medium-8">
+					<%= image_tag advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>
+				</div>
+				<div class="columns medium-4">
+					<p><%= advertisement.AdvertisementDescription%></p>
+				</div>
+			<% end %>
+	    <%end%>	
 	</div>
-<hr />
+	<% end %>
+<hr/>
 <!-- First Banners (Slider) -->
 	
 <div class="row align-center">
@@ -21,7 +94,7 @@
     <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
     <% @welcomeBs.each do |bannerslide| %>
     <li class="is-active orbit-slide ">
-    	<%= image_tag bannerslide.imageBs_url(:thumb), :class => "orbit-image" ,:style=>"height:450px; width:1200px;"%>
+    	<%= image_tag bannerslide.imageBs_url(:thumb), :class => "orbit-image" ,:style=>"height:400px; width:1200px;"%>
       <figcaption class="orbit-caption"><%= bannerslide.name %></figcaption>
     </li>
     <% end %>
@@ -37,9 +110,7 @@
   </nav>
 </div>
 </div>
-    <!-- <div id="slider">
-      
-    </div> -->
+    
     
     <hr />
   

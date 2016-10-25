@@ -11,9 +11,7 @@ class Ability
         elsif user.staff?
           can :read, :all
           can :create, :all
-          can :update, Advertisement do |advertisement|
-            item.try(:user) == user
-          end
+          can :update, :all
           #can :destroy, Item do |item|
           #  item.try(:user) == user
           #end

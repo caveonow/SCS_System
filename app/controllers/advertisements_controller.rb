@@ -7,6 +7,7 @@ class AdvertisementsController < ApplicationController
   # GET /advertisements.json
   def index
     @advertisements = Advertisement.all
+    @advertisementassociate = Advertisement.joins(:advertisementassociate)
   end
 
   # GET /advertisements/1
@@ -29,6 +30,7 @@ class AdvertisementsController < ApplicationController
   # POST /advertisements.json
   def create
     #@advertisement.user_id = current_user.id
+    
     @advertisement = Advertisement.new(advertisement_params)
 
     respond_to do |format|
@@ -67,12 +69,24 @@ class AdvertisementsController < ApplicationController
   end
   
    def activeadvertisement
-     #@advertisement = Advertisement.all
-     Advertisement.all.each do |advertisement|
+        #@advertisement = Advertisement.all
+        
         Advertisement.update_all(:statusAd => "deactive") 
-        Advertisement.where(id: params[:advertisement_id]).update_all(:statusAd => "active")    
-    end
-      redirect_to advertisements_path
+        Advertisement.where(id: params[:advertisement_id]).update_all(:statusAd => "active")
+        #Advertisement.where(id: params[:advertisement_id]) 
+         #Advertismentassociate.create(advertisement_id: params[:id])
+        #Advertismentassociate.create(avertassociate_params)    
+        @adAssociate = Advertisementassociate.new(avertassociate_params)
+        if @adAssociate.save
+          format.html {redirect_to advertisements_path, notice: "Success insert record."}
+        else
+          flash[:error] = "Please select all field."
+          redirect_to advertisements_path
+        end
+  end
+  
+  def updateadvertassocite
+      flash[:error] = "Your book was not found"
   end
 
   private
@@ -85,4 +99,9 @@ class AdvertisementsController < ApplicationController
     def advertisement_params
       params.require(:advertisement).permit!
     end
+    
+    def avertassociate_params
+      params.require(:advertisement).permit(:advertisement_id,:programme_id,:yearofstudy_id,:levelofstudy_id,:faculty_id)
+    end
+    
 end

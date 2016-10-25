@@ -1,4 +1,4 @@
 class Programme < ActiveRecord::Base
-  belongs_to :faculty
-  
+  has_many :users
+  has_many :advertisements
 end

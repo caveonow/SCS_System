@@ -3,7 +3,7 @@
 
 <ul>
   <% User.columns.each do |column| %>
-    <% if column.name.in? ["id", "name", "email", "age","programme","role_id","ICNo","password","password_confirmation"] %>
+    <% if column.name.in? ["id", "name", "email", "age","programme_id","faculty_id","levelofstudy_id","yearofstudy_id","DateOfBirth" ,"role_id","ICNo","password","password_confirmation"] %>
       <li>
         <strong><%= column.name %></strong> -
         <%= column.type.to_s.titleize %> type

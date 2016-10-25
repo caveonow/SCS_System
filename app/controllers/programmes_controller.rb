@@ -4,7 +4,7 @@ class ProgrammesController < ApplicationController
   # GET /programmes
   # GET /programmes.json
   def index
-    @programmes = Programme.joins(:faculty)
+    @programmes = Programme.all
   end
 
   # GET /programmes/1

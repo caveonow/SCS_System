@@ -18,7 +18,8 @@ $form-radius: $global-radius;
 
 .log-in-form {
   border: 1px solid $form-border-color;
-  padding: $form-padding;
+  padding: 10px;
+  //$form-padding;
   border-radius: $form-radius;
 }
 

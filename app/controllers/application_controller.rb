@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   #devise configuration
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email,:name,:ICNo,:faculty,:levelofstudy,:yearofstudy])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email,:name,:ICNo])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email,:name,:ICNo,:faculty_id,:levelofstudy_id,:yearofstudy_id,:DateOfBirth,:gender,:programme_id,:age])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email,:name,:ICNo,:faculty_id,:levelofstudy_id,:yearofstudy_id,:DateOfBirth,:gender,:programme_id, :age])
   end
   
   helper_method :current_user 

@@ -16,10 +16,6 @@
     <%= f.text_field :programmename %>
   </div>
   
-  <div class="field">
-		    <%= f.label :faculty_id %><br>
-		    <%= collection_select(:programme, :faculty_id, Faculty.all, :id, :facultyname, {prompt: true}) %>	    
-  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

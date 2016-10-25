@@ -85,7 +85,11 @@ Rails.application.routes.draw do
   # advertisement
   resources :bannerslides
   put 'bannerslides', to: 'bannerslides#activebanner', as: :selectBss
-  resources :advertisements
+  resources :advertisements do
+    collection do
+      put :updateadvertassocite
+    end
+  end
   put 'advertisements', to: 'advertisements#activeadvertisement', as: :selectAds
   #get 'home' => 'advertisements#index'
   #get 'signup' => 'students#new'

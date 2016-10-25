@@ -14,6 +14,7 @@
 //= require dataTables/jquery.dataTables
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery-ui
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.foundation
 //= require foundation

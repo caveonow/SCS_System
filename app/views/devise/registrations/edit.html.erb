@@ -42,6 +42,49 @@
 	  	<%= f.label :name %><br />
 	  	<%= f.text_field :name , :size=>"10", :maxlength => "15"%>
 	</div>
+	
+	<div class="field field-padding">
+	  <%= f.label :ICNo, "IC Number" %><br />
+	  <%= f.text_field :ICNo%>
+	</div>
+	
+	<div class="field field-padding">
+	  <%= f.label :DateOfBirth, "Date of Birth" %><br />
+	  <%= f.text_field :DateOfBirth%>
+	</div>
+	
+	<div class="field field-padding">
+	  <%= f.label :age, "Age" %><br />
+	  <%= f.text_field :age ,:readonly => true%>
+	</div>
+	
+	<div class="field field-padding">
+	  <%= f.label :gender, "Gender" %><br />
+	  <%= f.radio_button :gender, 'Male', :checked => true %> 
+	  <%= label :gender, 'Male' %>
+	  <%= f.radio_button :gender, 'Female' %>
+	  <%= label :gender, 'Female' %>
+	</div>	
+	
+	<div class="field field-padding">
+		<%= f.label :faculty_id, "Faculty" %><br>
+		<%= collection_select(:user, :faculty_id, Faculty.where.not(facultyname: "All"), :id, :facultyname, {prompt: true}) %>  
+	</div>
+	
+	<div class="field field-padding">
+		<%= f.label :programme_id , "Programme"%><br>
+		<%= collection_select(:user, :programme_id, Programme.where.not(programmename: "All"), :id, :programmename, {prompt: true}) %>  
+	</div>
+	
+	<div class="field field-padding">
+		<%= f.label :levelofstudy_id ,"Level"%><br>
+		<%= collection_select(:user, :levelofstudy_id, Levelofstudy.where.not(levelname: "All"), :id, :levelname, {prompt: true}) %>  
+	</div>
+	
+	<div class="field field-padding">
+		<%= f.label :yearofstudy_id , "Year"%><br>
+		<%= collection_select(:user, :yearofstudy_id, Yearofstudy.where.not(year: "All"), :id, :year, {prompt: true}) %>  
+	</div>
 
 		<div class="row">
 		  <div class="actions field-padding">

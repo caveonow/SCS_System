@@ -11,21 +11,28 @@
 #u1 = User.create({name: "Yang", email: "yangyang@example.com",age: "12",ICNo:"930219-14-1234",programme:"",  password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: "1"})
 #u1.confirm
 
-
+f0 = Faculty.create({facultyname: "ALL"})
 f1 = Faculty.create({facultyname: "FASC"})
 f2 = Faculty.create({facultyname: "FAFB"})
 f3 = Faculty.create({facultyname: "FEBE"})
 f4 = Faculty.create({facultyname: "FSAH"})
 f4 = Faculty.create({facultyname: "CPUS"})
 
+ys0 = Yearofstudy.create({year: "All"})
 ys1 = Yearofstudy.create({year: "Year1"})
 ys2 = Yearofstudy.create({year: "Year2"})
 ys3 = Yearofstudy.create({year: "Year3"})
 ys4 = Yearofstudy.create({year: "Year4"})
 
+ls1 = Levelofstudy.create({levelname: "All"})
 ls1 = Levelofstudy.create({levelname: "Pre-U"})
 ls2 = Levelofstudy.create({levelname: "Diploma"})
 ls3 = Levelofstudy.create({levelname: "Degree"})
+
+p1 = Programme.create({programmename: "All"})
+p1 = Programme.create({programmename: "RSD"})
+p2 = Programme.create({programmename: "RIF"})
+p3 = Programme.create({programmename: "REI"})
 
 r1 = Role.create({name: "Student", description: "Can read items"})
 r2 = Role.create({name: "Staff", description: "Can read and create items. Can update and destroy own items"})
