@@ -1,11 +1,11 @@
 
-		<div class="columns">
+		<div class="columns" id="tryScroll">
 					<h1><%= @question.QuestionNumber %>. <%= @question.QuestionDesc %></h1> 
-
+					<br/>
 					<% obtain_answers(@question.id).each do |a|%>	
 					<%-#Assuming that  IF it is NOT a SubAnswer, it could have a subquestion -%>
 						<%if !a.IsSubAnswer or a.IsSubAnswer == 0%>
-							<br/>
+
 							<%if !a.IsSubQuestion or a.IsSubQuestion == 0%>			
 
 								<% if check_answer(params[:formanswer_id], a.id).empty? %>
@@ -34,15 +34,21 @@
 								
 								
 						<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
-							<br/>##do dis
-							<p><%= radio_button_tag  'radio_answer_id', a.id, false , data: { url: form_display_subanswer_path(:formanswer_id => params[:formanswer_id]), remote: true}  -%>
-							<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]
+							<% if check_answer(params[:formanswer_id], a.id).empty? %>
+								<% @value = false%>																		
+							<%else%>
+								<% @value = true%>			
+							<%end%> 											
+								<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: {url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id]), remote: true }  -%>
+								<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]</p>	
+								<% if @value%>
+									<div id="displaySubAnswerButton" ><%= button_tag 'Display SubAnswers', :class => "button", data: { url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
+								<%end%>
 							<br/>
 						<%end%>
 					<%end%>
 						<div id="displaySubQuestion" style="display:none"></div>
 						<div id="displaySubAnswer"  style="display:none"></div>
-			<br/><br/<br/>
 		
 		
 		<!--  Find a way to simplify this later!-->

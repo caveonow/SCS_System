@@ -1,8 +1,9 @@
 <div class = "row" style="margin-left:40px">
+	<br/>
 	<% @subQ.each do |sq| %>
 		<h2><%=@qNum.QuestionNumber%><%= sq.SQChar%>. <%= sq.SQDesc%></h2>
+		</br>
 	<% obtain_subquestionanswer(sq.id).each do |sqa|%>
-		<br/>
 			<% if check_subquestionanswer(params[:formanswer_id], sqa.id).empty? %>
 				<% @value = false%>																		
 			<%else%>

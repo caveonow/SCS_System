@@ -15,7 +15,8 @@ class AddForeignKey < ActiveRecord::Migration
     add_column :answers , :question_id , :integer
     add_column :subanswers , :answer_id , :integer
    
-   
+    add_column :subquestionanswers , :subquestion_id , :integer
+    
    
            #add_reference :studanswers, :formanswers, index: true, foreign_key: true
     #add_reference :formanswers, :forms, index: true, foreign_key: true
@@ -33,5 +34,7 @@ class AddForeignKey < ActiveRecord::Migration
     add_foreign_key :questions , :sections
     add_foreign_key :answers , :questions
     add_foreign_key :subanswers , :answers
+    
+    add_foreign_key :subquestionanswers , :subquestions
   end
 end

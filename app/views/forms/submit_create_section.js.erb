@@ -3,15 +3,27 @@
 	var section_id = <%= @section.id%>;
 	var link = "<a href='/questions/new_create?section_id=" + section_id+ "'> Click ME! </a>";
 	var link2 = "<%= j link_to  'Link', new_advertisement_path %>"
-	$('#section_create').css('background-color', '#44e251');
-	$('#create_section_div').slideUp(350);
-	$('#create_section_div').hide();
-	$('#display_section_div').slideDown(350);
-	$('#display_section_div').append("Section Creation Success! <br/>");
-	$('#display_section_div').append("Begin Creating Questions > > > > > <h3>" + link2 + "</h3>");
+	$('#section_create<%= @counter%>').css('background-color', '#44e251');
+	$('#create_section_div<%= @counter%>').slideUp(350);
+	$('#create_section_div<%= @counter%>').hide();
+	$('#display_section_div<%= @counter%>').slideDown(350);
+	$('#section_name<%= @counter%>').append("<h6 class='text-center'>Section Name</h6> <h6 class='text-center'><i><u><%= @section.SectionName%></u></i></h6>");
+	
+	$('#display_section_div<%= @counter%>').append("Section Creation Success! <br/>");
+	$('#display_section_div<%= @counter%>').append("Begin Creating Questions > > > > > <h3>" + link + "</h3>");
+	$('#display_section_div<%= @counter%>').append("<%= j link_to 'Add New Section', render_section_forms_path(:form_id => @section.form_id), remote: true %>");
 	
 	
+	$('#section_error_message<%= @counter%>').html("");
 <%else%>
-	$('#section_create').css('background-color', 'red');
-	$('#section_error_message').append("<h1>Error empty fields</h1>"); 
+	
+	$('#section_create<%= @counter%>').css('background-color', 'red');
+	$('#section_error_message<%= @counter%>').html("");
+	$('#section_error_message<%= @counter%>').append("<h2>Submission error</h2>"); 
+	<%if @section.SectionName == ""%>	
+		$('#section_error_message<%= @counter%>').append("<p> - Section Name is Blank</p>"); 
+	<%end%>
+	<%if @section.SectionDescription == ""%>
+		$('#section_error_message<%= @counter%>').append("<p> - Section Description is Blank</p>");
+	<%end%>	
 <%end%>

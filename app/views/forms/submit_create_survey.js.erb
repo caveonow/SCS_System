@@ -1,6 +1,5 @@
 
 <% if @save%>
-	
 	$('#form_create').css('background-color', '#44e251');
 	$('#create_form_div').slideUp(350);
 	$('#create_form_div').hide();
@@ -8,11 +7,22 @@
 	$('#display_form_div').slideDown(350);
 	$('#display_form_div').append("Form Creation Success!");
 	
-	$('#form_name_add').append("'<b><%= @form.FormName%></b>'");
-	$('#section_create').show();
-	$('#create_section_div').html("<%= j (render 'newSection') %>");
+	$('#section_part').html("<%= j (render 'createSections')%>");
+	$('#form_name_add0').append("'<b><%= @form.FormName%></b>'");
+	$('#section_create0').show();
+	$('#create_section_div0').html("<%= j (render 'newSection') %>");
+	$('#form_error_message').html("");
+	$('#question_part').show();
+	$('#get_sections_for_questions').show();
 
 <%else%>
 	$('#form_create').css('background-color', 'red');
-	$('#form_error_message').append("<h1>Error empty fields</h1>"); 
+	$('#form_error_message').html("");
+	$('#form_error_message').append("<h2>Submission error</h2>"); 
+	<%if @form.FormName == ""%>	
+		$('#form_error_message').append("<p> - Form Name is Blank</p>"); 
+	<%end%>
+	<%if @form.FormDescription == ""%>
+		$('#form_error_message').append("<p> - Form Description is Blank</p>");
+	<%end%>
 <%end%>

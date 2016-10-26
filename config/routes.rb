@@ -25,8 +25,10 @@ Rails.application.routes.draw do
   resources :forms do
     collection do 
       get 'create_survey' #create_survey_form_path 
+      get 'section_display' #section_display_form_path
       post 'submit_create_survey'
       
+      get 'render_section'
       #change this later with correct path
       #get 'create_section'
       post 'submit_create_section'

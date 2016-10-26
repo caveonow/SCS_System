@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123161623) do
+ActiveRecord::Schema.define(version: 20161123161625) do
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "AdvertisementName",        limit: 255
@@ -56,12 +56,13 @@ ActiveRecord::Schema.define(version: 20161123161623) do
   end
 
   create_table "formanswers", force: :cascade do |t|
-    t.string   "FormAnswer",         limit: 255
+    t.string   "FormStatus",            limit: 255
     t.datetime "StudAnswerDateTime"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "user_id",            limit: 4
-    t.integer  "form_id",            limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "user_id",               limit: 4
+    t.integer  "form_id",               limit: 4
+    t.datetime "StudCompletedDateTime"
   end
 
   add_index "formanswers", ["form_id"], name: "fk_rails_a27b4ad479", using: :btree

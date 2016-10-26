@@ -1,7 +1,11 @@
 <div class="row" style="margin-left:40px">
 	<% @subA.each do |sa|%>
-		<br/>
-		<p><%= check_box_tag 'subanswer_ids[]', sa.id -%>
-		<%= sa.SADesc%></p>
+		<% if check_subanswer(params[:formanswer_id], sa.id).empty? %>
+			<% @value = false%>																		
+		<%else%>
+			<% @value = true%>			
+		<%end%> 									
+		<p><%= check_box_tag 'subAnswer_id', sa.id, @value , data: {url: form_saveSAns_path(:subAnswer_id => sa.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
+		<%= sa.SADesc%> </p>
 	<%end%>
 </div>

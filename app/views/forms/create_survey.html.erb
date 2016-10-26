@@ -6,9 +6,8 @@
 	<body>
 			  <!-- this adds Foundation Icon Fonts!! -->
 	    <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
-	    
 	    <div class="row">
-	      <div  id="form_create"  class="medium-4 columns">
+	      <div id="form_create"  class="large-12 columns">
 	        <div class="profile-card">
 	          <img src="http://zurb.com/ink/images/inky-computer.svg" alt="Inky">
 	          <div class="profile-info">
@@ -24,24 +23,26 @@
 	          </div>
 	        </div>
 	      </div>
-	      
-	      <div id="section_create" class="medium-4 columns" style="display:none">
-	        <div class="profile-card">
-	          <img src="http://zurb.com/ink/images/inky-computer.svg" alt="Yeti">
-	          <div class="profile-info">
-	           <h4 class="subheader">Section</h4>
-	            <p id="form_name_add">Create Sections for your Form </p>
-	            	<div id="create_section_div"> 
-		            </div>
-		            <div id="display_section_div">
-		            	
-		            </div>
-		            <div id="section_error_message"></div>
-	          </div>
-	        </div>
 	      </div>
-	      <div class="medium-4 columns" style="display:none">
-          </div>
+	      
+
+	    
+	    <div class="row" id="question_part">
+	    </div>
+	    #do the same for question when u come back from shits
+	    <div class="row" id="question_part" style="background-color:#999999; display:none">
+	
+	    		<%= link_to section_display_form_path(:form_id => @form.id), remote: true do %>
+					<input type="button" value="Display Sections" >
+				<%end%>
+	    	<div id="get_sections_for_questions"  class="large-12 columns">	
+    		</div>
+    		<div id="display_sections_to_select" class="large-6 columns">
+    			test test
+    		</div>
+	    		##will be copied
+	    		<div id="question_create" class="large-4 columns">
+    			</div>
 	    </div>
 	</body>
 </html>

@@ -49,25 +49,20 @@ class FormsController < ApplicationController
  
  #viewselected Form
   def selectForm
-    
     @sections = Section.where("form_id = ?", params[:form_id])
     @formName = Form
     .select("forms.FormName, forms.id")
-    .where("id = ?", params[:form_id]).first
-    
-    @formAnswer =  Formanswer.where("user_id = ? AND form_id = ?",params[:user_id],params[:form_id])
-      
+    .where("id = ?", params[:form_id]).first 
+    @formAnswer =  Formanswer.where("user_id = ? AND form_id = ?",params[:user_id],params[:form_id])    
       if @formAnswer.empty?
         @test = Formanswer.new do |fa|
-          fa.FormAnswer = "WAT"
+          fa.FormStatus = "InProgress"
           fa.StudAnswerDateTime = Time.now
           fa.user_id = params[:user_id]
           fa.form_id = params[:form_id]
         end
         @test.save
       end
-      
-     
   end
  
  #Display Question
@@ -84,9 +79,7 @@ class FormsController < ApplicationController
       format.js
     end  
   end
-  
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ this one need to add something new @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
+ 
   #Display SubQuestion
   def displaySubQ   
     @subQ = Subquestion.where( "subquestions.answer_id = ?", params[:radio_answer_id])
@@ -97,12 +90,14 @@ class FormsController < ApplicationController
       
     respond_to do |format|
       format.js
-    end  
-    
+    end 
   end
   
   def displaySubA
     @subA = Subanswer.where( "subanswers.answer_id = ?", params[:radio_answer_id])
+    @qNum = Answer.select( " questions.QuestionNumber , answers.id, answers.question_id" )
+              .joins( :question)
+              .where(" answers.id = ?", params[:radio_answer_id]).first
     @formAnswer = Formanswer.where("id = ?", params[:formanswer_id]).first     
       respond_to do |format|
       format.js
@@ -120,8 +115,6 @@ class FormsController < ApplicationController
          else 
            @getAnswer.first.destroy
          end
- 
-   
     render :nothing => true
   end
   
@@ -160,9 +153,26 @@ class FormsController < ApplicationController
          #remove the answer
          if @value.to_i != getQA.id
            puts "I REMOVES"
-            @getAnswer.first.destroy
-            @getSubQuestionAnswer = Subquestionanswer.where("id = ?", )
-            @test =  Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?",params[:subQAnswer_id],params[:formanswer_id])   
+            @getAnswer.first.destroy       
+            if getQA.IsSubAnswer
+              @getSubAnswer = Subanswer.where("answer_id = ?", getQA.id)
+                @getSubAnswer.each do |subAns|
+                  @remove =  Studsubanswer.where("subanswer_id = ? AND formanswer_id = ?",subAns.id,params[:formanswer_id])  
+                  if !@remove.empty?
+                    @remove.first.destroy
+                  end
+                end
+                # answer.id > getsubquestion > get all subquestionanswers > remove from studsubquestionanswers
+            elsif getQA.IsSubQuestion
+              @getSubQuestion = Subquestion.where("answer_id = ?", getQA.id).first
+                  @getSubQuestionAnswer = Subquestionanswer.where("subquestion_id = ? ", @getSubQuestion.id)
+                    @getSubQuestionAnswer.each do |subQAns|      
+                    @remove =  Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?",subQAns.id,params[:formanswer_id])  
+                    if !@remove.empty?
+                      @remove.first.destroy
+                    end
+                  end
+            end    
          end
       end
     end
@@ -170,42 +180,37 @@ class FormsController < ApplicationController
      render :nothing => true
   end
   
-  
   def saveSAns
-    ##recheck
      @getAnswer =  Studsubanswer.where("subanswer_id = ? AND formanswer_id = ?",params[:subAnswer_id],params[:formanswer_id])   
-         if @getAnswer.empty?
-              @answer = Studsubanswer.new do |a|
-                a.subanswer_id = params[:subAnswer_id]
-                a.formanswer_id = params[:formanswer_id]
-              end
-              @answer.save
-         else 
-           @getAnswer.first.destroy
-         end
- 
-   
+     if @getAnswer.empty?
+          @answer = Studsubanswer.new do |a|
+            a.subanswer_id = params[:subAnswer_id]
+            a.formanswer_id = params[:formanswer_id]
+          end
+          @answer.save
+     else 
+       @getAnswer.first.destroy
+     end   
     render :nothing => true
   end
   def saveSQAns
-         @getAnswer =  Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?",params[:subQAnswer_id],params[:formanswer_id])   
-         if @getAnswer.empty?
-              @answer = Studsubquestionanswer.new do |a|
-                a.subquestionanswer_id = params[:subQAnswer_id]
-                a.formanswer_id = params[:formanswer_id]
-              end
-              @answer.save
-         else 
-           @getAnswer.first.destroy
-         end   
+     @getAnswer =  Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?",params[:subQAnswer_id],params[:formanswer_id])   
+     if @getAnswer.empty?
+          @answer = Studsubquestionanswer.new do |a|
+            a.subquestionanswer_id = params[:subQAnswer_id]
+            a.formanswer_id = params[:formanswer_id]
+          end
+          @answer.save
+     else 
+       @getAnswer.first.destroy
+     end   
     render :nothing => true
   end
   #---------------------------------- FORM ANSWERING ----------------------------------#
   
   #---------------------------------- FORM CREATION ----------------------------------#
   
- 
-  
+
   def create_survey
     @form = Form.new
   end
@@ -214,12 +219,13 @@ class FormsController < ApplicationController
     @form = Form.new(form_params)
     @form.FormDateTime = Time.now
     @form.FormStatus = 'Available'
-    @form.user_id = current_user.id #change later
-    
+    @form.user_id = "1"     #current_user.id 
+
     respond_to do |format|
       if @form.save
         @save = true;  
         @section = Section.new
+        @counter =  "0"   
         format.html
         format.json
         format.js
@@ -233,11 +239,15 @@ class FormsController < ApplicationController
       end
     end
   end
+  
   def submit_create_section
-    @section = Section.new(section_params)    
+    @section = Section.new(section_params)
+    @counter = Section.where("form_id = ?", @section.form_id).count
+    puts @counter    
+    puts "dis at submit_create_section"
     respond_to do |format|
       if @section.save
-        @save = true;  
+        @save = true; 
         format.html
         format.json
         format.js
@@ -251,6 +261,25 @@ class FormsController < ApplicationController
       end
     end
   end
+  
+  def render_section
+    @section = Section.new
+    @form = Form.where("id = ?", params[:form_id]).first  
+    @counter = Section.where("form_id = ?", params[:form_id]).count
+    puts @counter
+    puts "dis at render_section"
+    respond_to do |format|               
+      format.js 
+    end     
+  end
+
+  def section_display
+    
+    @getSection = Section.where("form_id = ?", params[:form_id])
+    
+    render :nothing => true
+  end
+    
   #---------------------------------- FORM CREATION ----------------------------------#
   
   # GET /forms
