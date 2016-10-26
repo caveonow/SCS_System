@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
+
 ActiveRecord::Schema.define(version: 20161123161622) do
 
   create_table "advertisementassociates", force: :cascade do |t|
@@ -29,9 +29,6 @@ ActiveRecord::Schema.define(version: 20161123161622) do
   add_index "advertisementassociates", ["levelofstudy_id"], name: "index_advertisementassociates_on_levelofstudy_id", using: :btree
   add_index "advertisementassociates", ["programme_id"], name: "index_advertisementassociates_on_programme_id", using: :btree
   add_index "advertisementassociates", ["yearofstudy_id"], name: "index_advertisementassociates_on_yearofstudy_id", using: :btree
-=======
-ActiveRecord::Schema.define(version: 20161123161625) do
->>>>>>> origin/testnick
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "AdvertisementName",        limit: 255
