@@ -1,0 +1,4 @@
+	$('#display_section_div<%=@counter-1%>').html("Section Creation Success! <br/>");
+	$('#section_part').append("<%= j (render 'createSections')%>");
+	$('#form_name_add<%=@counter%>').append("'<b><%= @form.FormName%></b>'");
+	$('#create_section_div<%=@counter%>').html("<%= j (render 'newSection') %>");

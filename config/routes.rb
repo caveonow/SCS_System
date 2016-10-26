@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :studsubquestionanswers
+  resources :studsubanswers
   resources :faculties
   resources :programmes
   resources :levelofstudies
@@ -23,8 +25,10 @@ Rails.application.routes.draw do
   resources :forms do
     collection do 
       get 'create_survey' #create_survey_form_path 
+      get 'section_display' #section_display_form_path
       post 'submit_create_survey'
       
+      get 'render_section'
       #change this later with correct path
       #get 'create_section'
       post 'submit_create_section'
@@ -45,6 +49,7 @@ Rails.application.routes.draw do
     post '/form_saveAns'  => 'forms#saveAns', as: 'form_saveAns'
     post '/form_saveSAns'  => 'forms#saveSAns', as: 'form_saveSAns'
     post '/form_saveSQAns'  => 'forms#saveSQAns', as: 'form_saveSQAns'
+    post '/form_saveAnsForSubs'  => 'forms#saveAnsForSubs', as: 'form_saveAnsForSubs'
     #---------------------------------- FORM ANSWERING ----------------------------------#  
   resources :studanswers
   resources :formanswers

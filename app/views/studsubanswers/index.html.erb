@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Studsubanswers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subanswer</th>
+      <th>Formanswer</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @studsubanswers.each do |studsubanswer| %>
+      <tr>
+        <td><%= studsubanswer.subanswer %></td>
+        <td><%= studsubanswer.formanswer %></td>
+        <td><%= link_to 'Show', studsubanswer %></td>
+        <td><%= link_to 'Edit', edit_studsubanswer_path(studsubanswer) %></td>
+        <td><%= link_to 'Destroy', studsubanswer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Studsubanswer', new_studsubanswer_path %>

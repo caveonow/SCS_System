@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20161123161622) do
 
   create_table "advertisementassociates", force: :cascade do |t|
@@ -28,6 +29,9 @@ ActiveRecord::Schema.define(version: 20161123161622) do
   add_index "advertisementassociates", ["levelofstudy_id"], name: "index_advertisementassociates_on_levelofstudy_id", using: :btree
   add_index "advertisementassociates", ["programme_id"], name: "index_advertisementassociates_on_programme_id", using: :btree
   add_index "advertisementassociates", ["yearofstudy_id"], name: "index_advertisementassociates_on_yearofstudy_id", using: :btree
+=======
+ActiveRecord::Schema.define(version: 20161123161625) do
+>>>>>>> origin/testnick
 
   create_table "advertisements", force: :cascade do |t|
     t.string   "AdvertisementName",        limit: 255
@@ -40,7 +44,7 @@ ActiveRecord::Schema.define(version: 20161123161622) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "AnswerDesc",    limit: 65535
-    t.boolean  "isSubAnswer"
+    t.boolean  "IsSubAnswer"
     t.boolean  "IsSubQuestion"
     t.integer  "AnswerCount",   limit: 4
     t.datetime "created_at",                  null: false
@@ -72,12 +76,13 @@ ActiveRecord::Schema.define(version: 20161123161622) do
   end
 
   create_table "formanswers", force: :cascade do |t|
-    t.string   "FormAnswer",         limit: 255
+    t.string   "FormStatus",            limit: 255
     t.datetime "StudAnswerDateTime"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "user_id",            limit: 4
-    t.integer  "form_id",            limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "user_id",               limit: 4
+    t.integer  "form_id",               limit: 4
+    t.datetime "StudCompletedDateTime"
   end
 
   add_index "formanswers", ["form_id"], name: "fk_rails_a27b4ad479", using: :btree
@@ -179,9 +184,9 @@ ActiveRecord::Schema.define(version: 20161123161622) do
   create_table "subquestionanswers", force: :cascade do |t|
     t.string   "SQAnswer",       limit: 255
     t.integer  "SQAnswerCount",  limit: 4,   default: 0, null: false
-    t.integer  "subquestion_id", limit: 4
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.integer  "subquestion_id", limit: 4
   end
 
   add_index "subquestionanswers", ["subquestion_id"], name: "fk_rails_90056cfaf9", using: :btree
