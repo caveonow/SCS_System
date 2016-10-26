@@ -78,7 +78,9 @@ class AdvertisementsController < ApplicationController
         #Advertismentassociate.create(avertassociate_params)    
         @adAssociate = Advertisementassociate.new(avertassociate_params)
         if @adAssociate.save
+          respond_to do |format|
           format.html {redirect_to advertisements_path, notice: "Success insert record."}
+          end
         else
           flash[:error] = "Please select all field."
           redirect_to advertisements_path

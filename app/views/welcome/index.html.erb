@@ -1,7 +1,6 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css" />
 </head>
-  
 <div class="tabs-content" data-tabs-content="example-tabs">
 	<% if user_signed_in? %>
 	<% $tab = 1 %>
@@ -19,7 +18,7 @@
 				  	<%end%>
 			  	<%end%>
 			  </li>
-			  <% $tab += 1 %>
+			  <%= $tab += 1 %>
 			<%else%>
 			  <li class="tabs-title">
 			  	<% @checkadverd.each do |advertisement| %>
@@ -28,8 +27,9 @@
 				  	<%end%>
 			  	<%end%>
 			  </li>
-			  <% $tab += 1 %>
+			  <%= $tab += 2 %>
 		    <%end%>  
+		    
 		<%end%>
 	</ul>
 		<% $panel = 1%>
