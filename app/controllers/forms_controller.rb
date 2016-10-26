@@ -276,8 +276,9 @@ class FormsController < ApplicationController
   def section_display
     
     @getSection = Section.where("form_id = ?", params[:form_id])
-    
-    render :nothing => true
+    respond_to do |format|               
+      format.js 
+    end   
   end
     
   #---------------------------------- FORM CREATION ----------------------------------#
