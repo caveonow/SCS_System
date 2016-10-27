@@ -1,7 +1,7 @@
+
+
+
 $('#display_sections_to_select').show();
-$('#display_sections_to_select').html("dorpdownlist here ");
+$('#display_sections_to_select').html("");
 
-
-<% @getSection.each do |test|%>
-<%= display section1/2/3/4/5/7%>
-<%end%>
+$('#display_sections_to_select').html(" <%= j select_tag 'selected_section_id', options_for_select(@formSections.collect{ |s| [s.SectionName, s.id] }),include_blank: true, data: { url: question_display_forms_path ,remote: true } %>");

@@ -10,7 +10,8 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :section_id, :value => params[:section_id] %>
+  <%= f.hidden_field :section_id, :value => @section_id %> 
+  <%= f.hidden_field :QuestionNumber, :value => @questCount.count+1 %>
 	<div class="row">
 		<div class="large-12 columns new_form">
 	        <%= f.label :QuestionDesc, 'Question' %>
@@ -18,12 +19,6 @@
     	</div>
 	</div>  
  
-	<div class="row">
- 		<div class="large-12 columns">
-		    <%= f.label :QuestionNumber, 'Question Number' %>
-		    <%= f.number_field :QuestionNumber, step: :any %>
-		</div>  
- 	</div>	
 	<div class="row">
 	<div class="large-6 columns">
 		<%= f.submit data: { confirm: 'Are you sure?' }, :value => "Create"%>

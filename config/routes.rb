@@ -8,7 +8,13 @@ Rails.application.routes.draw do
   resources :yearofstudies
   resources :subquestionanswers
   resources :subanswers
-  resources :answers
+  resources :answers do
+    collection do
+      get 'new_create' 
+      post 'submit_create'
+      
+    end
+  end
   resources :subquestions
   resources :questions do
     collection do
@@ -32,6 +38,11 @@ Rails.application.routes.draw do
       #change this later with correct path
       #get 'create_section'
       post 'submit_create_section'
+      
+      get 'question_display' #question_display_forms_path
+      get 'question_creation' #question_creation_forms_path
+      
+      get 'answer_creation' #answer_creation_forms_path
     end
   end
     #---------------------------------- FORM CREATION ----------------------------------#

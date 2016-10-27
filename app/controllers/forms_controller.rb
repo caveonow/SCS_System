@@ -226,17 +226,14 @@ class FormsController < ApplicationController
         @save = true;  
         @section = Section.new
         @counter =  "0"   
-        format.html
-        format.json
-        format.js
         puts "success"
       else
         @save = false;
         puts "fail"
-        format.html
-        format.json
-        format.js
       end
+      format.html
+      format.json
+      format.js
     end
   end
   
@@ -248,17 +245,15 @@ class FormsController < ApplicationController
     respond_to do |format|
       if @section.save
         @save = true; 
-        format.html
-        format.json
-        format.js
         puts "success"
       else
         @save = false;
         puts "fail"
-        format.html
-        format.json
-        format.js
       end
+      format.html
+      format.json
+      format.js
+      
     end
   end
   
@@ -275,11 +270,69 @@ class FormsController < ApplicationController
 
   def section_display
     
-    @getSection = Section.where("form_id = ?", params[:form_id])
+    @formSections = Section.where("form_id = ?", params[:form_id])
     respond_to do |format|               
       format.js 
     end   
   end
+    
+    
+  def question_display
+    
+    puts params[:selected_section_id]
+    puts "^ the value "
+       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+  
+    if params[:selected_section_id] != ""
+      puts "selected_section_id has a valid value here"
+      if !@getQuestions.empty?
+         puts "its not empty"
+      else
+        puts "its empty boi."
+      end
+    else 
+      puts "do nothing i assume"
+    end
+    
+    
+     
+     
+    respond_to do |format|
+      format.js 
+    end
+  end
+    
+    #calls Questions#newCreate => newQuestion
+  def question_creation
+    
+    @question = Question.new
+    @section_id = params[:sec_id]
+    
+    @questCount = Question.where("section_id = ? ",  @section_id)
+    
+    puts @questCount.count
+    puts "the count"
+    puts @section_id
+    puts "section_id test ^"
+    respond_to do |format|
+      format.js 
+    end 
+  end
+    #question_creation_forms_path
+    
+    
+    def answer_creation
+      
+    @answer = Answer.new  
+    puts params[:question_id]
+    puts "^ the value X2"
+    @selectedQuestion = Question.where("id = ?", params[:question_id]).first
+       @getAnswers = Answer.where("question_id = ?", params[:question_id]) 
+     
+    respond_to do |format|
+      format.js 
+    end
+    end
     
   #---------------------------------- FORM CREATION ----------------------------------#
   

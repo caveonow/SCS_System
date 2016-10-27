@@ -1,6 +1,35 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
 
+
+def new_create
+  @answer = Answer.all
+end
+
+ def submit_create
+    @answer = Answer.new(answer_params)
+    
+    respond_to do |format|
+      if @answer.save
+        @save = true;  
+       @getAnswers = Answer.where("question_id = ?", @answers.question_id) 
+      puts "success"
+    else
+      @save = false;
+      puts "fail"
+    end
+      format.html
+      format.json
+      format.js
+  end
+end
+
+
+
+
+
+
+
   # GET /answers
   # GET /answers.json
   def index

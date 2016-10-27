@@ -1,0 +1,24 @@
+
+<% if @save%>
+	
+	$('#answer_create').css('background-color', '#44e251');
+	$('#create_answer_div').slideUp(350);
+	$('#create_answer_div').hide();
+	$('#display_answer_div').slideDown(350);
+	$('#display_answer_div').append("Question Creation Success!");
+	$("#question_view").html("<%= j render('forms/questionList')%>")
+	
+	
+<%else%>
+	$('#answer_create').css('background-color', 'red');
+	$('#answer_error_message').append("<h1>Error empty fields</h1>"); 
+	
+	
+	$('#answer_create').css('background-color', 'red');
+	$('#answer_error_message').html("");
+	$('#answer_error_message').append("<h2>Submission error</h2>"); 
+	<%if @answer.AnswerDesc == ""%>	
+		$('#answer_error_message').append("<p> - Answer Description is Blank</p>"); 
+	<%end%>
+
+<%end%>
