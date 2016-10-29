@@ -257,7 +257,7 @@ class FormsController < ApplicationController
     end
   end
   
-  def render_section
+  def create_render_new_section
     @section = Section.new
     @form = Form.where("id = ?", params[:form_id]).first  
     @counter = Section.where("form_id = ?", params[:form_id]).count
@@ -268,7 +268,7 @@ class FormsController < ApplicationController
     end     
   end
 
-  def section_display
+  def create_question_display_section
     
     @formSections = Section.where("form_id = ?", params[:form_id])
     respond_to do |format|               
@@ -277,7 +277,7 @@ class FormsController < ApplicationController
   end
     
     
-  def question_display
+  def create_question_display
     
     puts params[:selected_section_id]
     puts "^ the value "
@@ -293,17 +293,14 @@ class FormsController < ApplicationController
     else 
       puts "do nothing i assume"
     end
-    
-    
-     
+
      
     respond_to do |format|
       format.js 
     end
   end
-    
-    #calls Questions#newCreate => newQuestion
-  def question_creation
+  
+  def create_render_question
     
     @question = Question.new
     @section_id = params[:sec_id]
@@ -318,10 +315,10 @@ class FormsController < ApplicationController
       format.js 
     end 
   end
-    #question_creation_forms_path
+   
     
     
-    def answer_creation
+    def create_render_answer
       
     @answer = Answer.new  
     puts params[:question_id]

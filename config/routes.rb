@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       get 'new_create' 
       post 'submit_create'
       
+      get 'create_subAnswer'
+      get 'create_subQuestion'
+      get 'create_subQuestionAnswer'
+      
     end
   end
   resources :subquestions
@@ -30,19 +34,37 @@ Rails.application.routes.draw do
   end
   resources :forms do
     collection do 
-      get 'create_survey' #create_survey_form_path 
-      get 'section_display' #section_display_form_path
+                    #survey creation
+        # renders =>_layout_newForm => submit_create_survey            
+      get 'create_survey' #create_survey_forms_path 
+         
+        # renders =>_layout_createSections => _layout_newSection => submit_create_section
+        # and
+        # renders => create_question_display_section
       post 'submit_create_survey'
       
-      get 'render_section'
-      #change this later with correct path
-      #get 'create_section'
+       # renders =>_layout_createSections => _layout_newSection => submit_create_section
+      get 'create_render_new_section' #create_render_new_section_forms_path
+      
+       # renders => create_render_new_section_forms_path
       post 'submit_create_section'
       
-      get 'question_display' #question_display_forms_path
-      get 'question_creation' #question_creation_forms_path
       
-      get 'answer_creation' #answer_creation_forms_path
+      # renders => create_question_display
+      get 'create_question_display_section' #create_question_display_section_forms_path
+      
+      # renders => layout_questionAddButton => question_creation
+      # and
+      # renders => layout_questionList => create_render_answer
+      get 'create_question_display' #question_display_forms_path
+      
+      # renders => Questions#newCreate => newQuestion
+      get 'create_render_question' #question_creation_forms_path
+      
+      
+      # renders => Answers#newCreate => newAnswer
+      get 'create_render_answer' #create_render_answer_forms_path
+      
     end
   end
     #---------------------------------- FORM CREATION ----------------------------------#

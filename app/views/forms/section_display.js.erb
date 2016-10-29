@@ -1,7 +1,0 @@
-
-
-
-$('#display_sections_to_select').show();
-$('#display_sections_to_select').html("");
-
-$('#display_sections_to_select').html(" <%= j select_tag 'selected_section_id', options_for_select(@formSections.collect{ |s| [s.SectionName, s.id] }),include_blank: true, data: { url: question_display_forms_path ,remote: true } %>");

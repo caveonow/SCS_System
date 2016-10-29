@@ -11,12 +11,19 @@
 	<div class="row">
 		<div class="large-12 columns new_form">
 
-			<%= radio_button_tag :choice, "IsSubAnswer"%>
+  <%= hidden_field_tag :IsSubAnswer, :value => false %>
+  <%= hidden_field_tag :IsSubQuestion, :value => false %>
+			<%= radio_button_tag :choice, "IsSubAnswer", data: { url: create_subAnswer_answers_path(@@@@@@@@@@@@@@2conthere ), remote: true}  %>
 			<%= label_tag :IsSubAnswer, 'Is Sub Answer?', :value => 'IsSubAnswer' %>	</br>		
-			<%= radio_button_tag :choice, "IsSubQuestion"%>
-			<%= label_tag :IsSubQuestion, 'Is Sub Question?', :value => 'IsSubQuestion' %> </br>			
+			
+			
+			<%= radio_button_tag :choice, "IsSubQuestion", data: { url: create_subQuestion_answers_path(), remote: true}  %>
+			<%= label_tag :IsSubQuestion, 'Is Sub Question?', :value => 'IsSubQuestion' %> </br>	
+					
 			<%= radio_button_tag :choice, "None" , true%>			
 			<%= label_tag :nothing, 'None', :value => 'None' %>
+			
+			<div id="create_sub" style="display:none"></div>
     	</div>
 	</div>  	
 		

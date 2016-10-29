@@ -1,0 +1,14 @@
+
+$("#panel_create").html("");
+$("#question_add").hide();
+$("#question_view").hide();
+$("#panel_create").hide();
+<% if !params[:selected_section_id].empty? %>
+	$("#question_add").show();
+	$("#question_view").show();
+	$("#panel_create").show();
+	$("#question_add").html("<%= j render('layout_questionAddButton')%>");
+<% end %>
+	$("#question_view").html("<%= j render('layout_questionList')%>")
+
+

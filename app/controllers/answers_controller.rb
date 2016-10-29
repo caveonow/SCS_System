@@ -12,7 +12,9 @@ end
     respond_to do |format|
       if @answer.save
         @save = true;  
+        @getSection = Question.select("questions.section_id").where("id = ?", @answers.question_id).first
        @getAnswers = Answer.where("question_id = ?", @answers.question_id) 
+       @getQuestions = Question.where("section_id = ?", @getSection)
       puts "success"
     else
       @save = false;
@@ -23,7 +25,14 @@ end
       format.js
   end
 end
-
+      def create_subAnswer
+        
+      end
+      def create_subQuestion
+        
+      end
+      def create_subQuestionAnswer
+      end
 
 
 

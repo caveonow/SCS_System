@@ -1,0 +1,85 @@
+<h2><u>Question List</u></h2>
+<div style="border: 4px groove black;height:70vh; margin-bottom:15px;overflow:auto"> 
+	<% @testValue = 3%>
+	<% @subQuestion = "subQ"%>
+	<% @subAnswer = "subAns"%>
+	<% if !@getQuestions.empty?%> 
+	<% @getQuestions.each do |question| %>
+		<table>
+				<tr>
+					<td><div class="row">
+						<div class="row">
+							<div class="medium-9 column">
+			    				<h4><%= question.QuestionNumber%>.<%= question.QuestionDesc%></h4>
+							</div>
+		    			<%= link_to create_render_answer_forms_path(:question_id => question.id), remote: true do%>
+			    			<div id="question_<%= question.id%>" class="medium-2 column" style="text-align: right">
+			    				<p>Add Ans</p>
+			    			</div>
+		    			<%end%>
+		    			<%= link_to create_render_answer_forms_path(:question_id => question.id), remote: true do%>
+			    			<div id="question_<%= question.id%>" class="medium-1 column" style="text-align: right">
+			    				<p>Del</p>
+			    			</div>
+		    			<%end%>
+		    			</div>
+		    			<table>		    					
+    							<%obtain_answers(question.id).each do |ans|%>	
+    							<tr>
+									<td>
+	    								<div class="row" >
+	    									<div class="medium-10 column">
+			    							<%= ans.AnswerDesc%>
+			    						<!-- if IsSubAnswer !-->										
+	    								<%if ans.IsSubAnswer %>					    		    						
+			    							<div class="row">																		
+		    								<% obtain_subanswers(ans.id).each do |subAns|%>		
+			    									<div class="medium-10 column">			    							
+						    							<%= subAns.SADesc%> 						
+					    							</div>
+			    									<div class="medium-1 column">Edit</div>	
+					    							<div class="medium-1 column">Del</div>	
+			    							<%end%>
+			    							</div>	    	
+				    					<%elsif ans.IsSubQuestion%>
+			    						<!-- elsif IsSubQuestion !-->
+			    							<div class="row" >
+			    							<% obtain_subquestion(ans.id).each do |subQuest|%>
+	    									<div class="medium-10 column">			    							
+				    							<%=question.QuestionNumber%><%= subQuest.SQChar%>)<%= subQuest.SQDesc%> 						
+			    							
+	 
+			    								
+				    							<% obtain_subquestionanswer(subQuest.id).each do |subQuestAns|%>				    								
+			    									<div class="row " >
+			    										<div class="medium-9 column">			    							
+						    							<%= subQuestAns.SQAnswer%> 						
+						    							</div>
+				    									<div class="medium-1 column">Edit</div>	
+						    							<div class="medium-1 column">Del</div>
+				    								</div>		
+				    							<%end%>
+				    							</div>
+	    									<div class="medium-1 column">Add</div>	
+			    							<div class="medium-1 column">Del</div>	
+			    							</div>   
+			    							<%end%>							
+			    						<%end%>		
+			    							 				
+			    						</div>
+	    									<div class="medium-1 column">Edit</div>	
+			    						
+			    							<div class="medium-1 column">Del</div>
+			    							
+			    						
+		    							</div>  					    						
+		    						</td>
+	    						</tr>			
+								<%end%>		
+	    				</table>		    			
+					</td></div>
+	    		</tr>  	
+		</table>  	
+	<% end %>
+	<%end%>
+</div>

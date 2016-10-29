@@ -7,7 +7,7 @@
 	$('#display_section_div<%= @counter%>').slideDown(350);
 	$('#section_name<%= @counter%>').append("<h6 class='text-center'>Section Name</h6> <h6 class='text-center'><i><u><%= @section.SectionName%></u></i></h6>");
 	$('#display_section_div<%= @counter%>').append("Section Creation Success! >>>>  ");
-	$('#display_section_div<%= @counter%>').append("<%= j link_to 'Add New Section', render_section_forms_path(:form_id => @section.form_id), remote: true %>");
+	$('#display_section_div<%= @counter%>').append("<%= j link_to 'Add New Section', create_render_new_section_forms_path(:form_id => @section.form_id), remote: true %>");
 	$('#section_error_message<%= @counter%>').html("");
 <%else%>
 	
