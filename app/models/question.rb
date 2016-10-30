@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
   belongs_to :section
-  has_many :answer
+  has_many :answer, :dependent => :destroy
   
   has_many :subanswer, through: :answer
   has_many :subquestion, through: :answer

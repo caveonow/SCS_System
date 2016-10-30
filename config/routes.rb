@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       
       get 'create_subAnswer'
       get 'create_subQuestion'
-      get 'create_subQuestionAnswer'
+      get 'remove_createSub' 
       
     end
   end
@@ -64,7 +64,24 @@ Rails.application.routes.draw do
       
       # renders => Answers#newCreate => newAnswer
       get 'create_render_answer' #create_render_answer_forms_path
+      get 'create_render_subanswer' 
+      get 'create_render_subquestion' 
+      get 'create_render_subquestionanswer'
       
+      get 'create_edit_subanswer_answer'          
+      get 'create_edit_subanswer' 
+      get 'create_edit_subquestion_answer'
+      get 'create_edit_subquestion' 
+      get 'create_edit_subquestionanswer'
+      get 'create_edit_subquestionanswer_subquestion'
+
+      get 'create_question_remove'
+      get 'create_answer_remove'
+      get 'create_subanswer_remove'
+      get 'create_subquestion_remove'
+      get 'create_subquestionanswer_remove'
+      
+    
     end
   end
     #---------------------------------- FORM CREATION ----------------------------------#

@@ -6,36 +6,131 @@ def new_create
   @answer = Answer.all
 end
 
- def submit_create
-    @answer = Answer.new(answer_params)
-    
-    respond_to do |format|
-      if @answer.save
-        @save = true;  
-        @getSection = Question.select("questions.section_id").where("id = ?", @answers.question_id).first
-       @getAnswers = Answer.where("question_id = ?", @answers.question_id) 
-       @getQuestions = Question.where("section_id = ?", @getSection)
-      puts "success"
-    else
-      @save = false;
-      puts "fail"
-    end
+   def submit_create
+      @subAnsValid = false
+      @subQAnsValid = false 
+      @subQValid = false
+      @answer = Answer.new
+      @answer.AnswerDesc = params[:AnswerDesc]
+      @answer.AnswerCount = params[:AnswerCount]
+      @answer.question_id = params[:question_id]
+      
+      if params[:choice]=="IsSubQuestion"
+        @answer.IsSubQuestion = 1
+        @answer.IsSubAnswer = 0
+        puts "is sub question"
+      elsif params[:choice]=="IsSubAnswer"
+        @answer.IsSubQuestion = 0
+        @answer.IsSubAnswer = 1
+        puts "is sub answer"
+      elsif params[:choice]=="None"
+        @answer.IsSubQuestion = 0
+        @answer.IsSubAnswer = 0
+        puts "its none"
+      end
+      
+      if params[:SADesc_values].present?
+        puts "SubAnswer ada"
+        @subAnsValid = true
+        @arr_SADesc = params[:SADesc_values]    
+      end
+      
+      if params[:SQAnswer_values].present?
+        puts "SubQuestionAnswer ada"
+        @subQAnsValid = true 
+        @arr_SQAnswer = params[:SQAnswer_values]  
+      end
+         
+      if !params[:SQDesc].nil?
+        puts "SubQuestion ada"
+        @subQValid = true 
+        @SADescBlank =true
+      end           
+      
+      respond_to do |format|
+              
+
+      if @subQValid
+        if params[:SQDesc].blank?
+          puts "SQDESC IS EMPTY"
+          @save = false;
+          puts "fail"
+        else
+          if @answer.save      
+            if @subQAnsValid          
+              @subQuestion = Subquestion.new
+              @subQuestion.SQDesc = params[:SQDesc]
+              @subQuestion.SQChar = "a" ##change here ltr
+              @subQuestion.answer_id = @answer.id
+              @subQuestion.save
+              (0..@arr_SQAnswer.size).each do |i|
+              puts @arr_SQAnswer[i]
+                if !@arr_SQAnswer[i].blank?            
+                  @subQAnswer = Subquestionanswer.new
+                  @subQAnswer.SQAnswerCount = 0
+                  @subQAnswer.subquestion_id = @subQuestion.id
+                  @subQAnswer.SQAnswer = @arr_SQAnswer[i]
+                  @subQAnswer.save
+                end
+            end
+          end            
+            @save = true;          
+            @getSection = Question.select("questions.section_id").where("id = ?", @answer.question_id).first
+            @getAnswers = Answer.where("question_id = ?", @answer.question_id) 
+            @getQuestions = Question.where("section_id = ?", @getSection.section_id)
+            puts "success"
+          else
+            @SADescBlank = false
+            @save = false;
+            puts "fail"                     
+          end 
+        end     
+      elsif !@subQValid
+        if @answer.save                    
+          if @subAnsValid    
+            (0..@arr_SADesc.size).each do |i|
+              puts @arr_SADesc[i]
+              if !@arr_SADesc[i].blank?            
+                @subAnswer = Subanswer.new
+                @subAnswer.SACount = 0
+                @subAnswer.answer_id = @answer.id
+                @subAnswer.SADesc = @arr_SADesc[i]
+                @subAnswer.save
+              end
+            end   
+          end
+          @save = true;          
+          @getSection = Question.select("questions.section_id").where("id = ?", @answer.question_id).first
+          @getAnswers = Answer.where("question_id = ?", @answer.question_id) 
+          @getQuestions = Question.where("section_id = ?", @getSection.section_id)
+          puts "success"
+        else
+          @save = false;
+          puts "fail"
+        end
+      end      
       format.html
       format.json
       format.js
+      end
   end
-end
       def create_subAnswer
-        
+        respond_to do |format|
+          format.js
+        end
       end
+      
       def create_subQuestion
-        
+        respond_to do |format|
+          format.js
+        end        
       end
-      def create_subQuestionAnswer
+      def remove_createSub
+        respond_to do |format|
+          format.js
+        end        
       end
-
-
-
+      
 
 
 
@@ -106,7 +201,17 @@ end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def answer_params
-      params.require(:answer).permit(:AnswerDesc, :IsSubAnswer, :AnswerCount, :IsSubQuestion, :question_id)
+
+          def subanswer_params
+      params.require(:subanswer).permit(:SubAnswerDesc, :SubAnswerCount)
     end
+
+
+    def answer_params
+      params.require(:answer).permit(:AnswerDesc, :AnswerCount, :question_id)
+    end
+
+
+
+
 end

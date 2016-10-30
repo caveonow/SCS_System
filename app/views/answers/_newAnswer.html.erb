@@ -1,27 +1,25 @@
 <%= form_tag(submit_create_answers_path, remote: true) do %>
-  <%= hidden_field_tag :AnswerCount, :value => "0" %> 
-  <%= hidden_field_tag :question_id, :value => params[:question_id] %>
+  <%= hidden_field_tag "AnswerCount", "0" %> 
+  <%= hidden_field_tag "question_id", params[:question_id] %>
 	<div class="row">
 		<div class="large-12 columns new_form">
-	        <%= label_tag :AnswerDesc, 'Answer' %>
-	        <%= text_field_tag :AnswerDesc%>
+	        <%= label_tag "AnswerDesc", 'Answer' %>
+	        <%= text_field_tag "AnswerDesc"%>
     	</div>
 	</div>  
 	
 	<div class="row">
 		<div class="large-12 columns new_form">
-
-  <%= hidden_field_tag :IsSubAnswer, :value => false %>
-  <%= hidden_field_tag :IsSubQuestion, :value => false %>
-			<%= radio_button_tag :choice, "IsSubAnswer", data: { url: create_subAnswer_answers_path(@@@@@@@@@@@@@@2conthere ), remote: true}  %>
-			<%= label_tag :IsSubAnswer, 'Is Sub Answer?', :value => 'IsSubAnswer' %>	</br>		
+			
+  			<%= radio_button_tag 'choice' ,"IsSubAnswer" ,false, data: { url: create_subAnswer_answers_path, remote: true}  -%>
+			<%= label_tag "choice", 'Is Sub Answer?' %>	</br>
 			
 			
-			<%= radio_button_tag :choice, "IsSubQuestion", data: { url: create_subQuestion_answers_path(), remote: true}  %>
-			<%= label_tag :IsSubQuestion, 'Is Sub Question?', :value => 'IsSubQuestion' %> </br>	
+			<%= radio_button_tag 'choice', "IsSubQuestion",false, data: { url: create_subQuestion_answers_path, remote: true}  %>
+			<%= label_tag "choice", 'Is Sub Question?' %> </br>	
 					
-			<%= radio_button_tag :choice, "None" , true%>			
-			<%= label_tag :nothing, 'None', :value => 'None' %>
+			<%= radio_button_tag 'choice', "None" , true, data: { url: remove_createSub_answers_path, remote: true}  %>			
+			<%= label_tag "choice", 'None', :value => 'None' %>
 			
 			<div id="create_sub" style="display:none"></div>
     	</div>

@@ -1,0 +1,11 @@
+	$('#answer_create').css('background-color', 'inherit');
+	$('#answer_error_message').html("");
+$('#create_sub').show();
+$('#create_sub').html("");
+$('#create_sub').append(" <div style='text-align: center'> <p class='button' onclick='append()' >Add SubAns</p></div>");
+$('#create_sub').append(" <%= j render ('answers/layout_createSubanswers')%>");
+
+function append(){
+	$('#create_sub').append(" <%= j render ('answers/layout_createSubanswers')%>");
+	
+}
