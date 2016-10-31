@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       get 'create_subQuestion'
       get 'remove_createSub' 
       
+      
+      post 'create_edit_answer_change'
+      
     end
   end
   resources :subquestions
@@ -68,10 +71,13 @@ Rails.application.routes.draw do
       get 'create_render_subquestion' 
       get 'create_render_subquestionanswer'
       
-      get 'create_edit_subanswer_answer'          
-      get 'create_edit_subanswer' 
-      get 'create_edit_subquestion_answer'
+      get 'create_edit_answer'  
       get 'create_edit_subquestion' 
+      
+      
+      get 'create_edit_add_answer'          
+      get 'create_edit_subanswer'  
+      get 'create_edit_subquestion_answer'
       get 'create_edit_subquestionanswer'
       get 'create_edit_subquestionanswer_subquestion'
 

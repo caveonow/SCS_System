@@ -131,6 +131,23 @@ end
         end        
       end
       
+      def create_edit_answer_change    
+        
+        respond_to do |format|  
+          if params[:edit_answer].blank?
+            @save = false
+          else
+            @save = true
+            @updateAnswer = Answer.find(params[:ans_id])
+            @updateAnswer.update_attributes(:AnswerDesc => params[:edit_answer])
+            
+            @selectQuestion = Question.find(params[:question_id])
+            @getQuestions = Question.where("section_id = ?", @selectQuestion.section_id)
+          end
+          format.js
+        end           
+      end
+      
 
 
 

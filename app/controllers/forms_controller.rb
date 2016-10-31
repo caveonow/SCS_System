@@ -370,6 +370,20 @@ class FormsController < ApplicationController
         format.js
       end      
     end
+    
+    def create_edit_answer
+      @selectedAnswer = Answer.find(params[:ans_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+     
+      respond_to do |format|
+        format.js
+      end       
+    end
+    
+    def create_edit_subquestion
+      
+    end
+    
   #---------------------------------- FORM CREATION ----------------------------------#
   
   # GET /forms
