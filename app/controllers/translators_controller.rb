@@ -6,6 +6,8 @@ class TranslatorsController < ApplicationController
   # GET /translators.json
   def index
     @translators = Translator.all
+    @forms = Form.all 
+    
   end
 
   # GET /translators/1

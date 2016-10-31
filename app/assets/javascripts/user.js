@@ -26,7 +26,8 @@ $(function(){
   	changeYear: true,
   	changeMonth: true,
   	buttonText: "Calendar",
-  	yearRange: "1900:2050"
+  	yearRange: "1900:2050",
+  	maxDate: '0'
 	});
 	
 	

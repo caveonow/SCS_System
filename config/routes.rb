@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   resources :sections
   resources :reports do
     collection do
-   #   get 'report_test' #report_test_reports_path
+      get 'displayPie' #report_test_reports_path
+      get 'displayHorizonBar'
+      get 'displayVerticalBar'
     end
   end
   resources :forms do

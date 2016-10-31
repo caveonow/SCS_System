@@ -1,15 +1,20 @@
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {"data-abide" => '',"novalidate" => ''}) do |f| %>
   <div class="large-centered">
   <%= devise_error_messages! %>
   </div>
 <div class="row log-in-form">
 	<h4 class="text-center">Sign up </h4>
+	
+	<div data-abide-error class="alert callout" style="display: none;">
+		    <p><i class="fi-alert"></i> There are some errors in your signup details.</p>
+		  </div>
 <div class="small-6 columns">
 	
   <div class="field field-padding">
     <%= f.label :email , "Email"%><br />
-    <%= f.email_field :email, autofocus: true, plcaeholder:"someone@example.com" %>
+    <%= f.email_field :email, autofocus: true, plcaeholder:"someone@example.com", :required => true %>
+  	<span class="form-error">The email is required</span>
   </div>
 
   <div class="field field-padding">
@@ -27,22 +32,25 @@
 
 	<div class="field field-padding">
 	  <%= f.label :name ,"Name"%><br />
-	  <%= f.text_field :name %>
+	  <%= f.text_field :name , :required => true%>
+	  <span class="form-error">The name is required</span>
 	</div>
 	
 	<div class="field field-padding">
 	  <%= f.label :ICNo, "IC Number" %><br />
-	  <%= f.text_field :ICNo%>
+	  <%= f.text_field :ICNo , :required => true%>
+	  <span class="form-error">The IC number is required</span>
 	</div>
 	
 	<div class="field field-padding">
 	  <%= f.label :DateOfBirth, "Date of Birth" %><br />
-	  <%= f.text_field :DateOfBirth%>
+	  <%= f.text_field :DateOfBirth , :required => true%>
+	  <span class="form-error">The date of birth is required</span>
 	</div>
 	
 	<div class="field field-padding">
 	  <%= f.label :age, "Age" %><br />
-	  <%= f.text_field :age ,:readonly => true%>
+	  <%= f.text_field :age ,:readonly => true , :required => true%>
 	</div>
 	
 	
@@ -59,22 +67,26 @@
 	
 	<div class="field field-padding">
 		<%= f.label :faculty_id, "Faculty" %><br>
-		<%= collection_select(:user, :faculty_id, Faculty.where.not(facultyname: "All"), :id, :facultyname, {prompt: true}) %>  
+		<%= collection_select(:user, :faculty_id, Faculty.where.not(facultyname: "All"), :id, :facultyname, {prompt: true}, :required => true) %>  
+	<span class="form-error">Please select a faculty</span>
 	</div>
 	
 	<div class="field field-padding">
 		<%= f.label :programme_id , "Programme"%><br>
-		<%= collection_select(:user, :programme_id, Programme.where.not(programmename: "All"), :id, :programmename, {prompt: true}) %>  
+		<%= collection_select(:user, :programme_id, Programme.where.not(programmename: "All"), :id, :programmename, {prompt: true}, :required => true) %>  
+	<span class="form-error">Please select a programme</span>
 	</div>
 	
 	<div class="field field-padding">
 		<%= f.label :levelofstudy_id ,"Level"%><br>
-		<%= collection_select(:user, :levelofstudy_id, Levelofstudy.where.not(levelname: "All"), :id, :levelname, {prompt: true}) %>  
+		<%= collection_select(:user, :levelofstudy_id, Levelofstudy.where.not(levelname: "All"), :id, :levelname, {prompt: true}, :required => true) %>  
+	<span class="form-error">Please select a level of study</span>
 	</div>
 	
 	<div class="field field-padding">
 		<%= f.label :yearofstudy_id , "Year"%><br>
-		<%= collection_select(:user, :yearofstudy_id, Yearofstudy.where.not(year: "All"), :id, :year, {prompt: true}) %>  
+		<%= collection_select(:user, :yearofstudy_id, Yearofstudy.where.not(year: "All"), :id, :year, {prompt: true}, :required => true) %>  
+	<span class="form-error">Please select a year of study</span>
 	</div>
 </div>
   <div class="actions field-padding">
