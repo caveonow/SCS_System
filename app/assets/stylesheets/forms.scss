@@ -73,6 +73,21 @@
     }
 }
 
+.question_corner_box{ 
+  height: 50px;
+  width: 100px;
+  position:absolute;
+  top: 15px;
+  right: 15px;
+  border: 3px outset ;
+  color: white;
+  font-size: 15px;
+  padding: 5px;
+  padding-top: 10px;
+  text-align:center;
+}
+
+
 
 
 .next_question {  

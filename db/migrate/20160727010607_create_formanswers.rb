@@ -3,7 +3,6 @@ class CreateFormanswers < ActiveRecord::Migration
     create_table :formanswers do |t|
       t.string :FormStatus
       t.datetime :StudAnswerDateTime
-      t.datetime :StudCompletedDateTime
       t.timestamps null: false
     end
   end
