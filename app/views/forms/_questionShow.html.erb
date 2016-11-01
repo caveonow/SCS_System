@@ -1,85 +1,85 @@
 
-		<div class="columns" id="tryScroll">
-					<h1><%= @question.QuestionNumber %>. <%= @question.QuestionDesc %></h1> 
-					<br/>
-					<% obtain_answers(@question.id).each do |a|%>	
-					<%-#Assuming that  IF it is NOT a SubAnswer, it could have a subquestion -%>
-						<%if !a.IsSubAnswer or a.IsSubAnswer == 0%>
+<div class="columns" id="tryScroll">
+<div id="completion_status" class="question_corner_box" > SUK DISK</div>
+	<%if !@question.nil?%>
+	<h1><%= @question.QuestionNumber %>. <%= @question.QuestionDesc %></h1> 
+	<br/>
+	<% obtain_answers(@question.id).each do |a|%>	
+	<%-#Assuming that  IF it is NOT a SubAnswer, it could have a subquestion -%>
+		<%if !a.IsSubAnswer or a.IsSubAnswer == 0%>
 
-							<%if !a.IsSubQuestion or a.IsSubQuestion == 0%>			
+			<%if !a.IsSubQuestion or a.IsSubQuestion == 0%>			
 
-								<% if check_answer(params[:formanswer_id], a.id).empty? %>
-									<% @value = false%>																		
-								<%else%>
-									<% @value = true%>			
-								<%end%> 											
-									<p><%= check_box_tag  'answer_id', a.id, @value , data: {url: form_saveAns_path(:answer_id => a.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
-									<%= a.AnswerDesc%></p>		
-							
-							<%elsif a.IsSubQuestion or a.IsSubQuestion == 1%>							
-								<!-- Find better way later !-->
-								<% if check_answer(params[:formanswer_id], a.id).empty? %>
-									<% @value = false%>																	
-								<%else%>
-									<% @value = true%>	
-																				    		
-								<%end%> 
-									<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: { url: form_display_subquestion_path(:formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true}  -%>
-									<%= a.AnswerDesc%></p> 	
-									<% if @value%>
-										<div id="displaySubQuestionButton" ><%= button_tag 'Display SubQuestion', :class => "button", data: { url: form_display_subquestion_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
-									<%end%>
-																
-							<%end%>
-								
-								
-						<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
-							<% if check_answer(params[:formanswer_id], a.id).empty? %>
-								<% @value = false%>																		
-							<%else%>
-								<% @value = true%>			
-							<%end%> 											
-								<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: {url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id]), remote: true }  -%>
-								<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]</p>	
-								<% if @value%>
-									<div id="displaySubAnswerButton" ><%= button_tag 'Display SubAnswers', :class => "button", data: { url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
-								<%end%>
-							<br/>
-						<%end%>
-					<%end%>
-						<div id="displaySubQuestion" style="display:none"></div>
-						<div id="displaySubAnswer"  style="display:none"></div>
-		
-		
-		<!--  Find a way to simplify this later!-->
-		
-		<% @allQuestions.each do |q| %>
-			<%if @allQuestions.first.id == @question.id %>
-				<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
-					<div id="prevBtn" class ="prev_question">	
-						<input type="button" name="prev_button" value="Previous" disabled />
-					</div>
-				<%end%>
-			<%elsif (q.QuestionNumber+1) == @question.QuestionNumber%>
-				<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
-					<div id="prevBtn" class ="prev_question">	
-						<input type="button" name="prev_button" value="Previous"  />
-					</div>
-				<%end%>
-			<%end%>
+				<% if check_answer(params[:formanswer_id], a.id).empty? %>
+					<% @value = false%>																		
+				<%else%>
+					<% @value = true%>			
+				<%end%> 											
+					<p><%= check_box_tag  'answer_id', a.id, @value , data: {url: form_saveAns_path(:answer_id => a.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
+					<%= a.AnswerDesc%></p>		
 			
-			<%if @allQuestions.last.id == @question.id %>
-				<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
-					<div id="nextBtn" class = "next_question">
-						 <input type="button" name="next_button" value="Next" disabled>
-					</div>
+			<%elsif a.IsSubQuestion or a.IsSubQuestion == 1%>							
+				<!-- Find better way later !-->
+				<% if check_answer(params[:formanswer_id], a.id).empty? %>
+					<% @value = false%>																	
+				<%else%>
+					<% @value = true%>																	    		
+				<%end%> 
+					<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: { url: form_display_subquestion_path(:formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true}  -%>
+					<%= a.AnswerDesc%></p> 	
+					<% if @value%>
+						<div id="displaySubQuestionButton" ><%= button_tag 'Display SubQuestion', :class => "button", data: { url: form_display_subquestion_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
+					<%end%>											
+			<%end%>
+		<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
+			<% if check_answer(params[:formanswer_id], a.id).empty? %>
+				<% @value = false%>																		
+			<%else%>
+				<% @value = true%>			
+			<%end%> 											
+				<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: {url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id]), remote: true }  -%>
+				<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]</p>	
+				<% if @value%>
+					<div id="displaySubAnswerButton" ><%= button_tag 'Display SubAnswers', :class => "button", data: { url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
 				<%end%>
-			<%elsif (q.QuestionNumber-1) == @question.QuestionNumber %>
-				<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
-					<div id="nextBtn" class = "next_question">
-						 <input type="button" name="next_button" value="Next">
-					</div>
-				<%end%>
+			<br/>
+		<%end%>
+	<%end%>
+	<div id="displaySubQuestion" style="display:none"></div>
+	<div id="displaySubAnswer"  style="display:none"></div>
+
+
+	<!--  Find a way to simplify this later!-->
+	
+	<% @allQuestions.each do |q| %>
+		<%if @allQuestions.first.id == @question.id %>
+			<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+				<div id="prevBtn" class ="prev_question">	
+					<input type="button" name="prev_button" value="Previous" disabled />
+				</div>
+			<%end%>
+		<%elsif (q.QuestionNumber+1) == @question.QuestionNumber%>
+			<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+				<div id="prevBtn" class ="prev_question">	
+					<input type="button" name="prev_button" value="Previous"  />
+				</div>
 			<%end%>
 		<%end%>
+		
+		<%if @allQuestions.last.id == @question.id %>
+			<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+				<div id="nextBtn" class = "next_question">
+					 <input type="button" name="next_button" value="Next" disabled>
+				</div>
+			<%end%>
+		<%elsif (q.QuestionNumber-1) == @question.QuestionNumber %>
+			<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+				<div id="nextBtn" class = "next_question">
+					 <input type="button" name="next_button" value="Next">
+				</div>
+			<%end%>
+		<%end%>
+	<%end%>
+	<%end%>
+</div>
 			

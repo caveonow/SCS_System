@@ -35,14 +35,13 @@ class FormsController < ApplicationController
  
  #Display Question
   def displayQ
-    @sectionTest = Section.where("form_id = ?", params[:form_id])
-    @selected_section = Section.where("id = ?", params[:section_id]).first
-    
+    @formSections = Section.where("form_id = ?", params[:form_id])
+    @selected_section = Section.where("id = ?", params[:section_id]).first   
     @getStudAnswer = Studanswer.where("formanswer_id = ?", params[:formanswer_id])
     
-      obtain_question
-      obtain_all_questions
-      
+      obtain_question      # @questions
+      obtain_all_questions # @allQuestions
+       
       respond_to do |format|
       format.js
     end  

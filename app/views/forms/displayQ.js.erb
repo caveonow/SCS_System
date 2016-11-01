@@ -1,15 +1,15 @@
 $('#displayQuestion').html("<%= j (render 'questionShow') %>");
 $('#displayQuestion').slideDown(350);
 
-<%@sectionTest.each do |test|%>
-	<%if test.id == @selected_section.id %>
-		if (!$('#<%= test.id%>').hasClass('is-active')){
+<%@formSections.each do |fsection|%>
+	<%if fsection.id == @selected_section.id %>
+		if (!$('#<%= fsection.id%>').hasClass('is-active')){
 			$('#<%= @selected_section.id%>').toggleClass('is-active');	
 		}
 		
-	<%elsif test.id != @selected_section.id %>
-		$('#<%= test.id%>').removeClass('is-active');
-		$('#displayTitle').append('<%= @sectionTest.first.SectionName%>');
+	<%elsif fsection.id != @selected_section.id %>
+		$('#<%= fsection.id%>').removeClass('is-active');
+		$('#displayTitle').append('<%= @formSections.first.SectionName%>');
 		
 	<%end%>
 <%end%>

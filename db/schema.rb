@@ -48,7 +48,10 @@ ActiveRecord::Schema.define(version: 20161123161623) do
     t.integer  "AnswerCount",   limit: 4
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "question_id",   limit: 4
   end
+
+  add_index "answers", ["question_id"], name: "fk_rails_3d5ed4418f", using: :btree
 
   create_table "backgrounds", force: :cascade do |t|
     t.string   "BackgroundName", limit: 255
@@ -72,12 +75,16 @@ ActiveRecord::Schema.define(version: 20161123161623) do
   end
 
   create_table "formanswers", force: :cascade do |t|
-    t.string   "FormStatus",            limit: 255
+    t.string   "FormStatus",         limit: 255
     t.datetime "StudAnswerDateTime"
-    t.datetime "StudCompletedDateTime"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "user_id",            limit: 4
+    t.integer  "form_id",            limit: 4
   end
+
+  add_index "formanswers", ["form_id"], name: "fk_rails_a27b4ad479", using: :btree
+  add_index "formanswers", ["user_id"], name: "fk_rails_5b71c87443", using: :btree
 
   create_table "forms", force: :cascade do |t|
     t.string   "FormName",        limit: 255
@@ -86,7 +93,10 @@ ActiveRecord::Schema.define(version: 20161123161623) do
     t.string   "FormStatus",      limit: 255
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.integer  "user_id",         limit: 4
   end
+
+  add_index "forms", ["user_id"], name: "fk_rails_cf8d802097", using: :btree
 
   create_table "levelofstudies", force: :cascade do |t|
     t.string   "levelname",  limit: 255
@@ -105,7 +115,10 @@ ActiveRecord::Schema.define(version: 20161123161623) do
     t.integer  "QuestionNumber", limit: 4
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "section_id",     limit: 4
   end
+
+  add_index "questions", ["section_id"], name: "fk_rails_c50eadc3e3", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -124,45 +137,57 @@ ActiveRecord::Schema.define(version: 20161123161623) do
     t.text     "SectionDescription", limit: 65535
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "form_id",            limit: 4
   end
+
+  add_index "sections", ["form_id"], name: "fk_rails_5e56f08fae", using: :btree
 
   create_table "studanswers", force: :cascade do |t|
-    t.string   "answer_id",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "studsubanswers", force: :cascade do |t|
-    t.integer  "subanswer_id",  limit: 4
-    t.integer  "formanswer_id", limit: 4
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "formanswer_id", limit: 4
+    t.integer  "answer_id",     limit: 4
+  end
+
+  add_index "studanswers", ["answer_id"], name: "fk_rails_de434d780c", using: :btree
+  add_index "studanswers", ["formanswer_id"], name: "fk_rails_d3254c96b6", using: :btree
+
+  create_table "studsubanswers", force: :cascade do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "formanswer_id", limit: 4
+    t.integer  "subanswer_id",  limit: 4
   end
 
   add_index "studsubanswers", ["formanswer_id"], name: "fk_rails_34d49b8961", using: :btree
+  add_index "studsubanswers", ["subanswer_id"], name: "fk_rails_6aa0977900", using: :btree
 
   create_table "studsubquestionanswers", force: :cascade do |t|
-    t.string   "subquestionanswer_id", limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "formanswer_id",        limit: 4
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer  "subquestionanswer_id", limit: 4
   end
 
   add_index "studsubquestionanswers", ["formanswer_id"], name: "fk_rails_7df0c4b8f4", using: :btree
+  add_index "studsubquestionanswers", ["subquestionanswer_id"], name: "fk_rails_20ba5161eb", using: :btree
 
   create_table "subanswers", force: :cascade do |t|
     t.text     "SADesc",     limit: 65535
     t.integer  "SACount",    limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "answer_id",  limit: 4
   end
+
+  add_index "subanswers", ["answer_id"], name: "fk_rails_679cb6c5cd", using: :btree
 
   create_table "subquestionanswers", force: :cascade do |t|
     t.string   "SQAnswer",       limit: 255
     t.integer  "SQAnswerCount",  limit: 4,   default: 0, null: false
-    t.integer  "subquestion_id", limit: 4
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.integer  "subquestion_id", limit: 4
   end
 
   add_index "subquestionanswers", ["subquestion_id"], name: "fk_rails_90056cfaf9", using: :btree
@@ -239,8 +264,19 @@ ActiveRecord::Schema.define(version: 20161123161623) do
   add_foreign_key "advertisementassociates", "levelofstudies"
   add_foreign_key "advertisementassociates", "programmes"
   add_foreign_key "advertisementassociates", "yearofstudies"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "formanswers", "forms"
+  add_foreign_key "formanswers", "users"
+  add_foreign_key "forms", "users"
+  add_foreign_key "questions", "sections"
+  add_foreign_key "sections", "forms"
+  add_foreign_key "studanswers", "answers"
+  add_foreign_key "studanswers", "formanswers"
   add_foreign_key "studsubanswers", "formanswers"
+  add_foreign_key "studsubanswers", "subanswers"
   add_foreign_key "studsubquestionanswers", "formanswers"
+  add_foreign_key "studsubquestionanswers", "subquestionanswers"
+  add_foreign_key "subanswers", "answers"
   add_foreign_key "subquestionanswers", "subquestions"
   add_foreign_key "subquestions", "answers"
   add_foreign_key "users", "faculties"

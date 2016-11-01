@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # heroku requirement
-ruby '2.3.0' #ow
+ruby '2.3.1' #ow
 #ruby '2.3.1' #nick
 gem 'puma'
 # 
