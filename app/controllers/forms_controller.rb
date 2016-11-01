@@ -208,8 +208,6 @@ class FormsController < ApplicationController
   def submit_create_section
     @section = Section.new(section_params)
     @counter = Section.where("form_id = ?", @section.form_id).count
-    puts @counter    
-    puts "dis at submit_create_section"
     respond_to do |format|
       if @section.save
         @save = true; 
@@ -229,8 +227,6 @@ class FormsController < ApplicationController
     @section = Section.new
     @form = Form.where("id = ?", params[:form_id]).first  
     @counter = Section.where("form_id = ?", params[:form_id]).count
-    puts @counter
-    puts "dis at render_section"
     respond_to do |format|               
       format.js 
     end     
@@ -246,22 +242,8 @@ class FormsController < ApplicationController
     
     
   def create_question_display
-    
-    puts params[:selected_section_id]
-    puts "^ the value "
-       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
-    if params[:selected_section_id] != ""
-      puts "selected_section_id has a valid value here"
-      if !@getQuestions.empty?
-         puts "its not empty"
-      else
-        puts "its empty boi."
-      end
-    else 
-      puts "do nothing i assume"
-    end
+    @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
 
-     
     respond_to do |format|
       format.js 
     end
@@ -271,13 +253,9 @@ class FormsController < ApplicationController
     
     @question = Question.new
     @section_id = params[:sec_id]
-    
+   
     @questCount = Question.where("section_id = ? ",  @section_id)
-    
-    puts @questCount.count
-    puts "the count"
-    puts @section_id
-    puts "section_id test ^"
+   
     respond_to do |format|
       format.js 
     end 
@@ -289,7 +267,7 @@ class FormsController < ApplicationController
     @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
     @answer = Answer.new  
     @selectedQuestion = Question.where("id = ?", params[:question_id]).first
-       @getAnswers = Answer.where("question_id = ?", params[:question_id]) 
+    @getAnswers = Answer.where("question_id = ?", params[:question_id]) 
      
     respond_to do |format|
       format.js 
@@ -380,9 +358,60 @@ class FormsController < ApplicationController
       end       
     end
     
-    def create_edit_subquestion
+    def create_edit_subanswer
+      @selectedAnswer = Answer.find(params[:ans_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
+      respond_to do |format|
+        format.js
+      end                 
+    end    
+    
+    
+    def create_edit_subanswer_answer
+      @selectedAnswer = Subanswer.find(params[:subAns_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end         
     end
+
+    def create_edit_answer_subquestion
+      @selectedAnswer = Answer.find(params[:ans_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      
+      
+      #######################################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+      
+      @subQuestionCount = Subquestion.where("answer_id = ?", params[:ans_id]).count
+      
+      respond_to do |format|
+        format.js
+      end       
+    end
+        
+    def create_edit_subquestion
+      @selectedAnswer = Subquestion.find(params[:subQuest_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+
+      
+      respond_to do |format|
+        format.js
+      end     
+    end
+    
+    def create_edit_subquestion_answer
+      @selectedAnswer = Subquestionanswer.find(params[:subQuestAns_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end            
+    end
+    
+
     
   #---------------------------------- FORM CREATION ----------------------------------#
   
@@ -457,12 +486,10 @@ class FormsController < ApplicationController
    @studanswer = Studanswer.new(studanswer_params)
  end
  def create_studsubanswer
-   @studsubanswer = Studsubanswer.new(studsubanswer_params)
-   
+   @studsubanswer = Studsubanswer.new(studsubanswer_params) 
  end
  def create_studsubquestionanswer
-   @studsubquestionanswer = Studsubquestionanswer.new(studsubquestionanswer_params)
-   
+   @studsubquestionanswer = Studsubquestionanswer.new(studsubquestionanswer_params)   
  end
 #---------------------------------- FORM ANSWERING ----------------------------------#
 

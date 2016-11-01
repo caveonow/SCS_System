@@ -16,10 +16,14 @@ Rails.application.routes.draw do
       get 'create_subAnswer'
       get 'create_subQuestion'
       get 'remove_createSub' 
-      
-      
+          
       post 'create_edit_answer_change'
-      
+      post 'create_edit_subanswer_change'
+      post 'create_edit_subanswers_change' #subanswer's Answer     
+      post 'create_edit_answer_subquestion_change'
+      post 'create_edit_subquestion_change'
+      post 'create_edit_subquestionanswers_change' #subquestion's Answer
+      get 'create_subQuestionAnswer_change'
     end
   end
   resources :subquestions
@@ -37,7 +41,8 @@ Rails.application.routes.draw do
   end
   resources :forms do
     collection do 
-                    #survey creation
+                    #----------SURVEY CREATION----------#
+                    
         # renders =>_layout_newForm => submit_create_survey            
       get 'create_survey' #create_survey_forms_path 
          
@@ -72,15 +77,13 @@ Rails.application.routes.draw do
       get 'create_render_subquestionanswer'
       
       get 'create_edit_answer'  
-      get 'create_edit_subquestion' 
-      
-      
-      get 'create_edit_add_answer'          
-      get 'create_edit_subanswer'  
+      get 'create_edit_subanswer' 
+      get 'create_edit_subanswer_answer'
+      get 'create_edit_answer_subquestion'
+      get 'create_edit_subquestion'
       get 'create_edit_subquestion_answer'
-      get 'create_edit_subquestionanswer'
-      get 'create_edit_subquestionanswer_subquestion'
-
+     
+      #done
       get 'create_question_remove'
       get 'create_answer_remove'
       get 'create_subanswer_remove'
@@ -90,9 +93,6 @@ Rails.application.routes.draw do
     
     end
   end
-    #---------------------------------- FORM CREATION ----------------------------------#
-    # get '/form_create' => 'forms#createForm',   as: 'form_create'
-    #---------------------------------- FORM CREATION ----------------------------------#
    
    
    #---------------------------------- FORM ANSWERING ----------------------------------#

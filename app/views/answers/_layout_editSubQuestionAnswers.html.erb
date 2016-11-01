@@ -1,0 +1,20 @@
+<%= form_tag(create_edit_subquestionanswers_change_answers_path, remote: true) do %>
+<div class="row" id="row_for_edit">
+	<div class="profile-card">
+		<%= hidden_field_tag 'subQuestAns_id' , @selectedAnswer.id %>
+		<div class="medium-12 column">
+	        <%= label_tag 'ans', 'Edit Answer' %>
+	        <%= text_field_tag 'edit_answer', @selectedAnswer.SQAnswer %>
+		</div>
+		<div class="row">
+			<div class="medium-centered column" id="submit_edit_div">
+				<%= submit_tag "Edit" , data: { confirm: 'Are you sure?' }%>
+			</div>
+		</div>				
+		<div id="message_edit">
+		</div>
+	</div>
+</div>
+
+
+<% end %>
