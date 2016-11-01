@@ -2,7 +2,27 @@
 <div class="columns" id="tryScroll">
 <div id="completion_status" class="question_corner_box" > SUK DISK</div>
 	<%if !@question.nil?%>
-	<h1><%= @question.QuestionNumber %>. <%= @question.QuestionDesc %></h1> 
+		<!-- translator  !-->
+		<h1><%= @question.QuestionNumber %>. 
+		<% questionresult = @question.QuestionDesc.split(/ /||/,/)%>
+		<% $tran = 0%>	
+			<% until $tran > (questionresult.count-1)%>	
+				<% questionresult[$tran]%>
+				<% $checkword = true%>
+				<% @translators.each do |translate| %>
+					<%if questionresult[$tran].downcase == translate.TranslatorEng %>	
+						<span data-tooltip aria-haspopup="true" class="has-tip " data-disable-hover="false" tabindex="1" title="<%= translate.TranslatorChinese%>,  <%= translate.TranslatorDescription%>  ">
+							<%= questionresult[$tran]%>
+						</span>	
+						<% $checkword = false%>
+					<%end%>
+				<%end%>
+				<%if $checkword == true%>
+				<%= questionresult[$tran]%>
+				<%end%>
+				<% $tran += 1%>
+			<%end%>	
+		</h1>
 	<br/>
 	<% obtain_answers(@question.id).each do |a|%>	
 	<%-#Assuming that  IF it is NOT a SubAnswer, it could have a subquestion -%>
@@ -16,7 +36,27 @@
 					<% @value = true%>			
 				<%end%> 											
 					<p><%= check_box_tag  'answer_id', a.id, @value , data: {url: form_saveAns_path(:answer_id => a.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
-					<%= a.AnswerDesc%></p>		
+					
+					<!-- translator  !-->
+					<% answerdescresult = a.AnswerDesc.split(/ /||/,/||/./)%>
+						<% $tran = 0%>	
+							<% until $tran > (answerdescresult.count-1)%>	
+								<% answerdescresult[$tran]%>
+								<% $checkword = true%>
+									<% @translators.each do |translate| %>
+										<%if answerdescresult[$tran].downcase == translate.TranslatorEng %>	
+											<span data-tooltip aria-haspopup="true" class="has-tip " data-disable-hover="false" tabindex="1" title="<%= translate.TranslatorChinese%>,  <%= translate.TranslatorDescription%>  ">
+												<%= answerdescresult[$tran]%>
+											</span>	
+											<% $checkword = false%>
+										<%end%>
+									<%end%>
+								<%if $checkword == true%>
+									<%= answerdescresult[$tran]%>
+								<%end%>
+								<% $tran += 1%>
+							<%end%>	
+					</p>		
 			
 			<%elsif a.IsSubQuestion or a.IsSubQuestion == 1%>							
 				<!-- Find better way later !-->
@@ -26,7 +66,27 @@
 					<% @value = true%>																	    		
 				<%end%> 
 					<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: { url: form_display_subquestion_path(:formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true}  -%>
-					<%= a.AnswerDesc%></p> 	
+					<!-- translator  !-->
+					<% answerdescresult = a.AnswerDesc.split(/ /||/,/||/./)%>
+						<% $tran = 0%>	
+							<% until $tran > (answerdescresult.count-1)%>	
+								<% answerdescresult[$tran]%>
+								<% $checkword = true%>
+									<% @translators.each do |translate| %>
+										<%if answerdescresult[$tran].downcase == translate.TranslatorEng %>	
+											<span data-tooltip aria-haspopup="true" class="has-tip " data-disable-hover="false" tabindex="1" title="<%= translate.TranslatorChinese%>,  <%= translate.TranslatorDescription%>  ">
+												<%= answerdescresult[$tran]%>
+											</span>	
+											<% $checkword = false%>
+										<%end%>
+									<%end%>
+								<%if $checkword == true%>
+									<%= answerdescresult[$tran]%>
+							<%end%>
+						<% $tran += 1%>
+					<%end%>
+					</p> 
+						
 					<% if @value%>
 						<div id="displaySubQuestionButton" ><%= button_tag 'Display SubQuestion', :class => "button", data: { url: form_display_subquestion_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
 					<%end%>											
@@ -39,6 +99,27 @@
 			<%end%> 											
 				<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: {url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id]), remote: true }  -%>
 				<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]</p>	
+					<!-- translator  !-->
+						<% answerdescresult = a.AnswerDesc.split(/ /||/,/||/./)%>
+							<% $tran = 0%>	
+								<% until $tran > (answerdescresult.count-1)%>	
+									<% answerdescresult[$tran]%>
+									<% $checkword = true%>
+										<% @translators.each do |translate| %>
+											<%if answerdescresult[$tran].downcase == translate.TranslatorEng %>	
+												<span data-tooltip aria-haspopup="true" class="has-tip " data-disable-hover="false" tabindex="1" title="<%= translate.TranslatorChinese%>,  <%= translate.TranslatorDescription%>  ">
+													<%= answerdescresult[$tran]%>
+												</span>	
+												<% $checkword = false%>
+											<%end%>
+										<%end%>
+									<%if $checkword == true%>
+										<%= answerdescresult[$tran]%>
+								<%end%>
+							<% $tran += 1%>
+						<%end%>
+						</p>
+
 				<% if @value%>
 					<div id="displaySubAnswerButton" ><%= button_tag 'Display SubAnswers', :class => "button", data: { url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
 				<%end%>

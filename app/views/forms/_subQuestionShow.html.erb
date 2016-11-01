@@ -11,7 +11,28 @@
 			<%end%> 	
 									
 			<p><%= check_box_tag 'subQAnswer_id', sqa.id, @value , data: {url: form_saveSQAns_path(:subQAnswer_id => sqa.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
-			<%= sqa.SQAnswer%> </p>
+
+			<!-- translator  !-->
+			<% sqanswerresult = sqa.SQAnswer.split(/ /||/,/||/./)%>
+			<% $tran = 0%>	
+				<% until $tran > (sqanswerresult.count-1)%>	
+					<% sqanswerresult[$tran]%>
+					<% $checkword = true%>
+						<% @translators.each do |translate| %>
+							<%if sqanswerresult[$tran].downcase == translate.TranslatorEng %>	
+								<span data-tooltip aria-haspopup="true" class="has-tip " data-disable-hover="false" tabindex="1" title="<%= translate.TranslatorChinese%>,  <%= translate.TranslatorDescription%>  ">
+									<%= sqanswerresult[$tran]%>
+								</span>	
+								<% $checkword = false%>
+							<%end%>
+						<%end%>
+					<%if $checkword == true%>
+						<%= sqanswerresult[$tran]%>
+					<%end%>
+					<% $tran += 1%>
+				<%end%>
+		</p>
+
 		<%end%>
 	<%end%>
 </div>

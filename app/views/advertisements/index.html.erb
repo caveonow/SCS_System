@@ -5,11 +5,14 @@
 	</div>
     -->
 	
-	<%= form_for selectAds_path ,method: :put do |f|%>
+	<%= form_for selectAds_path ,method: :put, :html => {"data-abide" => '',"novalidate" => ''} do |f|%>
 	
 	<div class="row">
 		<div class="small-4 columns adbsbox">
 			<h4>Select field allow group to view</h4>
+			<div data-abide-error class="alert callout" style="display: none;">
+		    	<p><i class="fi-alert"></i> Please select all field.</p>
+		  	</div>
 					
 		        <div class="field field-padding" ">				
 					<%= f.label :advertisement_id %><br>
@@ -45,12 +48,14 @@
 
 				<div class="large-6 columns">
 				    <%= f.label :agefrom, "age" %><br>
-				    <input type="text" name="advertisement[agefrom]" id="advertisement_agefrom" />
+				    <input type="text" name="advertisement[agefrom]" id="advertisement_agefrom" required="true"/>
+					<span class="form-error">Please insert age</span>
 				</div>
 				  
 				<div class="large-6 columns">
 				    <%= f.label :ageto, "to" %><br>
 				    <input type="text" name="advertisement[ageto]" id="advertisement_ageto" disabled="true"/>
+					
 				</div>
 				<p id="abc"></p>
 			</div>

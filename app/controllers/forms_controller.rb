@@ -38,6 +38,7 @@ class FormsController < ApplicationController
     @formSections = Section.where("form_id = ?", params[:form_id])
     @selected_section = Section.where("id = ?", params[:section_id]).first   
     @getStudAnswer = Studanswer.where("formanswer_id = ?", params[:formanswer_id])
+    @translators = Translator.all
     
       obtain_question      # @questions
       obtain_all_questions # @allQuestions
@@ -53,7 +54,8 @@ class FormsController < ApplicationController
     @qNum = Answer.select( " questions.QuestionNumber , answers.id, answers.question_id" )
                   .joins( :question)
                   .where(" answers.id = ?", params[:radio_answer_id]).first
-    @formAnswer = Formanswer.where("id = ?", params[:formanswer_id]).first      
+    @formAnswer = Formanswer.where("id = ?", params[:formanswer_id]).first 
+    @translators = Translator.all     
       
     respond_to do |format|
       format.js
@@ -65,7 +67,8 @@ class FormsController < ApplicationController
     @qNum = Answer.select( " questions.QuestionNumber , answers.id, answers.question_id" )
               .joins( :question)
               .where(" answers.id = ?", params[:radio_answer_id]).first
-    @formAnswer = Formanswer.where("id = ?", params[:formanswer_id]).first     
+    @formAnswer = Formanswer.where("id = ?", params[:formanswer_id]).first 
+    @translators = Translator.all    
       respond_to do |format|
       format.js
     end  
@@ -551,5 +554,7 @@ class FormsController < ApplicationController
       .order("questions.QuestionNumber")
       .where("questions.section_id = ?", params[:section_id])
     end
+    
+    
     #---------------------------------- FORM ANSWERING ----------------------------------#   
 end

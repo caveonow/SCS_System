@@ -6,6 +6,27 @@
 			<% @value = true%>			
 		<%end%> 									
 		<p><%= check_box_tag 'subAnswer_id', sa.id, @value , data: {url: form_saveSAns_path(:subAnswer_id => sa.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
-		<%= sa.SADesc%> </p>
+		 
+		<!-- translator  !-->
+			<% sadescresult = sa.SADesc.split(/ /||/,/||/./)%>
+			<% $tran = 0%>	
+				<% until $tran > (sadescresult.count-1)%>	
+					<% sadescresult[$tran]%>
+					<% $checkword = true%>
+						<% @translators.each do |translate| %>
+							<%if sadescresult[$tran].downcase == translate.TranslatorEng %>	
+								<span data-tooltip aria-haspopup="true" class="has-tip " data-disable-hover="false" tabindex="1" title="<%= translate.TranslatorChinese%>,  <%= translate.TranslatorDescription%>  ">
+									<%= sadescresult[$tran]%>
+								</span>	
+								<% $checkword = false%>
+							<%end%>
+						<%end%>
+					<%if $checkword == true%>
+						<%= sadescresult[$tran]%>
+					<%end%>
+					<% $tran += 1%>
+				<%end%>
+		</p>
+		
 	<%end%>
 </div>
