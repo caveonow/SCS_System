@@ -9,21 +9,19 @@ class QuestionsController < ApplicationController
 
   def submit_create
     @question = Question.new(question_params)
-   
+    
     respond_to do |format|
       if @question.save
         @save = true;  
-        format.html
-        format.json
-        format.js
+       @getQuestions = Question.where("section_id = ?", @question.section_id) 
         puts "success"
       else
         @save = false;
         puts "fail"
+      end
         format.html
         format.json
         format.js
-      end
     end
   end
 

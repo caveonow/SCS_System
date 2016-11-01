@@ -1,0 +1,132 @@
+<h2><u>Question List</u></h2>
+<div style="border: 4px groove black;height:70vh; margin-bottom:15px;overflow:auto"> 
+	<% if !@getQuestions.empty?%> 
+	<% @getQuestions.each do |question| %>
+		<table>
+		<tr>
+			<td><div class="row">
+				<div class="row" id="question<%=question.id%>">
+					<div class="medium-9 column">
+	    				<h4><%= question.QuestionNumber%>.<%= question.QuestionDesc%></h4>
+					</div>
+    			<%= link_to create_render_answer_forms_path(:question_id => question.id, :selected_section_id => question.section_id), remote: true do%>
+	    			<div id="question_<%= question.id%>" class="medium-2 column" style="text-align: right">
+	    				<p>Add Ans</p>
+	    			</div>
+    			<%end%>
+    			<%= link_to create_question_remove_forms_path(:question_id => question.id, :selected_section_id => question.section_id), :data => {:confirm => 'Are you sure you want to delete this question?'}, remote: true do%>
+	    			<div id="question_<%= question.id%>" class="medium-1 column" style="text-align: right">
+	    				<p>Del</p>
+	    			</div>
+    			<%end%>
+    			</div>
+    			<table>								  	    			    					    							
+					<%obtain_answers(question.id).each do |ans|%>	
+					<tr>
+						<td>
+							<div class="row" >
+								<div class="medium-10 column">
+    									<ul>    							
+    								<li><%= ans.AnswerDesc%></li> 		
+    							</ul>
+    						<!-- if IsSubAnswer !-->										
+							<%if ans.IsSubAnswer %>
+													    		    						
+    							<div class="row">
+    								<ul style="list-style:lower-roman">																				
+								<% obtain_subanswers(ans.id).each do |subAns|%>		
+    									<div class="medium-10 column">
+    											    							
+			    							<li><%= subAns.SADesc%></li> 		
+			    											
+		    							</div>
+		    							<%= link_to create_edit_subanswer_answer_forms_path(:subAns_id => subAns.id, :selected_section_id => question.section_id), remote: true do%>
+							    			<div id="subanswer_id<%= subAns.id%>" class="medium-1 column" style="text-align: right">
+							    				<p>Edit</p>
+							    			</div>
+						    			<%end%>					    							
+		    							<%= link_to create_subanswer_remove_forms_path(:subAns_id => subAns.id, :selected_section_id => question.section_id), :data => {:confirm => 'Are you sure you want to delete this subAnswer?'}, remote: true do%>
+							    			<div id="subanswer_<%= subAns.id%>" class="medium-1 column" style="text-align: right">
+							    				<p>Del</p>
+							    			</div>
+						    			<%end%>	
+    							<%end%></ul>
+    							</div>	    	
+	    					<%elsif ans.IsSubQuestion%>
+    						<!-- elsif IsSubQuestion !-->
+    							<div class="row" >
+    							<% obtain_subquestion(ans.id).each do |subQuest|%>
+								<div class="medium-10 column">			    							
+	    							<%=question.QuestionNumber%><%= subQuest.SQChar%>)<%= subQuest.SQDesc%>
+	    							<ul style="list-style:lower-roman">	 											
+	    							<% obtain_subquestionanswer(subQuest.id).each do |subQuestAns|%>				    								
+    									<div class="row " >
+    										<div class="medium-9 column">			    							
+			    							<li><%= subQuestAns.SQAnswer%></li> 						
+			    							</div>
+			    							<%= link_to create_edit_subquestion_answer_forms_path(:subQuestAns_id => subQuestAns.id, :selected_section_id => question.section_id), remote: true do%>
+								    			<div id="subquestionanswer_<%= subQuestAns.id%>" class="medium-1 column" style="text-align: right">
+								    				<p>Edit</p>
+								    			</div>
+							    			<%end%>	
+		    								<%= link_to create_subquestionanswer_remove_forms_path(:subQuestAns_id => subQuestAns.id, :selected_section_id => question.section_id), :data => {:confirm => 'Are you sure you want to delete this subQuestion Answer?'}, remote: true do%>
+								    			<div id="<%= subQuestAns.id%>" class="medium-1 column" style="text-align: right">
+								    				<p>Del</p>
+								    			</div>
+							    			<%end%>				    									
+	    								</div>		
+	    							<%end%></ul>
+	    							</div>
+									<%= link_to create_edit_subquestion_forms_path(:subQuest_id => subQuest.id, :selected_section_id => question.section_id), remote: true do%>
+						    			<div id="subquestion_<%= subQuest.id%>" class="medium-1 column" style="text-align: right">
+						    				<p>Add</p>
+						    			</div>
+				    				<%end%>	
+								<%= link_to create_subquestion_remove_forms_path(:subQuest_id => subQuest.id, :selected_section_id => question.section_id), :data => {:confirm => 'Are you sure you want to delete this subQuestion?'}, remote: true do%>
+					    			<div id="<%= subQuest.id%>" class="medium-1 column" style="text-align: right">
+					    				<p>Del</p>
+					    			</div>
+				    			<%end%>		
+    							</div>   
+    							<%end%>							
+    						<%end%>		
+    							 				
+    						</div>
+    						<% if ans.IsSubAnswer %>
+    							<%= link_to create_edit_subanswer_forms_path(:ans_id => ans.id, :selected_section_id => question.section_id), remote: true do%>
+					    			<div id="subanswer_<%= ans.id%>" class="medium-1 column" style="text-align: right">
+					    				<p>Add</p>
+					    			</div>
+				    			<%end%>
+    						<% elsif ans.IsSubQuestion %>
+    							<%= link_to create_edit_answer_subquestion_forms_path(:ans_id => ans.id, :selected_section_id => question.section_id), remote: true do%>
+					    			<div id="answer_subquestion_<%= ans.id%>" class="medium-1 column" style="text-align: right">
+					    				<p>Add</p>
+					    			</div>
+				    			<%end%>							    				
+    						<%else%>								
+    							<%= link_to create_edit_answer_forms_path(:ans_id => ans.id, :selected_section_id => question.section_id), remote: true do%>
+					    			<div id="editanswer_<%= ans.id%>" class="medium-1 column" style="text-align: right">
+					    				<p>Edit</p>
+					    			</div>
+				    			<%end%>	
+    						<%end%>
+    						
+							<%= link_to create_answer_remove_forms_path(:ans_id => ans.id, :selected_section_id => question.section_id), :data => {:confirm => 'Are you sure you want to delete this Answer?'}, remote: true do%>
+				    			<div id="answer_<%= ans.id%>" class="medium-1 column" style="text-align: right">
+				    				<p>Del</p>
+				    			</div>
+			    			<%end%>	
+					
+    						
+							</div>  					    						
+						</td>
+					</tr>			
+					<%end%>		
+				</table>		    			
+			</td></div>
+		</tr>  	
+		</table>  	
+	<% end %>
+	<%end%>
+</div>

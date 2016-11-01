@@ -1,7 +1,7 @@
 class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
   respond_to :html, :js
-  helper_method :obtain_questions , :obtain_answers, :obtain_subanswers, :obtain_subquestion , :obtain_subquestionanswer, :check_answer, :check_subanswer, :check_subquestionanswer
+
 
 
 #---------------------------------- FORM ANSWERING ----------------------------------#
@@ -14,39 +14,7 @@ class FormsController < ApplicationController
   def startForm 
     @selectedSections = Section.where("form_id = ?", params[:formId])
   end
-  
-    def check_answer(fa_id, ans_id)
-      Studanswer.where("answer_id = ? AND formanswer_id = ?", ans_id, fa_id)
-    end
-    
-    def check_subanswer(fa_id, subans_id)
-      Studsubanswer.where("subanswer_id = ? AND formanswer_id = ?", subans_id, fa_id)
-    end
-    
-    def check_subquestionanswer(fa_id, subquestans_id)
-      Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?", subquestans_id, fa_id)
-    end
-     
-    def obtain_questions(section_id)
-      Question.where( "questions.section_id= ?" , section_id)
-    end
-    
-    def obtain_answers(question_id)
-      Answer.where( "answers.question_id = ?", question_id)
-    end
-    
-    def obtain_subanswers(answer_id)
-      Subanswer.where( "subanswers.answer_id = ?", answer_id)
-    end
-    
-    def obtain_subquestion(answer_id)
-      Subquestion.where( "subquestions.answer_id = ?", answer_id)
-    end  
-    
-    def obtain_subquestionanswer(subquestionanswers_id)
-      Subquestionanswer.where(" subquestionanswers.subquestion_id = ?", subquestionanswers_id)
-    end
- 
+
  #viewselected Form
   def selectForm
     @sections = Section.where("form_id = ?", params[:form_id])
@@ -226,60 +194,224 @@ class FormsController < ApplicationController
         @save = true;  
         @section = Section.new
         @counter =  "0"   
-        format.html
-        format.json
-        format.js
         puts "success"
       else
         @save = false;
         puts "fail"
-        format.html
-        format.json
-        format.js
       end
+      format.html
+      format.json
+      format.js
     end
   end
   
   def submit_create_section
     @section = Section.new(section_params)
     @counter = Section.where("form_id = ?", @section.form_id).count
-    puts @counter    
-    puts "dis at submit_create_section"
     respond_to do |format|
       if @section.save
         @save = true; 
-        format.html
-        format.json
-        format.js
         puts "success"
       else
         @save = false;
         puts "fail"
-        format.html
-        format.json
-        format.js
       end
+      format.html
+      format.json
+      format.js
+      
     end
   end
   
-  def render_section
+  def create_render_new_section
     @section = Section.new
     @form = Form.where("id = ?", params[:form_id]).first  
     @counter = Section.where("form_id = ?", params[:form_id]).count
-    puts @counter
-    puts "dis at render_section"
     respond_to do |format|               
       format.js 
     end     
   end
 
-  def section_display
+  def create_question_display_section
     
-    @getSection = Section.where("form_id = ?", params[:form_id])
+    @formSections = Section.where("form_id = ?", params[:form_id])
     respond_to do |format|               
       format.js 
     end   
   end
+    
+    
+  def create_question_display
+    @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+
+    respond_to do |format|
+      format.js 
+    end
+  end
+  
+  def create_render_question
+    
+    @question = Question.new
+    @section_id = params[:sec_id]
+   
+    @questCount = Question.where("section_id = ? ",  @section_id)
+   
+    respond_to do |format|
+      format.js 
+    end 
+  end
+   
+    
+    
+    def create_render_answer
+    @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+    @answer = Answer.new  
+    @selectedQuestion = Question.where("id = ?", params[:question_id]).first
+    @getAnswers = Answer.where("question_id = ?", params[:question_id]) 
+     
+    respond_to do |format|
+      format.js 
+    end
+    end
+    
+    def create_question_remove
+      @selectedQuestion = Question.where("id = ?", params[:question_id]).first
+      
+      @tempNumber = @selectedQuestion.QuestionNumber
+      @getQuestionUnderSection = Question.order("questions.QuestionNumber").where("section_id = ?", params[:selected_section_id])     
+      @getQuestionUnderSection.each do |question|
+        if question.QuestionNumber > @selectedQuestion.QuestionNumber
+          puts question.QuestionNumber
+          puts "and"
+          puts @selectedQuestion.QuestionNumber
+          question.QuestionNumber = @tempNumber
+          @updateQuestion = Question.find(question.id)
+          @updateQuestion.update_attributes(:QuestionNumber => @tempNumber)
+          @tempNumber += 1            
+        end  
+      end    
+      
+      @selectedQuestion.destroy     
+      
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end
+    end
+    
+    def create_answer_remove
+      
+
+      @answer = Answer.find(params[:ans_id]).destroy
+      #---------------------------------------------------------------------------------
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end
+    end
+    
+    def create_subanswer_remove
+      
+
+      @subAnswer = Subanswer.find(params[:subAns_id]).destroy
+      
+      #---------------------------------------------------------------------------------
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end      
+    end
+    
+    def create_subquestion_remove
+      
+      @subQ = Subquestion.where("id = ?", params[:subQuest_id]).destroy_all
+      
+      #---------------------------------------------------------------------------------
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end      
+    end
+    
+    def create_subquestionanswer_remove
+      
+      @subQAnswer = Subquestionanswer.find(params[:subQuestAns_id])
+      @subQAnswer.delete      
+      #---------------------------------------------------------------------------------
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end      
+    end
+    
+    def create_edit_answer
+      @selectedAnswer = Answer.find(params[:ans_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+     
+      respond_to do |format|
+        format.js
+      end       
+    end
+    
+    def create_edit_subanswer
+      @selectedAnswer = Answer.find(params[:ans_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end                 
+    end    
+    
+    
+    def create_edit_subanswer_answer
+      @selectedAnswer = Subanswer.find(params[:subAns_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end         
+    end
+
+    def create_edit_answer_subquestion
+      @selectedAnswer = Answer.find(params[:ans_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      
+      
+      #######################################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+      
+      @subQuestionCount = Subquestion.where("answer_id = ?", params[:ans_id]).count
+      
+      respond_to do |format|
+        format.js
+      end       
+    end
+        
+    def create_edit_subquestion
+      @selectedAnswer = Subquestion.find(params[:subQuest_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+
+      
+      respond_to do |format|
+        format.js
+      end     
+    end
+    
+    def create_edit_subquestion_answer
+      @selectedAnswer = Subquestionanswer.find(params[:subQuestAns_id])
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      
+      respond_to do |format|
+        format.js
+      end            
+    end
+    
+
     
   #---------------------------------- FORM CREATION ----------------------------------#
   
@@ -354,12 +486,10 @@ class FormsController < ApplicationController
    @studanswer = Studanswer.new(studanswer_params)
  end
  def create_studsubanswer
-   @studsubanswer = Studsubanswer.new(studsubanswer_params)
-   
+   @studsubanswer = Studsubanswer.new(studsubanswer_params) 
  end
  def create_studsubquestionanswer
-   @studsubquestionanswer = Studsubquestionanswer.new(studsubquestionanswer_params)
-   
+   @studsubquestionanswer = Studsubquestionanswer.new(studsubquestionanswer_params)   
  end
 #---------------------------------- FORM ANSWERING ----------------------------------#
 
@@ -372,6 +502,13 @@ class FormsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    
+    
+    def question_params
+      params.require(:question).permit(:QuestionDesc, :QuestionNumber, :section_id)
+    end
+    
+    
     def form_params
       params.require(:form).permit(:FormName, :FormDescription)
     end
@@ -415,6 +552,5 @@ class FormsController < ApplicationController
       .order("questions.QuestionNumber")
       .where("questions.section_id = ?", params[:section_id])
     end
-    #---------------------------------- FORM ANSWERING ----------------------------------#
-    
+    #---------------------------------- FORM ANSWERING ----------------------------------#   
 end

@@ -6,15 +6,16 @@
 	<body>
 			  <!-- this adds Foundation Icon Fonts!! -->
 	    <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
-	    <div class="row">
-	      <div  id="form_create"  class="large-12 columns">
+	    <div class="row expanded" style="background-color:#647be0">
+	      <div class="large-12 columns">
+	      	<div id="form_create" class="medium-4 medium-centered columns">
 	        <div class="profile-card">
 	          <img src="http://zurb.com/ink/images/inky-computer.svg" alt="Inky">
 	          <div class="profile-info">
 	            <h4 class="subheader">Form</h4>
 	            <p>Create your own new form</p>
 	            	<div id="create_form_div"> 
-		            	<%= render 'newForm'%>
+		            	<%= render 'layout_newForm'%>
 		            </div>
 		            <div id="display_form_div">
 		            	
@@ -24,22 +25,36 @@
 	        </div>
 	      </div>
 	      </div>
-	      
-
-	    
-	    <div class="row" id="section_part">
+	      	  </div>  
+	    <div class="row expanded" id="section_cover_row" style="background-color:#67d4e0;display:none" >
+	    	<div class="large-12 columns" id="section_part">
+	    		</div>
 	    </div>
-	    <div class="row" id="question_part" style="background-color:#999999; display:none">
-##come back here ltr
-	    	<div id="get_sections_for_questions"  class="large-centered">	
+	    
+	    
+	    <div class="row expanded" id="question_part" style="background-color:#999999; display:none; margin-bottom: 50px">
 
+	    	<div id="get_sections_for_questions"  class="large-centered">	
     		</div>
+    		
     		<div id="display_sections_to_select" class="large-centered">
-    			test test
     		</div>
-	    		##will be copied
-	    		<div id="question_create" class="large-4 columns">
+				<div id="question_add" style="display:none">
+					
+				</div>
+	    		<div id="question_view" class="large-6 columns" style="display:none">
+
+    			</div>
+    			<div id="panel_create" class="large-6 columns" style="display:none">
     			</div>
 	    </div>
+	    
+	    <br/><br/>
+	    <div class="row">
+	    	<div class="medium-centered">
+	    		<p class="button"  >Complete Form</p>###see l;aters
+    		</div>
+		</div>
+	    </div><br/><br/><br/><br/><br/><br/>
 	</body>
 </html>

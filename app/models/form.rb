@@ -1,6 +1,6 @@
 class Form < ActiveRecord::Base
   belongs_to :user
-  has_many :section
+  has_many :section, :dependent => :destroy
   
   has_many :question, through: :section
   has_many :answer, through: :question

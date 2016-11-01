@@ -7,19 +7,21 @@
 	$('#display_form_div').slideDown(350);
 	$('#display_form_div').append("Form Creation Success!");
 	
-	$('#section_part').html("<%= j (render 'createSections')%>");
+	$('#section_cover_row').show();
+	$('#section_part').html("<%= j (render 'layout_createSections')%>");
 	$('#form_name_add0').append("'<b><%= @form.FormName%></b>'");
 	$('#section_create0').show();
-	$('#create_section_div0').html("<%= j (render 'newSection') %>");
+	$('#create_section_div0').html("<%= j (render 'layout_newSection') %>");
 	$('#form_error_message').html("");
 	$('#question_part').show();
 	$('#get_sections_for_questions').show();
 	
 	
 	
-	
-	$('#get_sections_for_questions').html("<%= j link_to "LINK", section_display_forms_path(:form_id => @form.id), remote: true%>");
-	
+	$('#get_sections_for_questions').html("");
+	$('#get_sections_for_questions').html("<h1 class='text-center'>Question Creation</h1>");
+	$('#get_sections_for_questions').append("<h1 class='text-center'><%= j link_to "Load Sections", create_question_display_section_forms_path(:form_id => @form.id), remote: true, :class => "button"%></h1>");
+
 	
 	
 

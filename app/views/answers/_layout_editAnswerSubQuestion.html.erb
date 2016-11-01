@@ -1,0 +1,31 @@
+<%= form_tag(create_edit_answer_subquestion_change_answers_path, remote: true) do %>
+<div class="row" id="answer_create">
+	<div class="profile-card">
+		<%= hidden_field_tag 'ans_id' , @selectedAnswer.id %>
+		<%= hidden_field_tag 'question_id' , @selectedAnswer.question_id %>
+		<div class="medium-12 column">
+	        <%= label_tag 'ans', 'Edit Answer' %>
+	        <%= text_field_tag 'edit_answer', @selectedAnswer.AnswerDesc %>
+		</div>
+		
+		<%if @subQuestionCount < 1%>
+		<div class="row" style="text-align: center" id="subans_addon">
+			<%= link_to 'Addon SubQuestion', create_subQuestion_answers_path, remote: true , :onclick => "$('#subans_addon').hide()"%>
+		</div>
+		<%end%>
+		</br>
+		</br>
+		<div id="create_sub" style="display:none"></div>
+
+		<div class="row">
+			<div class="medium-centered column" id="submit_edit_div">
+				<%= submit_tag "Update" , data: { confirm: 'Are you sure?' }%>
+			</div>
+		</div>				
+		<div id="message_edit">
+		</div>
+	</div>
+</div>
+<% end %>
+
+

@@ -1,0 +1,19 @@
+<% if @save%>
+
+	$("#answer_create").css('background-color', '#44e251');
+	$("#question_view").html("");
+	$("#question_view").html("<%= j render('forms/layout_questionList')%>");
+	$("#message_edit").html("<h2 style='text-align:center'>Answer Successfully Changed!</h2>");
+	$("#edit_answer").prop('disabled', true);
+	$("#create_sub").find("input,button,textarea,select").attr("disabled", "disabled");
+	$("#addSubAns_button").hide();
+	$("#submit_edit_div").hide();
+	$("#subans_addon").hide();
+
+<%else%>
+	$("#row_for_edit").css('background-color', 'red');
+	$("#answer_error_message").html("");
+	$("#message_edit").append("<h2 style='text-align:center'>Error! Please do not leave main answer blank</h2>");
+
+<%end%>
+
