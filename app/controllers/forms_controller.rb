@@ -187,7 +187,7 @@ class FormsController < ApplicationController
     @form = Form.new(form_params)
     @form.FormDateTime = Time.now
     @form.FormStatus = 'Available'
-    @form.user_id = "1"     #current_user.id 
+    @form.id = current_user.id     #current_user.id 
 
     respond_to do |format|
       if @form.save

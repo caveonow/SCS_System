@@ -65,9 +65,15 @@ class TranslatorsController < ApplicationController
   end
   
   def editmultranslate
-    #
-      @translators = Translator.find(params[:translator_ids])  
+    if params[:translator_ids].nil?
+      redirect_to translators_url
+      flash[:success] = "Please select a field"
+    else
+        @translators = Translator.find(params[:translator_ids])  
+        flash[:success] = "Profile updated"
+    end
     
+      
   end
   
   def updatemultranslate

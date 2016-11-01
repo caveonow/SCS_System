@@ -72,7 +72,13 @@ class UsersController < ApplicationController
   end
 
   def editmuluser
-      @useredits = User.find(params[:user_ids])  
+    if params[:user_ids].nil?
+      redirect_to users_url
+      flash[:success] = "Please select a field"
+    else
+      @useredits = User.find(params[:user_ids])
+        flash[:success] = "Profile updated"
+    end
   end
   
   def updatemuluser

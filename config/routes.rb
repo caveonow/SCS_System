@@ -118,6 +118,7 @@ Rails.application.routes.draw do
       collection do
         get :editmuluser
         put :updatemuluser
+        
       end
     end
   end
@@ -152,7 +153,7 @@ Rails.application.routes.draw do
     collection do
       put :updateadvertassocite
       get :editassociate
-      delete :deleteassociate
+      delete :deleteassociate ,as: :deleteassoc
     end
   end
   put 'advertisements', to: 'advertisements#activeadvertisement', as: :selectAds

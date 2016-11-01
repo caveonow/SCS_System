@@ -1,7 +1,6 @@
 class AdvertisementsController < ApplicationController
   before_filter :authenticate_user!
   #before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
-  before_action :set_adertassociate, only: [:destroy]
   load_and_authorize_resource
 
   # GET /advertisements
@@ -92,12 +91,12 @@ class AdvertisementsController < ApplicationController
   
   def editassociate
     @advertisementassociate = Advertisementassociate.all
-
   end
   
   def deleteassociate
+     @advertisementassociate1 = Advertisementassociate.find_by(id: params[:id])
     
-    @advertisementassociate.destroy
+    @advertisementassociate1.delete
     respond_to do |format|
       format.html { redirect_to advertisements_url, notice: 'Advertisementassociation was successfully destroyed.' }
       
@@ -110,9 +109,7 @@ class AdvertisementsController < ApplicationController
       @advertisement = Advertisement.find(params[:id])
     end
     
-    def set_adertassociate
-      @advertisementassociate = Advertisementassociate.find(params[:id])
-    end
+    
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advertisement_params
