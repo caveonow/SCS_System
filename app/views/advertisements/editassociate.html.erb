@@ -23,7 +23,7 @@
         <td><%= asso.faculty.facultyname %></td>
         <td><%= asso.yearofstudy.year %></td>
         <td><%= asso.levelofstudy.levelname %></td>
-       	<td><%= link_to 'Delete', deleteassoc_advertisements_path(asso.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       	<td><%= link_to 'Delete', deleteassoc_advertisements_path(:asso_id => asso.id, :id => asso.advertisement.id), data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

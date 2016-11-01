@@ -94,9 +94,10 @@ class AdvertisementsController < ApplicationController
   end
   
   def deleteassociate
-     @advertisementassociate1 = Advertisementassociate.find_by(id: params[:id])
     
+    @advertisementassociate1 = Advertisementassociate.find(params[:asso_id])
     @advertisementassociate1.delete
+    
     respond_to do |format|
       format.html { redirect_to advertisements_url, notice: 'Advertisementassociation was successfully destroyed.' }
       
