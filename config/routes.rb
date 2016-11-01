@@ -95,6 +95,8 @@ Rails.application.routes.draw do
   resources :advertisements do
     collection do
       put :updateadvertassocite
+      get :editassociate
+      delete :deleteassociate
     end
   end
   put 'advertisements', to: 'advertisements#activeadvertisement', as: :selectAds

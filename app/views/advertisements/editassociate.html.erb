@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Manage advertisement view</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>advertisment name</th>
+      <th>programe name</th>
+      <th>faculty name </th>
+      <th>year of study</th>
+      <th>level of study</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @advertisementassociate.each do |asso| %>
+      <tr>
+        <td><%= asso.id %></td>
+        <td><%= asso.advertisement.AdvertisementName %></td>
+        <td><%= asso.programme.programmename %></td>
+        <td><%= asso.faculty.facultyname %></td>
+        <td><%= asso.yearofstudy.year %></td>
+        <td><%= asso.levelofstudy.levelname %></td>
+       	<td><%= link_to 'Delete', asso, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Yearofstudy', new_yearofstudy_path %>

@@ -1,6 +1,7 @@
 class AdvertisementsController < ApplicationController
   before_filter :authenticate_user!
   #before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
+  before_action :set_adertassociate, only: [:destroy]
   load_and_authorize_resource
 
   # GET /advertisements
@@ -87,15 +88,30 @@ class AdvertisementsController < ApplicationController
           end
         end
   end
+
   
-  def updateadvertassocite
-      flash[:error] = "Your book was not found"
+  def editassociate
+    @advertisementassociate = Advertisementassociate.all
+
+  end
+  
+  def deleteassociate
+    
+    @advertisementassociate.destroy
+    respond_to do |format|
+      format.html { redirect_to advertisements_url, notice: 'Advertisementassociation was successfully destroyed.' }
+      
+    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_advertisement
       @advertisement = Advertisement.find(params[:id])
+    end
+    
+    def set_adertassociate
+      @advertisementassociate = Advertisementassociate.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
