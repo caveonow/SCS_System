@@ -1,6 +1,7 @@
 class UserImport
   include ActiveModel::Model
   attr_accessor :file
+  validates_inclusion_of :file, :in => %w( csv ), :message => "extension %s is not included in the list"
 
   def initialize(attributes = {})
     attributes.each { |name, value| send("#{name}=", value) }

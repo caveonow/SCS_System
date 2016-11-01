@@ -4,7 +4,7 @@
 
 	<h5 class="text-center">Did not receive an email?</h5>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }, :html => {"data-abide" => '',"novalidate" => ''}) do |f| %>
   <%= devise_error_messages! %>
   
   <p class="text-center"> provide additional information to aid in the recovery process.</p>
@@ -13,7 +13,8 @@
 	
   <div class="field field-padding">
     <%= f.label  "Enter email that registered to our site."  %><br />
-    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), :required => true, placeholder: "someone@example.com" %>
+  	<span class="form-error">The email is required</span>
   </div>
 
   <div class="actions field-padding">

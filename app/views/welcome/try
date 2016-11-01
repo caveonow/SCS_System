@@ -1,0 +1,54 @@
+<ul class="tabs" data-tabs id="example-tabs">	
+		     
+		<% until $tab > 2%>
+			<% @tabAd = "panel"%>
+			<% @tabAd << $tab.to_s %>
+			    <% if $tab == 1 %>
+				  <li class="tabs-title is-active">
+				  	<a href="#<%= @tabAd %>" aria-selected="true"><%=@checkadverdfirst.advertisement.AdvertisementName%></a>
+				  </li>
+				  <% $tab += 1 %>
+				<%else%>
+				  	<% @checkadverdsecond.each do |advertisement| %>
+				  	<% @tabAd = "panel"%>
+					<% @tabAd << $tab.to_s %>
+				  	<li class="tabs-title ">
+				 	<a href="#<%= @tabAd %>" aria-selected="true"><%=advertisement.advertisement.AdvertisementName%></a>
+					</li>
+					<% $tab += 1 %>	
+				<%end%>
+			<%end%>      
+		<%end%>
+	</ul>
+		<% $panel = 1 %>
+		
+		<% until $panel > 2%>
+			<% @panelAd = "panel"%>
+	    	<% @panelAd << $panel.to_s %>
+	    	<% if $panel == 1 %>
+	    	  <div class="tabs-panel is-active" id="<%= @panelAd %>">		  	
+					<div class="columns medium-8">
+					<%= image_tag @welcomeAd.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+				    </div>
+				    <div class="columns medium-4">
+					<p><%= @welcomeAd.AdvertisementDescription%></p>
+				  </div>
+		  	  </div>
+			  <% $panel += 1 %>
+			<%else%>
+			    <% @welcomeAd1.each do |advertisement| %>
+				<% @panelAd = "panel"%>
+		    	<% @panelAd << $panel.to_s %>
+			    		<div class="tabs-panel" id="<%= @panelAd %>">
+				    	<div class="columns medium-8">
+							<%= image_tag advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+				    	</div>
+				    	<div class="columns medium-4">
+							<p><%= advertisement.AdvertisementDescription%></p>
+					    </div>
+			    		</div>
+			    		<% $panel += 1 %>
+			    <%end%>
+			  
+			<%end%>  
+		<%end%>

@@ -31,6 +31,28 @@
   </tbody>
 </table>
 
+	<% @forms.each do |form| %>
+		<% result = form.FormDescription.split(/ /||/,/)%>
+					<% result.count%>
+		<% @translators.each do |translate| %>
+		
+			<%if form.FormDescription.include? translate.TranslatorEng%>	
+					<% $tran = 0%>
+					<% until $tran > (result.count-1)%>
+						<%if result[$tran] == translate.TranslatorEng%>
+						<span data-tooltip aria-haspopup="true" class="has-tip " data-disable-hover="false" tabindex="1" title="<%= translate.TranslatorChinese%>,  <%= translate.TranslatorDescription%>  ">
+							<%= result[$tran]%>
+						</span>
+						<%else%>
+						<%= result[$tran]%>
+						<%end%>
+						<% $tran += 1%>
+					<%end%>	
+			<%end%>
+			
+		<%end%>
+		
+	<%end%>
 <%= submit_tag "Edit Checked" %>
 <% end %>
 <br>

@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 # heroku requirement
-#ruby '2.3.0' #ow
-ruby '2.3.1' #nick
+ruby '2.3.0' #ow
+#ruby '2.3.1' #nick
 gem 'puma'
 # 
 #gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
@@ -13,7 +13,7 @@ gem 'chartkick'
 gem 'groupdate' 
 gem 'active_median'
 #query add
-gem 'jquery-datatables-rails' , :github => 'rweng/jquery-datatables-rails'
+gem 'jquery-datatables-rails' #, :github => 'rweng/jquery-datatables-rails'
 gem 'jquery-ui-rails'
   # refresh query
   gem 'jquery-turbolinks'

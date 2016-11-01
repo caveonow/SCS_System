@@ -1,12 +1,11 @@
 <p id="notice"><%= notice %></p>
-	
+	<!--
 	<div class="row">
 		<%= link_to 'New Advertisement', new_advertisement_path %>
 	</div>
-    
+    -->
 	
 	<%= form_for selectAds_path ,method: :put do |f|%>
-	
 	
 	<div class="row">
 		<div class="small-4 columns adbsbox">
@@ -17,27 +16,46 @@
 					<%= collection_select(:advertisement, :advertisement_id, Advertisement.all, :id, :AdvertisementName, {prompt: true}) %>  
 				</div>
 			
-				<div class="field field-padding" ">				
+				<div class="row">
+				<div class="large-6 field field-padding columns" >				
 					<%= f.label :faculty_id, "faculty" %><br>
 					<%= collection_select(:advertisement, :faculty_id, Faculty.all, :id, :facultyname, {prompt: true}) %>  
 				</div>
 				
-				<div class="field field-padding">
+				<div class=" large-6 field field-padding columns">
 					<%= f.label :programme_id , "programme"%><br>
 					<%= collection_select(:advertisement, :programme_id, Programme.all, :id, :programmename, {prompt: true}) %>  
 				</div>
-				
-				<div class="field field-padding">
+				</div>
+				<div class="row">
+				<div class="field field-padding large-6 columns">
 					<%= f.label :levelofstudy_id ,"level"%><br>
 					<%= collection_select(:advertisement, :levelofstudy_id, Levelofstudy.all, :id, :levelname, {prompt: true}) %>  
 				</div>
 				
-				<div class="field field-padding">
+				<div class="field field-padding large-6 columns">
 					<%= f.label :yearofstudy_id , "year"%><br>
 					<%= collection_select(:advertisement, :yearofstudy_id, Yearofstudy.all, :id, :year, {prompt: true}) %>  
 				</div>
+				</div>
+				
+				<div class="row field-padding">
+					<%= f.label :agecondition , "Age Condition"%>
+					<select name="advertisement[agecondition]" id="advertisement_agecondition"><option selected='selected'>Equal</option><option>Less Than</option><option>More Than</option><option>Between</option></select>
 
-    
+				<div class="large-6 columns">
+				    <%= f.label :agefrom, "age" %><br>
+				    <input type="text" name="advertisement[agefrom]" id="advertisement_agefrom" />
+				</div>
+				  
+				<div class="large-6 columns">
+				    <%= f.label :ageto, "to" %><br>
+				    <input type="text" name="advertisement[ageto]" id="advertisement_ageto" disabled="true"/>
+				</div>
+				<p id="abc"></p>
+			</div>
+
+    <%= submit_tag "Active Advertisment", data: { confirm: "Are you sure?" } %>
         </div>
         
         <div class="small-8 columns" style="height: 530px;overflow-y:scroll;">
@@ -52,11 +70,13 @@
 			  <%end%>
         </div>
         </div>
+        <%= submit_tag "Active Default Advertisment" , data: { confirm: "Are you sure want this Advertisement as default page?" }, :name => 'update' %>
     </div>
     
 <br>
-<div class="row align-right">
-<%= submit_tag "Activate Selected Advertisment" %>
+<div align="right" class="actions field-padding">
+			
+		    
 <% end %>
 
 

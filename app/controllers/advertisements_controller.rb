@@ -70,20 +70,21 @@ class AdvertisementsController < ApplicationController
   
    def activeadvertisement
         #@advertisement = Advertisement.all
-        
+        if params[:update]
         Advertisement.update_all(:statusAd => "deactive") 
         Advertisement.where(id: params[:advertisement_id]).update_all(:statusAd => "active")
-        #Advertisement.where(id: params[:advertisement_id]) 
-         #Advertismentassociate.create(advertisement_id: params[:id])
-        #Advertismentassociate.create(avertassociate_params)    
-        @adAssociate = Advertisementassociate.new(avertassociate_params)
-        if @adAssociate.save
-          respond_to do |format|
-          format.html {redirect_to advertisements_path, notice: "Success insert record."}
+        flash[:success] = "Default advertisement updated"
+        redirect_to root_url 
+        else  
+          @adAssociate = Advertisementassociate.new(avertassociate_params)
+          if @adAssociate.save
+            respond_to do |format|
+            format.html {redirect_to advertisements_path, notice: "Success insert record."}
+            end
+          else
+            flash[:error] = "Please select all field."
+            redirect_to advertisements_path
           end
-        else
-          flash[:error] = "Please select all field."
-          redirect_to advertisements_path
         end
   end
   
@@ -103,7 +104,9 @@ class AdvertisementsController < ApplicationController
     end
     
     def avertassociate_params
-      params.require(:advertisement).permit(:advertisement_id,:programme_id,:yearofstudy_id,:levelofstudy_id,:faculty_id)
+      params.require(:advertisement).permit(:advertisement_id,:programme_id,:yearofstudy_id,:levelofstudy_id,:faculty_id,:agecondition,:agefrom,:ageto)
     end
+    
+   
     
 end

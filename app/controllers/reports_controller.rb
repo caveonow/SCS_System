@@ -1,10 +1,6 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy]
-
-  def report_test
-    @user = User.all
-  end
-
+  respond_to :html, :js
 
 
   # GET /reports
@@ -66,6 +62,25 @@ class ReportsController < ApplicationController
       format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def displayHorizonBar
+    userdetails
+    
+  end
+  
+  def displayVerticalBar
+   userdetails
+    
+  end
+  
+  def displayPie
+   userdetails
+    
+  end
+  
+  def userdetails
+     @user = User.all
   end
 
   private
