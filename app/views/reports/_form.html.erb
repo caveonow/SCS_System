@@ -52,16 +52,24 @@
 				    </div>
 				    <div class="medium-8 columns">
 				    <div class="tabs-content vertical" data-tabs-content="example-vert-tabs">
+				     
 				      <div class="tabs-panel is-active" id="panel1v">
 				        <p>Main Title</p>
 				        <p>
 				        	<label>Title: </label>
 				        	<input type="text" name="title" id="title">
 				           <br/>
-				           <label>Sub Title: </label>
+				           	<label>Sub Title: </label>
 				        	<input type="text" name="subtitle" id="subtitle">
+				           <br/>
+				           	<label>X Axis Title: </label>
+				        	<input type="text" name="xtitle" id="xtitle">
+				           <br/>
+				           	<label>Y Axis Title: </label>
+				        	<input type="text" name="ytitle" id="ytitle">
 				        </p>
 				      </div>
+				      
 				      <div class="tabs-panel" id="panel2v">
 				       <p>Title Size:
 				       <input type="number" name="title-size" id="sizetitle" min="12" max="50" value="12"></p>
@@ -86,13 +94,22 @@
 		<div>
 			<p id="previewtitle" class="changeMe" style="line-height: 70%;text-align:center;"></p>
 			<p id="previewsubtitle" class="changeMe1" style="text-align:center; "></p>	
-			<p id="previewgraph"></p>		
+			<p id="previewgraph">
+				
+				
+			</p>		
 		</div >	
 
      
 			</div>
 		</div>
-		 
+		
+		
+		<div class="col-xs-12">
+		  <h3>Visits By Day</h3>
+		  <%= pie_chart [["Football", 10], ["Basketball", 5]] %>
+		</div>
+  
   <div class="form-inputs">
   </div>
   <div class="form-actions"> 

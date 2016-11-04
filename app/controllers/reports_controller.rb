@@ -7,6 +7,7 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     @reports = Report.all
+    @links = Link.new
   end
 
   # GET /reports/1
@@ -64,24 +65,22 @@ class ReportsController < ApplicationController
     end
   end
   
+  def horizonbar
+    @user = User.all
+    render json: @user.group(:age).count
+  end
+  
   def displayHorizonBar
-    userdetails
-    
   end
   
-  def displayVerticalBar
-   userdetails
-    
+  def displayVerticalBar 
+    @user = User.all 
   end
   
-  def displayPie
-   userdetails
-    
+  def displayPie 
+    @user = User.all
   end
   
-  def userdetails
-     @user = User.all
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

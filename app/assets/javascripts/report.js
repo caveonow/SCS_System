@@ -1,13 +1,23 @@
 $(function(){
   
   // title
-  $('#title').keyup(function(){
+  $('#title').on("change paste keyup mouseleave",function(){
      $('#previewtitle').text($(this).val());
   });
   
   // subtitle
-  $('#subtitle').keyup(function(){
+  $('#subtitle').on("change paste keyup mouseleave",function(){
      $('#previewsubtitle').text($(this).val());
+  });
+  
+  // y axis title
+  $('#ytitle').on("change paste keyup mouseleave",function(){
+     $('#yytitle').text($(this).val());
+  });
+  
+  // x axis subtitle
+  $('#xtitle').on("change paste keyup mouseleave",function(){
+     $('#xxtitle').text($(this).val());
   });
 
   // text size title

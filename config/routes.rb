@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get 'displayPie' #report_test_reports_path
       get 'displayHorizonBar'
       get 'displayVerticalBar'
+      get 'horizonbar'
     end
   end
   resources :forms do
