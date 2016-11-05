@@ -67,18 +67,31 @@ class ReportsController < ApplicationController
   
   def horizonbar
     @user = User.all
+    gettitle
     render json: @user.group(:age).count
   end
   
   def displayHorizonBar
+     @user = User.all
+     $Graphtype = "horizon"
   end
   
   def displayVerticalBar 
     @user = User.all 
+    $Graphtype = "vertical"
   end
   
   def displayPie 
     @user = User.all
+    $Graphtype = "pie"
+  end
+  
+  def gettitle
+    @titledata = params[:title]
+    @subtitledata = params[:subtitle]
+    @ytitledata = params[:ytitle]
+    @xtitledata = params[:xtitle]
+    $Graphtype
   end
   
 

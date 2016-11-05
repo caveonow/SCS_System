@@ -1,0 +1,53 @@
+
+<%if $Graphtype == "horizon"%>
+	<%= bar_chart horizonbar_reports_path ,legend: { position: "bottom" }, library: {
+	        chart: {
+            type: 'column'
+        	},
+	        title: {text: @titledata, x: -20
+	        },
+	        subtitle: {text: @subtitledata , x:-20
+	        },
+	        yAxis: {
+	            title: {
+	                text: @ytitledata, x:-30
+	            }
+	        },
+	        xAxis: {
+	            title: {
+	                text: @xtitledata
+	            }
+	        }
+	    }
+	%>
+<%elsif $Graphtype == "vertical"%>
+	<%= column_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+        title: {text: 'Sporters by country', x: -20},
+        yAxis: {
+            title: {
+                text: 'Sporters count'
+            }
+        },
+        xAxis: {
+            title: {
+                text: 'Country'
+            }
+        }
+    }
+	%> 
+<%elsif $Graphtype == "pie"%>		
+	<%= pie_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+        title: {text: 'Sporters by country', x: -20},
+        yAxis: {
+            title: {
+                text: 'Sporters count'
+            }
+        },
+        xAxis: {
+            title: {
+                text: 'Country'
+            }
+        }
+    }
+    %> 
+<%end%>
