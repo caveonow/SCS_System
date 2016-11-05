@@ -1,6 +1,6 @@
 
 <div class="columns" id="tryScroll">
-<div id="completion_status" class="question_corner_box" > SUK DISK</div>
+<div id="completion_status" class="question_corner_box" > </div>
 	<%if !@question.nil?%>
 		<!-- translator  !-->
 		<h1><%= @question.QuestionNumber %>. 
@@ -134,13 +134,13 @@
 	
 	<% @allQuestions.each do |q| %>
 		<%if @allQuestions.first.id == @question.id %>
-			<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+			<%= link_to form_display_question_path( :form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
 				<div id="prevBtn" class ="prev_question">	
 					<input type="button" name="prev_button" value="Previous" disabled />
 				</div>
 			<%end%>
 		<%elsif (q.QuestionNumber+1) == @question.QuestionNumber%>
-			<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+			<%= link_to form_display_question_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
 				<div id="prevBtn" class ="prev_question">	
 					<input type="button" name="prev_button" value="Previous"  />
 				</div>
@@ -148,13 +148,13 @@
 		<%end%>
 		
 		<%if @allQuestions.last.id == @question.id %>
-			<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+			<%= link_to form_display_question_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
 				<div id="nextBtn" class = "next_question">
 					 <input type="button" name="next_button" value="Next" disabled>
 				</div>
 			<%end%>
 		<%elsif (q.QuestionNumber-1) == @question.QuestionNumber %>
-			<%= link_to form_display_question_path(:question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+			<%= link_to form_display_question_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
 				<div id="nextBtn" class = "next_question">
 					 <input type="button" name="next_button" value="Next">
 				</div>

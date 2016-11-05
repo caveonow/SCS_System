@@ -48,7 +48,7 @@
 
 .container{
     height: 85vh;
-    width: 140vh;
+    width: 100%;
     background-color : rgba(10,10, 10,0.7); 
     border: 2px solid white;
     border-radius: 25px;
@@ -71,6 +71,48 @@
       font-family:monospace;
       font-size: 15px;
     }
+}
+.side_container{
+    height: 85vh;
+    width: 100%;
+    background-color : rgba(10,10, 10,0.7); 
+    border: 2px solid white;
+    border-radius: 25px;
+    position : relative;
+    margin: 0 auto;
+    top : 50px;
+    padding: 10px 10px 10px 10px;
+    box-shadow: 10px 10px 5px black;
+    h1{
+      color: silver;
+      font-size: 30px;
+    }
+    h2{
+      color: silver;
+      font-size: 25px;
+    }
+    p{
+      color: rgb(242, 242, 242);
+      font-family:monospace;
+      font-size: 15px;
+    } 
+  
+}
+
+.form_submit_button{
+  height: 50px;
+  width: 100px;
+  position:absolute;
+  bottom: 15px;
+  right: 30px;
+  border: 3px outset ;
+  color: black;
+  font-size: 15px;
+  padding: 5px;
+  padding-top: 10px;
+  text-align:center;
+  
+  
 }
 
 .question_corner_box{ 

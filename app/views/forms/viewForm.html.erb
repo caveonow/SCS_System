@@ -1,28 +1,22 @@
-<h1>show something here</h1>
-
-<h1>Testing Form</h1>
+<h1>Available Surveys</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Formname</th>
-      <th>Formdescription</th>
-      <th>Formdatetime</th>
+      <th>Survey Name</th>
+      <th>Description</th>
       <th>Formstatus</th>
-      <th>FormId</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @forms.each do |testForm| %>
+    <% @forms.each do |form| %>
       <tr>
-        <td><%= testForm.FormName %></td>
-        <td><%= testForm.FormDescription %></td>
-        <td><%= testForm.FormDateTime %></td>
-        <td><%= testForm.FormStatus %></td>
-        <td><%= testForm.id %></td>
-        <td><%= link_to 'Select', form_select_path(:form_id => testForm.id, :user_id => "1") %> <%= link_to 'TestNew', form_start_path(:form_id => testForm.id, :user_id => "1") %></td>
+        <td><%= form.FormName %></td>
+        <td><%= form.FormDescription %></td>
+        <td><%= form.FormStatus %></td>
+        <td><%= link_to 'Select', form_select_path(:form_id => form.id, :user_id => "1") %> <%= link_to 'TestNew', form_start_path(:form_id => form.id, :user_id => "1") %></td>
       </tr>
     <% end %>
   </tbody>

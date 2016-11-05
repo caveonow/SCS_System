@@ -1,0 +1,5 @@
+
+$('#displayFormSettings').show();
+$('#displayFormSettings').html("<%= j (render 'form_controls')%>");
+$('#completion_status').html(" <%= @answer_count%>/<%= @question_counter%>");
+

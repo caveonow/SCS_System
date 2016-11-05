@@ -1,0 +1,11 @@
+<h2>Survey Progress</h2>
+<%= @sectionArr.size%>  <%= "times"%>
+<br/> <br/>  
+<% @i = 0%>
+<%until @i > @sectionArr.size-1  do %>
+      
+ <p><%= @sectionArr[@i]%> <br/>(<%= @completedQuestionArr[@i]%>/<%= @totalQuestionArr[@i]%>)</p>
+ <% @i += 1%>
+
+<%end%>
+<button class="form_submit_button">Submit</button>

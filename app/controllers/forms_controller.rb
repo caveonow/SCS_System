@@ -23,26 +23,48 @@ class FormsController < ApplicationController
     .where("id = ?", params[:form_id]).first 
     @formAnswer =  Formanswer.where("user_id = ? AND form_id = ?",params[:user_id],params[:form_id])    
       if @formAnswer.empty?
-        @test = Formanswer.new do |fa|
+        @formCreate = Formanswer.new do |fa|
           fa.FormStatus = "InProgress"
           fa.StudAnswerDateTime = Time.now
           fa.user_id = params[:user_id]
           fa.form_id = params[:form_id]
         end
-        @test.save
+        @formCreate.save
       end
   end
  
+ 
+  def view_progress
+    @formSections = Section.where("form_id = ?", params[:form_id])
+    @getStudAnswer = Studanswer.where("formanswer_id = ?", params[:formanswer_id])
+    @sectionArr = Array.new
+    @totalQuestionArr = Array.new
+    @completedQuestionArr = Array.new
+    @formSections.each do |fSection|
+      @sectionArr << fSection.SectionName
+      @totalQuestionArr << fSection.question.count
+      @completedQuestionArr << get_current_count_status(fSection.id, params[:formanswer_id])
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
  #Display Question
+ 
+
+ 
   def displayQ
     @formSections = Section.where("form_id = ?", params[:form_id])
     @selected_section = Section.where("id = ?", params[:section_id]).first   
     @getStudAnswer = Studanswer.where("formanswer_id = ?", params[:formanswer_id])
     @translators = Translator.all
+
+    update_form_settings( @formSections ,params[:formanswer_id])
+
     
       obtain_question      # @questions
-      obtain_all_questions # @allQuestions
-       
+      obtain_all_questions(params[:section_id]) # @allQuestions
+      @answer_count = get_current_count_status(params[:section_id], params[:formanswer_id])
       respond_to do |format|
       format.js
     end  
@@ -75,17 +97,24 @@ class FormsController < ApplicationController
   end
 
   def saveAns 
+    #@questionCheck = false
        @getAnswer =  Studanswer.where("answer_id = ? AND formanswer_id = ?",params[:answer_id],params[:formanswer_id])   
          if @getAnswer.empty?
-              @answer = Studanswer.new do |a|
-                a.answer_id = params[:answer_id]
-                a.formanswer_id = params[:formanswer_id]
-              end
-              @answer.save
+            @questionCounter = true
+            @answer = Studanswer.new do |a|
+              a.answer_id = params[:answer_id]
+              a.formanswer_id = params[:formanswer_id]
+            end
+            @answer.save
          else 
            @getAnswer.first.destroy
          end
-    render :nothing => true
+   @getsections = Section.where("form_id = ?", @getAnswer.first.answer.question.section.form_id)
+   update_form_settings( @getsections ,params[:formanswer_id])
+    @answer_count = get_current_count_status(@getAnswer.first.answer.question.section_id, @getAnswer.first.formanswer_id)
+    respond_to do |format|
+      format.js
+    end
   end
   
 #      if StudAnswer.empty? (EMPTY)                  
@@ -146,8 +175,12 @@ class FormsController < ApplicationController
          end
       end
     end
-    
-     render :nothing => true
+      @getsections = Section.where("form_id = ?", @getQuestionAnswers.first.question.section.form_id)
+      update_form_settings( @getsections ,params[:formanswer_id])
+      @answer_count = get_current_count_status(@getQuestionAnswers.first.question.section_id, params[:formanswer_id])
+    respond_to do |format|
+      format.js
+    end
   end
   
   def saveSAns
@@ -161,8 +194,14 @@ class FormsController < ApplicationController
      else 
        @getAnswer.first.destroy
      end   
-    render :nothing => true
+      @getsections = Section.where("form_id = ?", @getAnswer.first.subanswer.answer.question.section.form_id)
+      update_form_settings( @getsections ,params[:formanswer_id])
+      @answer_count = get_current_count_status(@getAnswer.first.subanswer.answer.question.section_id, params[:formanswer_id])
+    respond_to do |format|
+      format.js
+    end
   end
+  
   def saveSQAns
      @getAnswer =  Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?",params[:subQAnswer_id],params[:formanswer_id])   
      if @getAnswer.empty?
@@ -174,7 +213,13 @@ class FormsController < ApplicationController
      else 
        @getAnswer.first.destroy
      end   
-    render :nothing => true
+     
+      @getsections = Section.where("form_id = ?", @getAnswer.first.subquestionanswer.subquestion.answer.question.section.form_id)
+      update_form_settings( @getsections ,params[:formanswer_id])     
+     @answer_count = get_current_count_status(@getAnswer.first.subquestionanswer.subquestion.answer.question.section_id, params[:formanswer_id])
+    respond_to do |format|
+      format.js
+    end
   end
   #---------------------------------- FORM ANSWERING ----------------------------------#
   
@@ -539,22 +584,79 @@ class FormsController < ApplicationController
     
     def obtain_question
       if params[:question_id] == "0"
-        obtain_first_question
+        obtain_first_question(params[:section_id])
       else
         @question = Question.where("id = ?", params[:question_id]).first  
       end
     end
-    def obtain_first_question
+    def obtain_first_question(section_id)
       @question = Question
       .order("questions.QuestionNumber")
-      .where("questions.section_id = ? AND questions.QuestionNumber = ?", params[:section_id], 1).first  
+      .where("questions.section_id = ? AND questions.QuestionNumber = ?", section_id, 1).first  
     end
-    def obtain_all_questions
+    def obtain_all_questions(section_id)
       @allQuestions = Question
       .order("questions.QuestionNumber")
-      .where("questions.section_id = ?", params[:section_id])
+      .where("questions.section_id = ?", section_id)
+      
+      @question_counter = @allQuestions.count
     end
     
+    def check_question_answered_status(quest_id, fa_id)
+      
+      @answers = Answer.where(question_id: quest_id)
+      
+      @answers.each do |ans|
+        @existingAnswer = Studanswer.where("answer_id = ? AND formanswer_id = ?", ans.id, fa_id)
+        if !@existingAnswer.nil?
+          return true
+        end
+      end      
+      return false
+    end  
     
+    def get_current_count_status(section_id, fa_id)
+      obtain_all_questions(section_id)
+      @counter = 0;
+        @existingAnswer = Studanswer.where(formanswer_id: fa_id)
+        @existingSubAnswer = Studsubanswer.where(formanswer_id: fa_id)
+        @existingSubQuestionAnswer = Studsubquestionanswer.where(formanswer_id: fa_id)
+            @allQuestions.each do |sectionQuestions|  
+              @existingAnswer.each do |studAns|   
+                if studAns.answer.IsSubQuestion                               ### 
+                  @existingSubQuestionAnswer.each do |studSubQuestAns|
+                    if studSubQuestAns.subquestionanswer.subquestion.answer.question_id == sectionQuestions.id
+                      @counter += 1                                           
+                      break
+                    end
+                  end
+                elsif studAns.answer.IsSubAnswer           
+                  @existingSubAnswer.each do |studSubAns|##
+                    if studSubAns.subanswer.answer.question_id == sectionQuestions.id
+                      @counter += 1                                           
+                      break
+                    end
+                  end                                    ##
+                else                                                          ###  
+                  if studAns.answer.question_id == sectionQuestions.id  ##
+                    @counter += 1                                       ##    
+                    break
+                  end                                                   ##
+                end                                                           ###                    
+              end 
+            end      
+      #  end         
+        return @counter
+    end
+    def update_form_settings( sections ,fa_id)
+      @sectionArr = Array.new
+      @totalQuestionArr = Array.new
+      @completedQuestionArr = Array.new
+      sections.each do |fSection|
+        @sectionArr << fSection.SectionName
+        @totalQuestionArr << fSection.question.count
+        @completedQuestionArr << get_current_count_status(fSection.id, fa_id)
+      end
+    end
     #---------------------------------- FORM ANSWERING ----------------------------------#   
 end

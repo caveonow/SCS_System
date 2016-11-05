@@ -1,5 +1,12 @@
+$('#displayQuestion').show();
 $('#displayQuestion').html("<%= j (render 'questionShow') %>");
 $('#displayQuestion').slideDown(350);
+	
+$('#displayFormSettings').show();
+$('#displayFormSettings').html("<%= j (render 'form_controls')%>");
+
+
+$('#completion_status').html(" <%= @answer_count%>/<%= @allQuestions.count%>");
 
 <%@formSections.each do |fsection|%>
 	<%if fsection.id == @selected_section.id %>

@@ -8,6 +8,9 @@ class Form < ActiveRecord::Base
   has_many :subquestion, through: :answer
   has_many :subquestionanswer, through: :subquestion
   
+  has_many :studanswer, through: :answer
+  has_many :studsubanswer, through: :subanswer
+  has_many :studsubquestionanswer, through: :subquestionanswer
   
   validates_presence_of :FormName, :FormDescription
 end

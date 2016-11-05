@@ -94,6 +94,9 @@ Rails.application.routes.draw do
       get 'create_subquestionanswer_remove'
       
     
+    
+    
+      get 'view_progress'
     end
   end
    
