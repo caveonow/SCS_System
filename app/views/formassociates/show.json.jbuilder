@@ -1,0 +1,1 @@
+json.partial! "formassociates/formassociate", formassociate: @formassociate

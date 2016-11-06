@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123161623) do
+ActiveRecord::Schema.define(version: 20161123161624) do
 
   create_table "advertisementassociates", force: :cascade do |t|
     t.integer  "advertisement_id", limit: 4
@@ -85,6 +85,25 @@ ActiveRecord::Schema.define(version: 20161123161623) do
 
   add_index "formanswers", ["form_id"], name: "fk_rails_a27b4ad479", using: :btree
   add_index "formanswers", ["user_id"], name: "fk_rails_5b71c87443", using: :btree
+
+  create_table "formassociates", force: :cascade do |t|
+    t.integer  "form_id",         limit: 4
+    t.integer  "yearofstudy_id",  limit: 4
+    t.integer  "levelofstudy_id", limit: 4
+    t.integer  "faculty_id",      limit: 4
+    t.integer  "programme_id",    limit: 4
+    t.integer  "agefrom",         limit: 4
+    t.integer  "ageto",           limit: 4
+    t.string   "agecondition",    limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "formassociates", ["faculty_id"], name: "index_formassociates_on_faculty_id", using: :btree
+  add_index "formassociates", ["form_id"], name: "index_formassociates_on_form_id", using: :btree
+  add_index "formassociates", ["levelofstudy_id"], name: "index_formassociates_on_levelofstudy_id", using: :btree
+  add_index "formassociates", ["programme_id"], name: "index_formassociates_on_programme_id", using: :btree
+  add_index "formassociates", ["yearofstudy_id"], name: "index_formassociates_on_yearofstudy_id", using: :btree
 
   create_table "forms", force: :cascade do |t|
     t.string   "FormName",        limit: 255
@@ -267,6 +286,11 @@ ActiveRecord::Schema.define(version: 20161123161623) do
   add_foreign_key "answers", "questions"
   add_foreign_key "formanswers", "forms"
   add_foreign_key "formanswers", "users"
+  add_foreign_key "formassociates", "faculties"
+  add_foreign_key "formassociates", "forms"
+  add_foreign_key "formassociates", "levelofstudies"
+  add_foreign_key "formassociates", "programmes"
+  add_foreign_key "formassociates", "yearofstudies"
   add_foreign_key "forms", "users"
   add_foreign_key "questions", "sections"
   add_foreign_key "sections", "forms"

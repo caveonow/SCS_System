@@ -1,0 +1,27 @@
+<table>
+  <thead>
+    <tr>
+      <th>Form Name</th>
+      <th>Description</th>
+      <th>Formstatus</th>
+      <th>Form Creation Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sortedForm.each do |form| %>
+      <tr>
+        <td><%= form.FormName %></td>
+        <td><%= form.FormDescription %></td>
+        <td><%= form.FormStatus %></td>
+      	<td><%= form.FormDateTime.strftime("%d %B %Y")%></td>
+      	<td><%= link_to 'View', admin_select_survey_forms_path(:form_id => form.id, :user_id => "1") %></td>      	
+      	<td><%= link_to 'Edit', admin_edit_survey_forms_path(:form_id => form.id, :user_id => "1") %></td>
+      	<% if form.FormStatus != "Removed" %>
+        <td><%= link_to 'Delete', admin_delete_survey_forms_path(:form_id => form.id, :user_id => "1"), :data => { :confirm => 'Are you sure you want to delete this record?'} %> </td>
+        <%end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

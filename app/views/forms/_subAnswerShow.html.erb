@@ -5,7 +5,7 @@
 		<%else%>
 			<% @value = true%>			
 		<%end%> 									
-		<p><%= check_box_tag 'subAnswer_id', sa.id, @value , data: {url: form_saveSAns_path(:subAnswer_id => sa.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
+		<p><%= check_box_tag 'subAnswer_id', sa.id, @value , data: {url: save_subAns_forms_path(:subAnswer_id => sa.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
 		 
 		<!-- translator  !-->
 			<% sadescresult = sa.SADesc.split(/ /||/,/||/./)%>

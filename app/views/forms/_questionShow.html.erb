@@ -35,7 +35,7 @@
 				<%else%>
 					<% @value = true%>			
 				<%end%> 											
-					<p><%= check_box_tag  'answer_id', a.id, @value , data: {url: form_saveAns_path(:answer_id => a.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
+					<p><%= check_box_tag  'answer_id', a.id, @value , data: {url: save_ans_forms_path(:answer_id => a.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
 					
 					<!-- translator  !-->
 					<% answerdescresult = a.AnswerDesc.split(/ /||/,/||/./)%>
@@ -65,7 +65,7 @@
 				<%else%>
 					<% @value = true%>																	    		
 				<%end%> 
-					<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: { url: form_display_subquestion_path(:formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true}  -%>
+					<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: { url: user_selected_survey_display_subQuestion_forms_path(:formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true}  -%>
 					<!-- translator  !-->
 					<% answerdescresult = a.AnswerDesc.split(/ /||/,/||/./)%>
 						<% $tran = 0%>	
@@ -88,7 +88,7 @@
 					</p> 
 						
 					<% if @value%>
-						<div id="displaySubQuestionButton" ><%= button_tag 'Display SubQuestion', :class => "button", data: { url: form_display_subquestion_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
+						<div id="displaySubQuestionButton" ><%= button_tag 'Display SubQuestion', :class => "button", data: { url: user_selected_survey_display_subQuestion_forms_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
 					<%end%>											
 			<%end%>
 		<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
@@ -97,7 +97,7 @@
 			<%else%>
 				<% @value = true%>			
 			<%end%> 											
-				<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: {url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id]), remote: true }  -%>
+				<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: {url: user_selected_survey_display_subAnswer_forms_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id]), remote: true }  -%>
 				<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]</p>	
 					<!-- translator  !-->
 						<% answerdescresult = a.AnswerDesc.split(/ /||/,/||/./)%>
@@ -121,7 +121,7 @@
 						</p>
 
 				<% if @value%>
-					<div id="displaySubAnswerButton" ><%= button_tag 'Display SubAnswers', :class => "button", data: { url: form_display_subanswer_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
+					<div id="displaySubAnswerButton" ><%= button_tag 'Display SubAnswers', :class => "button", data: { url: user_selected_survey_display_subAnswer_forms_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
 				<%end%>
 			<br/>
 		<%end%>
@@ -134,13 +134,13 @@
 	
 	<% @allQuestions.each do |q| %>
 		<%if @allQuestions.first.id == @question.id %>
-			<%= link_to form_display_question_path( :form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+			<%= link_to user_selected_survey_display_question_forms_path( :form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
 				<div id="prevBtn" class ="prev_question">	
 					<input type="button" name="prev_button" value="Previous" disabled />
 				</div>
 			<%end%>
 		<%elsif (q.QuestionNumber+1) == @question.QuestionNumber%>
-			<%= link_to form_display_question_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+			<%= link_to user_selected_survey_display_question_forms_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
 				<div id="prevBtn" class ="prev_question">	
 					<input type="button" name="prev_button" value="Previous"  />
 				</div>
@@ -148,13 +148,13 @@
 		<%end%>
 		
 		<%if @allQuestions.last.id == @question.id %>
-			<%= link_to form_display_question_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+			<%= link_to user_selected_survey_display_question_forms_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
 				<div id="nextBtn" class = "next_question">
 					 <input type="button" name="next_button" value="Next" disabled>
 				</div>
 			<%end%>
 		<%elsif (q.QuestionNumber-1) == @question.QuestionNumber %>
-			<%= link_to form_display_question_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
+			<%= link_to user_selected_survey_display_question_forms_path(:form_id => @formSections.first.form_id, :question_id => q.id, :section_id => @selected_section.id, :formanswer_id => params[:formanswer_id]), remote: true do %>
 				<div id="nextBtn" class = "next_question">
 					 <input type="button" name="next_button" value="Next">
 				</div>

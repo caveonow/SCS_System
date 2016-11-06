@@ -6,6 +6,6 @@ $('#displaySubQuestionButton').hide();
 
 	$.ajax({
 	    type:'POST',
-	    url:'/form_saveAnsForSubs?q_id=<%=@qNum.question_id%>&answer_id=<%= @qNum.id%>&formanswer_id=<%= @formAnswer.id%>'
+	    url:'/forms/save_ansForSubs?q_id=<%=@qNum.question_id%>&answer_id=<%= @qNum.id%>&formanswer_id=<%= @formAnswer.id%>'
 	});
 

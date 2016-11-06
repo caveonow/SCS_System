@@ -16,7 +16,7 @@
         <td><%= form.FormName %></td>
         <td><%= form.FormDescription %></td>
         <td><%= form.FormStatus %></td>
-        <td><%= link_to 'Select', form_select_path(:form_id => form.id, :user_id => "1") %> <%= link_to 'TestNew', form_start_path(:form_id => form.id, :user_id => "1") %></td>
+        <td><%= link_to 'user_selected_survey', user_selected_survey_forms_path(:form_id => form.id, :user_id => "1") %> <%= link_to 'admin_view_survey', admin_view_survey_forms_path(:form_id => form.id, :user_id => "1") %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  form_id: 
+  yearofstudy_id: 
+  levelofstudy_id: 
+  faculty_id: 
+  programme_id: 
+  agefrom: 1
+  ageto: 1
+  agecondition: MyString
+
+two:
+  form_id: 
+  yearofstudy_id: 
+  levelofstudy_id: 
+  faculty_id: 
+  programme_id: 
+  agefrom: 1
+  ageto: 1
+  agecondition: MyString
