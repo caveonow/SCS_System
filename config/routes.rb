@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get 'displayHorizonBar'
       get 'displayVerticalBar'
       get 'horizonbar'
+      post 'gettitle'
     end
   end
   resources :forms do

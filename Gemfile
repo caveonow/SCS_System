@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 # heroku requirement
-ruby '2.3.1' #ow
-#ruby '2.3.1' #nick
+#ruby '2.3.1' #ow
+ruby '2.3.0' #nick
 gem 'puma'
 # 
 #gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
