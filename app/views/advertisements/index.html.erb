@@ -5,14 +5,12 @@
 	</div>
     -->
 	
-	<%= form_for selectAds_path ,method: :put, :html => {"data-abide" => '',"novalidate" => ''} do |f|%>
+	<%= form_for selectAds_path ,method: :put do |f|%>
 	
 	<div class="row">
 		<div class="small-4 columns adbsbox">
 			<h4>Select field allow group to view</h4>
-			<div data-abide-error class="alert callout" style="display: none;">
-		    	<p><i class="fi-alert"></i> Please select all field.</p>
-		  	</div>
+			
 					
 		        <div class="field field-padding" ">				
 					<%= f.label :advertisement_id %><br>
@@ -48,16 +46,14 @@
 
 				<div class="large-6 columns">
 				    <%= f.label :agefrom, "age" %><br>
-				    <input type="text" name="advertisement[agefrom]" id="advertisement_agefrom" required="true"/>
-					<span class="form-error">Please insert age</span>
+				    <input type="text" name="advertisement[agefrom]" id="advertisement_agefrom" />
+					
 				</div>
 				  
 				<div class="large-6 columns">
 				    <%= f.label :ageto, "to" %><br>
-				    <input type="text" name="advertisement[ageto]" id="advertisement_ageto" disabled="true"/>
-					
+				    <input type="text" name="advertisement[ageto]" id="advertisement_ageto" disabled="true" />
 				</div>
-				<p id="abc"></p>
 			</div>
 
     <%= submit_tag "Active Advertisment", data: { confirm: "Are you sure?" } %>
@@ -66,23 +62,31 @@
         <div class="small-8 columns" style="height: 530px;overflow-y:scroll;">
         <div class="row" >	
 		        <% @advertisements.each do |advertisement| %>
-			<div class="columns large-6 adbsbox" >
-		      <%= image_tag advertisement.imageAd_url(:thumb), :style => "height:200px; width:400px;"%>
-		      <h4>Title: <%= link_to advertisement.AdvertisementName, advertisement %></h4>
-		      <p>Description: <%= advertisement.AdvertisementDescription %></p>
-		      <p>Select to active: <%= radio_button_tag 'advertisement_id[]', advertisement.id,true %></p>
-		    </div>
+				<div class="small-6 columns">
+					<div class="item-wrapper">
+					    <a href="#"><%= image_tag advertisement.imageAd_url(:thumb),:class =>"imgage" ,:style => "height:200px; width:400px;"%></a>
+		      			<h5>Title: <%= link_to advertisement.AdvertisementName, advertisement %></h5>
+		      			<p class="para">Description: <%= advertisement.AdvertisementDescription %></p>
+		      			<br/>
+		      			<p>Select to active: <%= radio_button_tag 'advertisement_id[]', advertisement.id,true %></p>
+		    		</div>
+		    	</div>
 			  <%end%>
         </div>
         </div>
         <%= submit_tag "Active Default Advertisment" , data: { confirm: "Are you sure want this Advertisement as default page?" }, :name => 'update' %>
     </div>
     
+	   
+    
+    
+    
 <br>
 <div align="right" class="actions field-padding">
 			
 		    
 <% end %>
+
 
 
 

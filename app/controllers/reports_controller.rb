@@ -7,7 +7,6 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     @reports = Report.all
-    @links = Link.new
   end
 
   # GET /reports/1
@@ -28,17 +27,20 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-    @report = Report.new(report_params)
+    @user = User.all
+    
+    
+   # @report = Report.new(report_params)
 
-    respond_to do |format|
-      if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
-        format.json { render :show, status: :created, location: @report }
-      else
-        format.html { render :new }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
-      end
-    end
+   # respond_to do |format|
+   #   if @report.save
+   #     format.html { redirect_to @report, notice: 'Report was successfully created.' }
+   #     format.json { render :show, status: :created, location: @report }
+   #   else
+   #     format.html { render :new }
+   #     format.json { render json: @report.errors, status: :unprocessable_entity }
+   #   end
+   # end
   end
 
   # PATCH/PUT /reports/1
@@ -66,9 +68,11 @@ class ReportsController < ApplicationController
   end
   
   def horizonbar
-    @user = User.all
-    gettitle
-    render json: @user.group(:age).count
+    @user = User.joins(:faculty)
+    @faculty = Faculty.all
+    render json: @user.group(:gender).group(:facultyname).where(:faculty_id =>['2','3','4','5','6']).count.chart_json
+    #render json: @user.group(:gender).group(:facultyname).where(:faculty_id =>['2','3','4','5','6']).count
+    #render json: @user.group(:gender).count
   end
   
   def displayHorizonBar
@@ -92,6 +96,11 @@ class ReportsController < ApplicationController
     @ytitledata = params[:ytitle]
     @xtitledata = params[:xtitle]
     $Graphtype
+  end
+  
+  def seriesdata
+    
+    
   end
   
 

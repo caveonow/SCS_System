@@ -1,17 +1,19 @@
-
+<h2 style="margin-left: 20px">Edit <%= resource_name.to_s.humanize %></h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put ,"data-abide" => '',"novalidate" => ''})do |f| %>
+<%= devise_error_messages! %>
 <div class="row">
-		<div class="large-8 columns">
+	
+	<div data-abide-error class="alert callout" style="display: none;">
+		 <p><i class="fi-alert"></i> There are some errors in your signup details.</p>
+	</div>
 
-    
-  
-	<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-	<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  	<%= devise_error_messages! %>
+	<div class="large-4 columns">
+	
 
 	  <div class="field field-padding">
 	    <%= f.label :email %><br />
-	    <%= f.email_field :email, autofocus: true %>
+	    <%= f.email_field :email, autofocus: true , plcaeholder:"someone@example.com", :required => true%>
+	    <span class="form-error">The email is required</span>
 	  </div>
 	
 	  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -34,29 +36,42 @@
 	
 	  <div class="field field-padding">
 	    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-	    <%= f.password_field :current_password, autocomplete: "off" %>
+	    <%= f.password_field :current_password, autocomplete: "off" , :required => true%>
+	    <span class="form-error">The password is required</span>
 	  </div>
 	  
 	  
 	  <div class="field field-padding">
 	  	<%= f.label :name %><br />
-	  	<%= f.text_field :name , :size=>"10", :maxlength => "15"%>
+	  	<%= f.text_field :name , :required => true%>
+	  	<span class="form-error">The name is required</span>
 	</div>
 	
 	<div class="field field-padding">
 	  <%= f.label :ICNo, "IC Number" %><br />
-	  <%= f.text_field :ICNo%>
+	  <%= f.text_field :ICNo , :required => true%>
+	  <span class="form-error">The IC number is required</span>
 	</div>
 	
+	<div class="actions field-padding">
+		    <%= f.submit "Update" %>
+		  
+		  <%= link_to "Back", :back %>
+		  </div>
+	</div>
+	<div class="large-4 columns">
 	<div class="field field-padding">
 	  <%= f.label :DateOfBirth, "Date of Birth" %><br />
-	  <%= f.text_field :DateOfBirth%>
+	  <%= f.text_field :DateOfBirth , :required => true%>
+	  <span class="form-error">The Date of Birth is required</span>
 	</div>
 	
 	<div class="field field-padding">
 	  <%= f.label :age, "Age" %><br />
-	  <%= f.text_field :age ,:readonly => true%>
+	  <%= f.text_field :age ,:readonly => true, :required => true%>
+	  <span class="form-error">The age is required</span>
 	</div>
+	
 	
 	<div class="field field-padding">
 	  <%= f.label :gender, "Gender" %><br />
@@ -85,22 +100,14 @@
 		<%= f.label :yearofstudy_id , "Year"%><br>
 		<%= collection_select(:user, :yearofstudy_id, Yearofstudy.where.not(year: "All"), :id, :year, {prompt: true}) %>  
 	</div>
-
-		<div class="row">
-		  <div class="actions field-padding">
-		    <%= f.submit "Update" %>
-		  </div>
-		  <div class=" field-padding">
-		  <%= link_to "Back", :back %>
-		  </div>
-	  	</div>
-	<% end %>
 	</div>
+	
+		
+	<% end %>
+	
 	
 	<div class="large-3 columns">
 	<h3>Cancel my account</h3>
-	
 	<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-	
 	</div>
 	</div>

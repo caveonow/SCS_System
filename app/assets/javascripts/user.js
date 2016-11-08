@@ -42,7 +42,7 @@ $(function(){
 	};
 
 	$('#user_DateOfBirth').on({
-			mouseenter:	function(e) {
+			/*mouseenter:	function(e) {
       e.preventDefault();
       var $birthday = $('#user_DateOfBirth').val();
 
@@ -56,7 +56,7 @@ $(function(){
 
       $('#user_age').val(calculateAge($birthday));
       $('#age1').text(calculateAge($birthday));
-      },
+      },*/
       
       click:	function(e) {
       e.preventDefault();

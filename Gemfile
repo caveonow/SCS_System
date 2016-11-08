@@ -9,6 +9,7 @@ gem 'puma'
 #gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
 
 #chartkick graph report
+gem 'lazy_high_charts'
 gem 'chartkick'
 gem 'groupdate' 
 gem 'active_median'
