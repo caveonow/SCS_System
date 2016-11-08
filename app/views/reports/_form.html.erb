@@ -1,4 +1,7 @@
-
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+				
 	<div class="row collapse">
 		<div class="large-4 columns">
 			<ul class="tabs" data-tabs id="example-tabs" > 
@@ -17,8 +20,7 @@
 			      <div class="image-overlay-content">
 			        <h2>Horizontal bar graph</h2>
 			        <%= link_to displayHorizonBar_reports_path, remote: true do %>
-        				<button id="horizongraph" class="button" >Select</button>
-        				
+        				<button id="horizongraph" class="button" >Select</button>	
         			<% end %>
 			      </div>
 			    </div>
@@ -46,12 +48,13 @@
 			  </div>
 			  <div class="tabs-panel" id="panel3">
 			  	<div class="row collapse">
+			  		<!--
 				  <div class="medium-4 columns">
 				    <ul class="tabs vertical" id="example-vert-tabs" data-tabs>
 				      <li class="tabs-title is-active"><a href="#panel1v" aria-selected="true">Title</a></li>
 				      <li class="tabs-title"><a href="#panel2v">Appearence</a></li>      
 				    </ul>
-				    </div>
+				    </div>-->
 				    <div class="medium-8 columns">
 				    <div class="tabs-content vertical" data-tabs-content="example-vert-tabs">
 				     <%= form_tag(gettitle_reports_path, remote: true) do %>
@@ -73,6 +76,7 @@
 				      <%= submit_tag "Change" %>
 				      </div>
 				      <% end %>
+				      <!--
 				      <div class="tabs-panel" id="panel2v">
 				       <p>Title Size:
 				       <input type="number" name="title-size" id="sizetitle" min="12" max="50" value="12"></p>
@@ -85,6 +89,7 @@
 				       <button type="button" id="italicsubtitle" class="secondary button" style="font-style: italic">I</button>
 				       <button type="button" id="undersubtitle" class="secondary button" style="font-style: underline">U</button>
 				      </div>
+				      -->
 				    </div>
 				  </div>
 				</div>
@@ -93,26 +98,15 @@
 
 		</div>	
 		<div class="large-8 columns">
-		<h4>Preview</h4>
-		<div>
-			<!--
-			<p id="previewtitle" class="changeMe" style="line-height: 70%;text-align:center;"></p>
-			<p id="previewsubtitle" class="changeMe1" style="text-align:center; "></p>	-->
-			<p id="previewgraph">
-				
-			</p>		
-		</div >	
-
-     
-			</div>
+			<h4>Preview</h4>
+			<div>
+				<!--
+				<p id="previewtitle" class="changeMe" style="line-height: 70%;text-align:center;"></p>
+				<p id="previewsubtitle" class="changeMe1" style="text-align:center; "></p>	-->
+				<div id="previewgraph" style="height: 325px;width: 750px;"></div>	
+			</div>	
 		</div>
-		
-		
-		
-  
-  <div class="form-inputs">
-  </div>
-  <div class="form-actions"> 
-  </div>
-  
+	</div>
+
+ 
 

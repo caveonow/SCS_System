@@ -1,7 +1,100 @@
 
 <%if $Graphtype == "horizon"%>
-	<%= bar_chart horizonbar_reports_path ,legend: { position: "bottom" }, library: {
+
+<%= bar_chart horizonbar_reports_path , library: {
+			exporting: {
+            chartOptions: { 
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                }
+            },
+            scale: 3,
+            fallbackToExportServer: false
+        },
 	        chart: {
+	        renderTo: 'previewgraph',
+            type: 'bar'
+        	},
+	        title: {text: @titledata, x: -20
+	        },
+	        subtitle: {text: @subtitledata , x:-20
+	        },
+	        yAxis: {
+	            title: {
+	                text: @ytitledata, x:-30
+	            },
+	            labels: {
+                overflow: 'justify'
+            	}
+	        },
+	        xAxis: {
+	        	categories: [],
+	            title: {
+	                text: @xtitledata
+	            }
+	        },
+	        tooltip: {
+            valueSuffix: ' values'
+	        },
+	        plotOptions: {
+	            bar: {
+	                dataLabels: {
+	                    enabled: true
+	                }
+	            }
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'top',
+	            x: 0,
+	            y: 80,
+	            borderWidth: 1,
+	            shadow: true
+	        }
+	    }
+	%>
+	
+	
+	
+<%elsif $Graphtype == "vertical"%>
+	<%= column_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+        chart: {
+            type: 'column'
+        	},
+	        title: {text: @titledata, x: -20
+	        },
+	        subtitle: {text: @subtitledata , x:-20
+	        },
+	        yAxis: {
+	            title: {
+	                text: @ytitledata, x:-30
+	            }
+	        },
+	        xAxis: {
+	            title: {
+	                text: @xtitledata
+	            },
+	            categories: [
+                
+	            ],
+	            crosshair: true
+	        },
+	        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            	}
+        	}
+	    }
+	%> 
+<%elsif $Graphtype == "pie"%>		
+	<%= pie_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+        pie_chart: {
             type: 'column'
         	},
 	        title: {text: @titledata, x: -20
@@ -17,37 +110,17 @@
 	            title: {
 	                text: @xtitledata
 	            }
-	        }
+	        },
+	        plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            }
 	    }
-	%>
-<%elsif $Graphtype == "vertical"%>
-	<%= column_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
-        title: {text: 'Sporters by country', x: -20},
-        yAxis: {
-            title: {
-                text: 'Sporters count'
-            }
-        },
-        xAxis: {
-            title: {
-                text: 'Country'
-            }
-        }
-    }
-	%> 
-<%elsif $Graphtype == "pie"%>		
-	<%= pie_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
-        title: {text: 'Sporters by country', x: -20},
-        yAxis: {
-            title: {
-                text: 'Sporters count'
-            }
-        },
-        xAxis: {
-            title: {
-                text: 'Country'
-            }
-        }
-    }
     %> 
 <%end%>

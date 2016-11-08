@@ -60,7 +60,6 @@ $(function(){
     $(".changeMe1").toggleClass("underline");
   });	
 	
-	
 });
 
 

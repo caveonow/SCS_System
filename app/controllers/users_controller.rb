@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     
-    if user_params[:password].blank?
+    if user_params[:password].blank? && user_params[:password_confirmation].blank?
       user_params.delete(:password)
       user_params.delete(:password_confirmation)
     end

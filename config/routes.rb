@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get 'displayVerticalBar'
       get 'horizonbar'
       post 'gettitle'
+      post 'seriesdata'
     end
   end
   resources :forms do
@@ -116,14 +117,13 @@ Rails.application.routes.draw do
     #---------------------------------- FORM ANSWERING ----------------------------------#  
   resources :studanswers
   resources :formanswers
-
+  
   devise_for :users
     scope "/admin" do
     resources :users do
       collection do
         get :editmuluser
         put :updatemuluser
-        
       end
     end
   end
@@ -159,8 +159,10 @@ Rails.application.routes.draw do
       put :updateadvertassocite
       get :editassociate
       get :deleteassociate ,as: :deleteassoc
+      put :selectAds
     end
   end
+  
   put 'advertisements', to: 'advertisements#activeadvertisement', as: :selectAds
   #get 'home' => 'advertisements#index'
   #get 'signup' => 'students#new'
