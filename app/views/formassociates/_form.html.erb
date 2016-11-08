@@ -1,0 +1,49 @@
+<%= form_for(@formassociate) do |f| %>
+  <% if @formassociate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@formassociate.errors.count, "error") %> prohibited this formassociate from being saved:</h2>
+
+      <ul>
+      <% @formassociate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :form_id %><br>
+    <%= f.text_field :form_id %>
+  </div>
+  <div class="field">
+    <%= f.label :yearofstudy_id %><br>
+    <%= f.text_field :yearofstudy_id %>
+  </div>
+  <div class="field">
+    <%= f.label :levelofstudy_id %><br>
+    <%= f.text_field :levelofstudy_id %>
+  </div>
+  <div class="field">
+    <%= f.label :faculty_id %><br>
+    <%= f.text_field :faculty_id %>
+  </div>
+  <div class="field">
+    <%= f.label :programme_id %><br>
+    <%= f.text_field :programme_id %>
+  </div>
+  <div class="field">
+    <%= f.label :agefrom %><br>
+    <%= f.number_field :agefrom %>
+  </div>
+  <div class="field">
+    <%= f.label :ageto %><br>
+    <%= f.number_field :ageto %>
+  </div>
+  <div class="field">
+    <%= f.label :agecondition %><br>
+    <%= f.text_field :agecondition %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

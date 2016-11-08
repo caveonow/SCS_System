@@ -106,13 +106,16 @@
   bottom: 15px;
   right: 30px;
   border: 3px outset ;
+  background-color: white;
   color: black;
   font-size: 15px;
   padding: 5px;
   padding-top: 10px;
   text-align:center;
-  
-  
+      &:hover{
+      background-color:green;
+      color:black;
+  }
 }
 
 .question_corner_box{ 
@@ -130,7 +133,17 @@
 }
 
 
-
+    
+.information_box{
+  border: 3px outset ;
+  
+  color: white;
+  font-size: 11px;
+  font-style: italic;
+  text-align:center;
+    
+ 
+}
 
 .next_question {  
   height: 50px;

@@ -5,18 +5,72 @@ class FormsController < ApplicationController
 
 
 #---------------------------------- FORM ANSWERING ----------------------------------#
-  def viewForm
+  def user_view_surveys
     @forms = Form.all
-      #this can remove later test retrieve first
-    @sections = Section.all 
+    @formsInProgress = Formanswer.where("user_id = ? AND FormStatus = ?", 1, "InProgress")#current_user.id)
+    @availableForms = Form.where("FormStatus = ?", "Published")
+    ## where form = avaialbe = check for RSD CLASS DSHIT AND SHIT
+    
+    @formsAnsweredStatus = Array.new
+    @formsAnsweredStatus.push("Inprogress","Completed", "Incomplete")
   end
   
-  def startForm 
-    @selectedSections = Section.where("form_id = ?", params[:formId])
+  def admin_view_survey
+    @sortedForm = Form.order("forms.FormDateTime DESC").where.not("forms.FormStatus = ?", "Removed")
+    @formsRemoved = false
+    @statusArr = Array.new
+    @dateArr = Array.new
+    @statusArr.push("Published", "Not Published", "Completed")
+    @dateArr.push("Earlier Date", "Later Date") 
+  end
+  
+  def admin_sort 
+    @sortedForm = Form.all.order("CASE forms.FormStatus WHEN '#{params[:status]}' THEN 1 ELSE 9 END ASC, id ASC").where.not("forms.FormStatus = ?", "Removed")
+    @formsRemoved = false
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  def admin_display_removed
+    @sortedForm = Form.order("forms.FormDateTime DESC").where("forms.FormStatus = ?", "Removed")
+    @formsRemoved = true
+    respond_to do |format|
+      format.js { render :action => "admin_sort" }
+    end    
   end
 
+  def admin_select_survey 
+    @selectedSections = Section.where("form_id = ?", params[:form_id])
+  end
+  
+  
+  def admin_edit_survey
+    
+  end
+  
+  def admin_delete_survey
+    
+   # constrains => user is only allowed to delete a survey form when it is "Not Published"
+   #               user may delete forms which are "Not Publish" state changes to "Removed"
+   #               user may not edit a form when it is published. 
+   #               editing a published form will cause lost of data (Old Records Removed)
+   #               forms which are "Completed" are able to be re-published changing its status to "Published" (records are kept)
+    
+    @getForm = Form.find(params[:form_id]) 
+    @getForm.update_attributes(:FormStatus => "Removed")
+    
+    @sortedForm = Form.order("forms.FormDateTime DESC").where("forms.FormStatus = ?", "Removed")
+    @formsRemoved = true
+    respond_to do |format|
+      format.js { render :action => "admin_sort" }
+    end     
+    
+  end
+    
+
  #viewselected Form
-  def selectForm
+  def user_selected_survey
     @sections = Section.where("form_id = ?", params[:form_id])
     @formName = Form
     .select("forms.FormName, forms.id")
@@ -33,27 +87,9 @@ class FormsController < ApplicationController
       end
   end
  
- 
-  def view_progress
-    @formSections = Section.where("form_id = ?", params[:form_id])
-    @getStudAnswer = Studanswer.where("formanswer_id = ?", params[:formanswer_id])
-    @sectionArr = Array.new
-    @totalQuestionArr = Array.new
-    @completedQuestionArr = Array.new
-    @formSections.each do |fSection|
-      @sectionArr << fSection.SectionName
-      @totalQuestionArr << fSection.question.count
-      @completedQuestionArr << get_current_count_status(fSection.id, params[:formanswer_id])
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
- #Display Question
- 
 
- 
-  def displayQ
+ #Display Question
+  def user_selected_survey_display_question
     @formSections = Section.where("form_id = ?", params[:form_id])
     @selected_section = Section.where("id = ?", params[:section_id]).first   
     @getStudAnswer = Studanswer.where("formanswer_id = ?", params[:formanswer_id])
@@ -71,7 +107,7 @@ class FormsController < ApplicationController
   end
  
   #Display SubQuestion
-  def displaySubQ   
+  def user_selected_survey_display_subQuestion   
     @subQ = Subquestion.where( "subquestions.answer_id = ?", params[:radio_answer_id])
     @qNum = Answer.select( " questions.QuestionNumber , answers.id, answers.question_id" )
                   .joins( :question)
@@ -84,7 +120,7 @@ class FormsController < ApplicationController
     end 
   end
   
-  def displaySubA
+  def user_selected_survey_display_subAnswer
     @subA = Subanswer.where( "subanswers.answer_id = ?", params[:radio_answer_id])
     @qNum = Answer.select( " questions.QuestionNumber , answers.id, answers.question_id" )
               .joins( :question)
@@ -96,7 +132,7 @@ class FormsController < ApplicationController
     end  
   end
 
-  def saveAns 
+  def save_ans 
     #@questionCheck = false
        @getAnswer =  Studanswer.where("answer_id = ? AND formanswer_id = ?",params[:answer_id],params[:formanswer_id])   
          if @getAnswer.empty?
@@ -129,7 +165,7 @@ class FormsController < ApplicationController
 #     Check answer given (if ANSWER != @getquestionAnswer.id)
 #       Then REMOVE ANSWER
   
-  def saveAnsForSubs
+  def save_ansForSubs
     @getQuestionAnswers = Answer.where("question_id = ?", params[:q_id])
     @value = params[:answer_id]
     @getQuestionAnswers.each do |getQA|
@@ -183,7 +219,7 @@ class FormsController < ApplicationController
     end
   end
   
-  def saveSAns
+  def save_subAns
      @getAnswer =  Studsubanswer.where("subanswer_id = ? AND formanswer_id = ?",params[:subAnswer_id],params[:formanswer_id])   
      if @getAnswer.empty?
           @answer = Studsubanswer.new do |a|
@@ -202,7 +238,7 @@ class FormsController < ApplicationController
     end
   end
   
-  def saveSQAns
+  def save_subQuestionAns
      @getAnswer =  Studsubquestionanswer.where("subquestionanswer_id = ? AND formanswer_id = ?",params[:subQAnswer_id],params[:formanswer_id])   
      if @getAnswer.empty?
           @answer = Studsubquestionanswer.new do |a|
@@ -221,6 +257,13 @@ class FormsController < ApplicationController
       format.js
     end
   end
+  
+  def save_complete_survey
+    @formanswer = Formanswer.find(params[:formanswer_id])
+    
+    @formanswer.update_attributes(:FormStatus => "Completed")
+     ## compelte it here
+  end
   #---------------------------------- FORM ANSWERING ----------------------------------#
   
   #---------------------------------- FORM CREATION ----------------------------------#
@@ -233,7 +276,7 @@ class FormsController < ApplicationController
   def submit_create_survey
     @form = Form.new(form_params)
     @form.FormDateTime = Time.now
-    @form.FormStatus = 'Available'
+    @form.FormStatus = 'Published'
     @form.id = current_user.id     #current_user.id 
 
     respond_to do |format|
@@ -487,7 +530,7 @@ class FormsController < ApplicationController
   def create
     @form = Form.new(form_params)
     @form.FormDateTime = Time.now
-    @form.FormStatus = 'Available'
+    @form.FormStatus = 'Published'
     @form.user_id = current_user.id #change later
     respond_to do |format|
       if @form.save
@@ -648,14 +691,16 @@ class FormsController < ApplicationController
       #  end         
         return @counter
     end
+    
     def update_form_settings( sections ,fa_id)
       @sectionArr = Array.new
       @totalQuestionArr = Array.new
       @completedQuestionArr = Array.new
+      @formanswer_id = fa_id
       sections.each do |fSection|
         @sectionArr << fSection.SectionName
         @totalQuestionArr << fSection.question.count
-        @completedQuestionArr << get_current_count_status(fSection.id, fa_id)
+        @completedQuestionArr << get_current_count_status(fSection.id, @formanswer_id)
       end
     end
     #---------------------------------- FORM ANSWERING ----------------------------------#   

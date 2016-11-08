@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :formassociates
   resources :studsubquestionanswers
   resources :studsubanswers
   resources :faculties
@@ -61,8 +62,7 @@ Rails.application.routes.draw do
       
        # renders => create_render_new_section_forms_path
       post 'submit_create_section'
-      
-      
+          
       # renders => create_question_display
       get 'create_question_display_section' #create_question_display_section_forms_path
       
@@ -88,32 +88,39 @@ Rails.application.routes.draw do
       get 'create_edit_subquestion'
       get 'create_edit_subquestion_answer'
      
-      #done
       get 'create_question_remove'
       get 'create_answer_remove'
       get 'create_subanswer_remove'
       get 'create_subquestion_remove'
       get 'create_subquestionanswer_remove'
+         
       
     
-    
-    
-      get 'view_progress'
+      get 'admin_view_survey'
+      get 'admin_sort'
+      get 'admin_display_removed'
+      get 'admin_select_survey'
+      get 'admin_edit_survey'
+      get 'admin_delete_survey'
+
+      get 'user_view_surveys'
+      get 'user_selected_survey'
+      get 'user_selected_survey_display_question'
+      get 'user_selected_survey_display_subAnswer'
+      get 'user_selected_survey_display_subQuestion'
+      
+      post 'save_ans'
+      post 'save_subAns'
+      post 'save_subQuestionAns'
+      post 'save_ansForSubs'    
+      get 'save_complete_survey'
     end
   end
    
    
    #---------------------------------- FORM ANSWERING ----------------------------------#
-    get '/form_view'      => 'forms#viewForm',    as: 'form_view'
-    get '/form_select'    => 'forms#selectForm',    as: 'form_select'
-    get '/form_start'     => 'forms#startForm',   as: 'form_start'
-    get '/form_displayQ'   => 'forms#displayQ', as: 'form_display_question'
-    get '/form_displaySQ' => 'forms#displaySubQ', as: 'form_display_subquestion'
-    get '/form_displaySA' => 'forms#displaySubA', as: 'form_display_subanswer'
-    post '/form_saveAns'  => 'forms#saveAns', as: 'form_saveAns'
-    post '/form_saveSAns'  => 'forms#saveSAns', as: 'form_saveSAns'
-    post '/form_saveSQAns'  => 'forms#saveSQAns', as: 'form_saveSQAns'
-    post '/form_saveAnsForSubs'  => 'forms#saveAnsForSubs', as: 'form_saveAnsForSubs'
+         
+
     #---------------------------------- FORM ANSWERING ----------------------------------#  
   resources :studanswers
   resources :formanswers

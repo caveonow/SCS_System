@@ -1,0 +1,2 @@
+json.extract! formassociate, :id, :form_id, :yearofstudy_id, :levelofstudy_id, :faculty_id, :programme_id, :agefrom, :ageto, :agecondition, :created_at, :updated_at
+json.url formassociate_url(formassociate, format: :json)

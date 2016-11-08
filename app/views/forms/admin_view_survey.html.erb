@@ -1,0 +1,25 @@
+<html>
+	<head></head>
+	<body>
+		<div class="row">
+			<h2>Surveys</h2>
+		</div>
+		</br></br>
+		<div class="row">
+			<div class="12-large column">
+				<p>Sort By :<%= select_tag "status", options_for_select(@statusArr), data: {url: admin_sort_forms_path,  remote: true}%></p>				
+			</div>
+			<div class="12-large column">
+				<div id ="display_form_title">
+					<h2>Available Surveys</h2>
+				</div>	
+				<div id="display_form_for_admin">
+					<%= render ('layout_display_admin_forms')%>
+				</div>
+			</div>
+			<div class="12-large column">
+				<%= link_to "Display Deleted Forms", admin_display_removed_forms_path, remote: true %> |	<%= link_to "Display Available Forms", admin_sort_forms_path, remote: true %>			
+			</div>
+		</div>
+	</body>
+</html>

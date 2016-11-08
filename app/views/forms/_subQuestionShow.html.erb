@@ -10,7 +10,7 @@
 				<% @value = true%>			
 			<%end%> 	
 									
-			<p><%= check_box_tag 'subQAnswer_id', sqa.id, @value , data: {url: form_saveSQAns_path(:subQAnswer_id => sqa.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
+			<p><%= check_box_tag 'subQAnswer_id', sqa.id, @value , data: {url: save_subQuestionAns_forms_path(:subQAnswer_id => sqa.id, :formanswer_id => params[:formanswer_id]), :method => :post, remote: true }  -%>
 
 			<!-- translator  !-->
 			<% sqanswerresult = sqa.SQAnswer.split(/ /||/,/||/./)%>

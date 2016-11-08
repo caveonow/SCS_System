@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Formassociates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Form</th>
+      <th>Yearofstudy</th>
+      <th>Levelofstudy</th>
+      <th>Faculty</th>
+      <th>Programme</th>
+      <th>Agefrom</th>
+      <th>Ageto</th>
+      <th>Agecondition</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @formassociates.each do |formassociate| %>
+      <tr>
+        <td><%= formassociate.form %></td>
+        <td><%= formassociate.yearofstudy %></td>
+        <td><%= formassociate.levelofstudy %></td>
+        <td><%= formassociate.faculty %></td>
+        <td><%= formassociate.programme %></td>
+        <td><%= formassociate.agefrom %></td>
+        <td><%= formassociate.ageto %></td>
+        <td><%= formassociate.agecondition %></td>
+        <td><%= link_to 'Show', formassociate %></td>
+        <td><%= link_to 'Edit', edit_formassociate_path(formassociate) %></td>
+        <td><%= link_to 'Destroy', formassociate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Formassociate', new_formassociate_path %>

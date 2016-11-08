@@ -1,0 +1,1 @@
+json.array! @formassociates, partial: 'formassociates/formassociate', as: :formassociate

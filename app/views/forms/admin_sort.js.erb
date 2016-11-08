@@ -1,0 +1,13 @@
+$('#display_form_for_admin').html("");
+$('#display_form_title').html("");
+<% if @formsRemoved %>
+	$('#status').prop('selectedIndex', 0);
+	$('#status').prop('disabled', true)
+	$('#display_form_title').append("<h2>Removed Surveys</h2>");
+<% else%>
+	$('#display_form_title').append("<h2>Available Surveys</h2>");
+<%end%>
+$('#status').prop('disabled', false)
+$('#display_form_for_admin').append("<%= j render ('layout_display_admin_forms')%>");
+
+

@@ -1,11 +1,37 @@
-<h2>Survey Progress</h2>
-<%= @sectionArr.size%>  <%= "times"%>
-<br/> <br/>  
-<% @i = 0%>
-<%until @i > @sectionArr.size-1  do %>
-      
- <p><%= @sectionArr[@i]%> <br/>(<%= @completedQuestionArr[@i]%>/<%= @totalQuestionArr[@i]%>)</p>
- <% @i += 1%>
-
-<%end%>
-<button class="form_submit_button">Submit</button>
+<div class="row">
+	<div class="medium-12 column">	
+		<h2>Survey Progress</h2>
+	</div>
+</div>
+<div class="row">
+	<div class="medium-12 column">  
+		<% @i = 0%>
+		<% @sum_total_questions = 0%>
+		<% @sum_total_questions_answered = 0%>
+		<% @submitStatus = false%>
+		<%until @i > @sectionArr.size-1  do %>
+		      
+		 <p><%= @sectionArr[@i]%> <br/>(<%= @completedQuestionArr[@i]%>/<%= @totalQuestionArr[@i]%>)</p>
+			<% @sum_total_questions += @totalQuestionArr[@i].to_i%>
+			<% @sum_total_questions_answered += @completedQuestionArr[@i].to_i%>
+		 <% @i += 1%>
+		<%end%>
+	</div>
+</div>	
+</br></br>
+<div class="row">
+	<div class="medium-12 column ">
+		<div class="information_box">
+			Note: 
+			You are required to answer each question in every section </br>
+			Eg.</br>
+			Section A (10/10)<br/>
+			Section B (10/10)
+		</div>
+	</div>
+</div>		
+		
+		<% if @sum_total_questions == @sum_total_questions_answered %>
+			<% @submitStatus = true%>
+			<%= link_to_if @submitStatus, "Submit", save_complete_survey_forms_path(:formanswer_id => @formanswer_id ), :class => 'form_submit_button' ,data: { confirm: 'Submit Survey Form? **No changes can be made after submission**'} %>
+		<%end%>
