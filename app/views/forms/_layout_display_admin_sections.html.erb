@@ -1,0 +1,33 @@
+<table>
+	<tr>
+	<% @getSection.each do |section| %>
+	<th id="section_<%=section.id%>" class="repaint_div">
+			<%= link_to  admin_edit_survey_question_forms_path(:selected_section_id => section.id), remote: true  do%>
+			<div class="admin_section_select">
+				<%= section.SectionName%>
+			</div>
+			<%end%>
+	</th>
+	<%end%>				
+	</tr>
+	<tr >
+		<td colspan="<%=@getSection.count%>">						
+		
+				 <div class="row expanded" id="question_part" style="background-color:#999999; display:none; margin-bottom: 50px">
+			    	<div id="get_sections_for_questions"  class="large-centered">	
+		    		</div>
+		    		
+		    		<div id="display_sections_to_select" class="large-centered">
+		    		</div>
+						<div id="question_add" style="display:none">
+							
+						</div>
+			    		<div id="question_view" class="large-6 columns" style="display:none">
+		
+		    			</div>
+		    			<div id="panel_create" class="large-6 columns" style="display:none">
+		    			</div>
+			    </div>
+		</td>
+	</tr>
+</table>

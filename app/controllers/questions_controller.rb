@@ -24,7 +24,77 @@ class QuestionsController < ApplicationController
         format.js
     end
   end
+  def submit_create_existing
+    
+    
+    @getQuestions = Question.where("section_id = ?", params[:section_id]) 
+    
+    @getQuestionToClone = Question.find(params[:question_id])
+    @section = Section.find(params[:section_id]).question.count
+    @count = @section += 1
+    @subQuestion = false
+    @subAnswer = false
 
+    puts @questionCount
+    @newQuestion = Question.new    
+    @newQuestion.QuestionDesc = @getQuestionToClone.QuestionDesc
+    @newQuestion.QuestionNumber = @count    
+    @newQuestion.section_id = params[:section_id]
+    @newQuestion.save
+    
+    @answerLoop = @getQuestionToClone.answer.count
+    
+    if @getQuestionToClone.answer.first.IsSubAnswer
+      @subAnswer = true
+    elsif @getQuestionToClone.answer.first.IsSubQuestion
+      @subQuestion = true
+    end
+    
+    @getAnswers = Answer.where("question_id = ?",@getQuestionToClone.id)
+        
+      @getAnswers.each do |ans|
+        @duplicateAnswer = Answer.new
+        @duplicateAnswer = ans.dup
+        @duplicateAnswer.question_id = @newQuestion.id
+        @duplicateAnswer.AnswerCount = 0
+        @duplicateAnswer.save
+        
+        if @duplicateAnswer.IsSubAnswer
+          @getSubAnswer = Subanswer.where("answer_id = ?", ans.id)
+          @getSubAnswer.each do |subAns|
+            @duplicateSubAnswer = Subanswer.new
+            @duplicateSubAnswer = subAns.dup
+            @duplicateSubAnswer.answer_id = @duplicateAnswer.id
+            @duplicateSubAnswer.SACount = 0
+            @duplicateSubAnswer.save
+          
+          end
+          
+        elsif @duplicateAnswer.IsSubQuestion
+          @getSubQuestion = Subquestion.where("answer_id = ?", ans.id)
+          @getSubQuestion.each do |subQuestion|
+            @duplicateSubQuestion = Subanswer.new
+            @duplicateSubQuestion = subQuestion.dup
+            @duplicateSubQuestion.answer_id = @duplicateAnswer.id
+            @duplicateSubQuestion.save       
+                
+            @getSubQuestionAnswer = Subquestionanswer.where("subquestion_id = ?", subQuestion.id)
+            @getSubQuestionAnswer.each do |subQuestionAnswer|
+              @duplicateSubQuestionAns = Subquestionanswer.new
+              @duplicateSubQuestionAns = subQuestionAnswer.dup
+              @duplicateSubQuestionAns.SQAnswerCount = 0
+              @duplicateSubQuestionAns.subquestion_id = @duplicateSubQuestion.id
+              @duplicateSubQuestionAns.save
+            end
+          end
+        end
+      end
+      
+      respond_to do |format|
+        format.js
+      end
+    #render  :nothing => true
+  end
 
   # GET /questions
   # GET /questions.json

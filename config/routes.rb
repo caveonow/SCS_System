@@ -31,7 +31,9 @@ Rails.application.routes.draw do
   resources :questions do
     collection do
       get 'new_create' #new_create_questions_path
+      
       post 'submit_create'
+      post 'submit_create_existing'
     end
   end
   resources :sections
@@ -46,8 +48,7 @@ Rails.application.routes.draw do
   end
   resources :forms do
     collection do 
-                    #----------SURVEY CREATION----------#
-                    
+                    #----------SURVEY CREATION----------#           
         # renders =>_layout_newForm => submit_create_survey            
       get 'create_survey' #create_survey_forms_path 
          
@@ -70,10 +71,11 @@ Rails.application.routes.draw do
       # renders => layout_questionList => create_render_answer
       get 'create_question_display' #question_display_forms_path
       
+      
       # renders => Questions#newCreate => newQuestion
-      get 'create_render_question' #question_creation_forms_path
+      get 'create_render_question' 
       
-      
+      get 'create_render_existing_question' 
       # renders => Answers#newCreate => newAnswer
       get 'create_render_answer' #create_render_answer_forms_path
       get 'create_render_subanswer' 
@@ -97,9 +99,20 @@ Rails.application.routes.draw do
     
       get 'admin_view_survey'
       get 'admin_sort'
+      get 'admin_information'
       get 'admin_display_removed'
       get 'admin_select_survey'
       get 'admin_edit_survey'
+        post 'submit_edit_survey'
+        get 'admin_delete_associate'
+        get 'admin_edit_survey_question'
+        get 'admin_create_associates'
+        get 'admin_agecondition_change'
+        post 'submit_edit_associates'
+        get 'admin_edit_new_section'
+        post 'admin_create_section'
+        get 'admin_edit_remove_section'
+        post 'admin_edit_remove_section_confirm'
       get 'admin_delete_survey'
 
       get 'user_view_surveys'

@@ -1,0 +1,11 @@
+$('#error_create_form_associate').html("");
+<%if @save%>
+	$('#error_create_form_associate').html("");
+	$('#create_form_associate').html("<h3>SUCCESS</h3>");
+	$('#view_formassociates').html("<%= j render ('layout_view_formassociates')%>");
+<%else %>
+	$('#error_create_form_associate').append("<h2 style='color:black'>Error! Please select values</h2>");
+	<% if !@ageValidity%>
+	$('#error_create_form_associate').append("<h3 style='color:black'> age from cannot be bigger than age to</h3>");
+	<%end%>
+<%end%>

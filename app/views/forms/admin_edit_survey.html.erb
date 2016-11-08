@@ -1,0 +1,68 @@
+<html>
+	<head></head>
+	<body>
+		<div class="row expanded" style="background-color:#45ADA8;padding:50px;color:white">
+			<div class="medium-12 column" >
+			<h3>Form Details:</h3>
+			</div>
+			<div class="medium-12 column" >
+			 	<%= render ('layout_edit_form')%>	 	
+			</div>
+			<div class="medium-12 column" id="updateStatusForForm">
+			</div>
+		</br></br>
+			<div class="medium-12 column" id="view_formassociates">
+				<%= render ('layout_view_formassociates')%>
+			</div>
+			
+			<div class="medium-8 column" id="create_form_associate" style="display:none">
+				
+			</div>
+			<div class="medium-12 column" id="error_create_form_associate">
+				
+			</div>
+			
+		</div>
+			
+		
+			<div class="row expanded" style="background-color:#9DE0AD;padding:50px">		
+			<div class="medium-12 column" >
+			<h3>Section Details:</h3>
+			
+			<p style="color:red"><i><u>*Warning :</u> Removing Section or Editing a Section and it's questions may cause lost of data if it is already Published before.*</i></p>
+			<p style="color:red"><i>*Addition of Sections and Questions on existing forms are able to be done*</i></p>
+		</div>		
+			<div class="medium-6 column" > 
+				<%= link_to admin_edit_new_section_forms_path(:form_id => @form.id), remote: true do %>
+				<div class="button ">
+					Add Section
+				</div>
+				<%end%>
+			</div>	
+			<div class="medium-6 column">
+				<%= link_to admin_edit_remove_section_forms_path(:form_id => @form.id), remote: true do %>
+				<div class="button ">
+					Remove Section
+				</div>
+				<%end%>
+			</div>
+			<div class="medium-12 column" id="admin_remove_section" style="display:none">
+				
+			</div>	
+			<div class="medium-12 column" id="admin_display_newSection" style="display:none">
+				
+			</div>	
+			<div class="medium-12 column" id="admin_display_newSection_error">
+				
+			</div>	
+			<div class="medium-12 column" id="remove_completed">
+				
+			</div>	
+			<div class="medium-12 column" id="admin_display_sections_for_edit" >
+				<%= render ('layout_display_admin_sections')%>
+				
+			</div>
+		</div>
+	</body>
+</html>
+

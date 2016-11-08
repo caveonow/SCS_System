@@ -1,0 +1,17 @@
+
+$('#admin_display_newSection_error').html("");
+<% if @save%>	
+	$('#admin_display_newSection').html("Section Creation Success!");
+	$('#admin_display_sections_for_edit').html("<%= j render ('layout_display_admin_sections')%>");
+
+	
+<%else%>
+	$('#admin_display_newSection_error').append("<h2>Submission error</h2>"); 
+	<%if @section.SectionName == ""%>	
+		$('#admin_display_newSection_error').append("<p> - Section Name is Blank</p>"); 
+	<%end%>
+	<%if @section.SectionDescription == ""%>
+		$('#admin_display_newSection_error').append("<p> - Section Description is Blank</p>");
+	<%end%>	
+<%end%>
+

@@ -1,0 +1,36 @@
+<div class="row">
+	<div class="large-12 column">
+<%= form_for @section, :id => "section_creation" ,  :url => admin_create_section_forms_path, remote: true do |f| %>
+  <%= f.hidden_field :form_id, :value => @form.id %>
+	<div class="row">
+		<div class="large-12 columns new_form">
+	        <%= f.label :SectionName, 'Section Name' %>
+    		<%= f.text_field :SectionName %>	
+    	</div>
+	</div>  
+ 
+	<div class="row">
+ 		<div class="large-12 columns">
+		    <%= f.label :SectionDescription, 'Section Description' %>
+		    <%= f.text_field :SectionDescription%>
+		</div>  
+ 	</div>	
+ 	
+	<div class="row">
+	<div class="large-6 columns">
+		<%= f.submit data: { confirm: 'Are you sure?' }, :value => "Create"%>
+	</div>
+		<div class="large-6 columns">
+	<%= f.submit "clear", :type => "reset" %>
+	</div>
+  </div>
+
+<% end %>
+
+
+
+
+	</div>
+</div>
+
+<br /><br />

@@ -1,0 +1,18 @@
+<html>
+	<head></head>
+	<body>
+		
+	<%= form_tag(submit_create_existing_questions_path, remote: true) do %> 
+	<%= hidden_field_tag "section_id", params[:sec_id]%>
+		<div class="row">
+			<p>Select a Question <%= select_tag "question_id", options_from_collection_for_select(@getQuestions, :id, :QuestionDesc), data: { remote: true}%>     </p>
+		</div>
+		<div class="row">
+			<%= submit_tag "Clone" , data: { confirm: 'Are you sure?' }%>
+		</div>  
+	</body>
+</html>
+
+<%end%>
+<br /><br />
+

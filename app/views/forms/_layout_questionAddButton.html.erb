@@ -1,3 +1,6 @@
 <div class="row text-center">
 	<%= link_to "Add Question", create_render_question_forms_path(:sec_id =>  params[:selected_section_id]), remote: true, :class => "button" %>
+
+
+	<%= link_to "Use Existing Question", create_render_existing_question_forms_path(:sec_id =>  params[:selected_section_id]), remote: true, :class => "button" %>
 </div>

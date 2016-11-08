@@ -23,9 +23,8 @@
       <li class="has-submenu">
         <a href="#">Survey</a>
         <ul class="submenu menu vertical" data-submenu>
-          <li><%= link_to 'Forms', new_form_path() %></li>
-          <li><a href="#">Results</a></li>
-          <li><a href="#">Questions</a></li>
+          <li><%= link_to 'Create New Survey', create_survey_forms_path %></li>
+          <li><%= link_to 'View Surveys', admin_view_survey_forms_path() %></li>
         </ul>
       </li>
       <li class="has-submenu">
@@ -105,6 +104,9 @@
 		    <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
 		    	<li class="has-submenu">
         			<a href="#">Survey</a>
+				        <ul class="submenu menu vertical" data-submenu>
+				          <li><%= link_to 'View Surveys', user_view_surveys_forms_path %></li>
+				        </ul>
         		</li>
         	</ul>
         </div>

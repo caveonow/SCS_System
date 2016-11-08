@@ -1,0 +1,53 @@
+<html>
+	<head></head>
+	<body>
+		<div class="row">
+			<%= form_for @formassociate, :id => "edit_survey" ,  :url => submit_edit_associates_forms_path, remote: true do |f| %>
+			
+			<%= hidden_field_tag :form_id , @form_id%>
+				<div class="row">
+					<div class="large-6 field field-padding columns" >				
+						<%= f.label :faculty_id, "Faculty" %>
+						<%= collection_select(:formassociate, :faculty_id, Faculty.all, :id, :facultyname, {prompt: true}) %>  
+					</div>
+					
+					<div class=" large-6 field field-padding columns">
+						<%= f.label :programme_id , "Programme"%>
+						<%= collection_select(:formassociate, :programme_id, Programme.all, :id, :programmename, {prompt: true}) %>  
+					</div>
+				</div>
+				<div class="row">
+					<div class="field field-padding large-6 columns" >
+						<%= f.label :levelofstudy_id ,"Level"%>
+						<%= collection_select(:formassociate, :levelofstudy_id, Levelofstudy.all, :id, :levelname, {prompt: true}) %>  
+					</div>
+					
+					<div class="field field-padding large-6 columns">
+						<%= f.label :yearofstudy_id , "Year"%>
+						<%= collection_select(:formassociate, :yearofstudy_id, Yearofstudy.all, :id, :year, {prompt: true}) %>  
+					</div>
+				</div>
+					
+				<div class="row field-padding">
+						<%= f.label :agecondition , "Age Condition"%>
+						<%= f.select :agecondition, options_for_select(@ageConditionArr), {prompt: true} , { data: { :remote => true, :url => admin_agecondition_change_forms_path(:value => params[:agecondition])}  }%>	
+ 
+					<div class="large-6 columns">
+					    <%= f.label :agefrom, "Age" %>
+					    <%= f.select :agefrom, (1..100), prompt: true%>
+					</div>
+					  
+					<div class="large-6 columns" id="display_ageto">		
+					</div>
+				</div>
+			
+				<div class="row">
+					<div class="large-6 columns" style="color:black">
+						<%= f.submit data: { confirm: 'Are you sure?' }, :value => "Create" %>
+					</div>
+				</div>
+			<% end %>
+
+		
+	</body>
+</html>

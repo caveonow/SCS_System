@@ -51,8 +51,12 @@
 	    
 	    <br/><br/>
 	    <div class="row">
-	    	<div class="medium-centered">
-	    		<p class="button"  >Complete Form</p>###see l;aters
+	    	<div class="medium-centered" id="complete_button" style="display:none">
+	    	<%= link_to  admin_view_survey_forms_path, :data => { :confirm => 'View Survey?'} do %> </td> 
+			<div class="button" >
+			Complete
+			</div>
+			<%end%>
     		</div>
 		</div>
 	    </div><br/><br/><br/><br/><br/><br/>

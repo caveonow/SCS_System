@@ -1,0 +1,10 @@
+<%= form_tag(admin_edit_remove_section_confirm_forms_path, remote: true) do %> 
+<div class="row">
+	<p>Select a Section: <%= select_tag "section_id", options_from_collection_for_select(@getSection, :id, :SectionName), data: { remote: true}%>     </p>
+</div>
+<div class="row">
+	<%= submit_tag "Remove" , data: { confirm: 'Are you sure?' }%>
+</div> 
+<%end%>
+<br /><br />
+

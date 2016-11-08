@@ -4,7 +4,9 @@ class FormsController < ApplicationController
 
 
 
+#------------------------------------------------------------------------------------#
 #---------------------------------- FORM ANSWERING ----------------------------------#
+#------------------------------------------------------------------------------------#
   def user_view_surveys
     @forms = Form.all
     @formsInProgress = Formanswer.where("user_id = ? AND FormStatus = ?", 1, "InProgress")#current_user.id)
@@ -15,13 +17,15 @@ class FormsController < ApplicationController
     @formsAnsweredStatus.push("Inprogress","Completed", "Incomplete")
   end
   
+  #-------------------------------------------------------------------------------#
+  #---------------------------------- ADMIN SIDE----------------------------------#
+  #-------------------------------------------------------------------------------#
+  
   def admin_view_survey
     @sortedForm = Form.order("forms.FormDateTime DESC").where.not("forms.FormStatus = ?", "Removed")
     @formsRemoved = false
     @statusArr = Array.new
-    @dateArr = Array.new
     @statusArr.push("Published", "Not Published", "Completed")
-    @dateArr.push("Earlier Date", "Later Date") 
   end
   
   def admin_sort 
@@ -39,6 +43,12 @@ class FormsController < ApplicationController
       format.js { render :action => "admin_sort" }
     end    
   end
+  
+  def admin_information
+     respond_to do |format|
+      format.js 
+    end       
+  end
 
   def admin_select_survey 
     @selectedSections = Section.where("form_id = ?", params[:form_id])
@@ -46,28 +56,181 @@ class FormsController < ApplicationController
   
   
   def admin_edit_survey
-    
+    @form = Form.find(params[:form_id]) 
+    @getSection = Section.where("form_id = ?", params[:form_id])    
+    @statusArr = Array.new
+    @statusArr.push("Published", "Not Published", "Completed", "Removed")
+    @formAssociates = Formassociate.where("form_id = ?", params[:form_id])
   end
   
-  def admin_delete_survey
+    def submit_edit_survey
+      @form = Form.find(params[:form_id])
+      @proceed = true
+      @save = false;
+      if params[:form][:FormName] == ""
+        @proceed = false
+      end
+      if params[:form][:FormStatus] == ""
+        @proceed = false
+      end
+      puts params[:form][:FormDescription] 
+      
+      if params[:form][:FormDescription] == ""
+        puts " FUCK U DOG"
+        @proceed = false
+      end
+  
+      respond_to do |format|
+        if @proceed
+          @form.update_attributes(:FormDescription => params[:form][:FormDescription], :FormStatus => params[:form][:FormStatus], :FormName => params[:form][:FormName])
+          @save = true;  
+        else
+          @save = false;
+        end
+        
+        puts @save
+        format.js
+      end
+    end
     
-   # constrains => user is only allowed to delete a survey form when it is "Not Published"
-   #               user may delete forms which are "Not Publish" state changes to "Removed"
-   #               user may not edit a form when it is published. 
-   #               editing a published form will cause lost of data (Old Records Removed)
-   #               forms which are "Completed" are able to be re-published changing its status to "Published" (records are kept)
+    def admin_create_associates
+      @ageConditionArr = Array.new
+      @ageConditionArr.push("Equal", "Less Than", "More Than","Between") 
+      @formassociate = Formassociate.new
+      @form_id = params[:form_id]
+      respond_to do |format|
+        format.js
+      end      
+    end
+    
+    def admin_agecondition_change
+      respond_to do |format|
+        format.js
+      end 
+    end
+    
+    
+    def submit_edit_associates
+      
+    #  formassociate_params
+
+      @formassociate = Formassociate.new(formassociate_params)
+      @form = Form.find(params[:form_id])
+      @formassociate.form_id = @form.id
+      @ageto_exist = false
+      @ageValidity = true
+      
+         if !params[:ageto].nil?
+           @ageto_exist = true
+           @formassociate.ageto = params[:ageto]
+           
+           if params[:formassociate][:agefrom].to_i >= params[:ageto].to_i
+             @ageValidity = false
+           end 
+          
+         else
+           @formassociate.ageto = nil
+         end
+      
+      respond_to do |format|
+        if @ageto_exist #got ageTo
+          if !params[:ageto] == "" || @ageValidity #check if ageto is not blank
+            if @formassociate.save #not blank = save try
+              @save = true        #save success
+            else
+              @save = false       #save fail
+            end
+          else
+            @save = false
+          end
+        else    #ageTo dont have
+          puts "ageto x ada"
+          if @formassociate.save #not blank = save try
+            @save = true        #save success
+          else
+            @save = false       #save fail
+          end
+        end
+        @formAssociates = Formassociate.where("form_id = ?", params[:form_id])
+        format.js
+      end
+    end
+    
+    def admin_delete_associate
+      @formassociate = Formassociate.find(params[:asso_id])
+      @formassociate.delete
+    
+      respond_to do |format|
+        format.html { redirect_to admin_edit_survey_forms_path(:form_id => params[:id]) }
+      end
+    end
+    
+    def admin_edit_survey_question
+       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+       
+       respond_to do |format|
+         format.js 
+       end
+    end
+  
+  def admin_delete_survey
     
     @getForm = Form.find(params[:form_id]) 
     @getForm.update_attributes(:FormStatus => "Removed")
     
     @sortedForm = Form.order("forms.FormDateTime DESC").where("forms.FormStatus = ?", "Removed")
     @formsRemoved = true
+    
     respond_to do |format|
-      format.js { render :action => "admin_sort" }
-    end     
+      format.js { render :action => 'admin_sort'}
+    end   
     
   end
+  
+  def admin_edit_new_section
+    @form = Form.find(params[:form_id])
+    @section = Section.new    
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+    def admin_create_section
+      @section = Section.new(section_params)
+      @getSection = Section.where("form_id = ?", params[:section][:form_id])
+      respond_to do |format|
+        if @section.save
+          @save = true; 
+        else
+          @save = false;
+        end
+        format.js  
+      end
+    end
     
+    def admin_edit_remove_section
+      @getSection = Section.where("form_id = ?", params[:form_id])
+      respond_to do |format|
+        format.js
+      end
+    end
+    
+    def admin_edit_remove_section_confirm
+      @removeSection = Section.find(params[:section_id])
+      @getSection = Section.where("form_id = ?", @removeSection.form_id)
+      @removeSection.delete
+      respond_to do |format|
+        format.js
+      end
+    end
+  #-------------------------------------------------------------------------------#
+  #---------------------------------- ADMIN SIDE----------------------------------#
+  #-------------------------------------------------------------------------------#
+    
+    
+  #-------------------------------------------------------------------------------#
+  #---------------------------------- USER SIDE-----------------------------------#
+  #-------------------------------------------------------------------------------#
 
  #viewselected Form
   def user_selected_survey
@@ -264,9 +427,22 @@ class FormsController < ApplicationController
     @formanswer.update_attributes(:FormStatus => "Completed")
      ## compelte it here
   end
-  #---------------------------------- FORM ANSWERING ----------------------------------#
+    
+    
+    #-------------------------------------------------------------------------------#
+    #---------------------------------- USER SIDE-----------------------------------#
+    #-------------------------------------------------------------------------------#
   
-  #---------------------------------- FORM CREATION ----------------------------------#
+  
+  #------------------------------------------------------------------------------------#
+  #---------------------------------- FORM ANSWERING ----------------------------------#
+  #------------------------------------------------------------------------------------#
+  
+  
+  
+  #------------------------------------------------------------------------------------#
+  #---------------------------------- FORM CREATION -----------------------------------#
+  #------------------------------------------------------------------------------------#
   
 
   def create_survey
@@ -276,8 +452,8 @@ class FormsController < ApplicationController
   def submit_create_survey
     @form = Form.new(form_params)
     @form.FormDateTime = Time.now
-    @form.FormStatus = 'Published'
-    @form.id = current_user.id     #current_user.id 
+    @form.FormStatus = 'Not Published'
+    @form.user_id = current_user.id     #current_user.id 
 
     respond_to do |format|
       if @form.save
@@ -306,10 +482,7 @@ class FormsController < ApplicationController
         @save = false;
         puts "fail"
       end
-      format.html
-      format.json
-      format.js
-      
+      format.js  
     end
   end
   
@@ -351,17 +524,19 @@ class FormsController < ApplicationController
     end 
   end
    
-    
+  def create_render_existing_question
+    @getQuestions = Question.all
+  end
     
     def create_render_answer
-    @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
-    @answer = Answer.new  
-    @selectedQuestion = Question.where("id = ?", params[:question_id]).first
-    @getAnswers = Answer.where("question_id = ?", params[:question_id]) 
-     
-    respond_to do |format|
-      format.js 
-    end
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+      @answer = Answer.new  
+      @selectedQuestion = Question.where("id = ?", params[:question_id]).first
+      @getAnswers = Answer.where("question_id = ?", params[:question_id]) 
+       
+      respond_to do |format|
+        format.js 
+      end
     end
     
     def create_question_remove
@@ -391,10 +566,8 @@ class FormsController < ApplicationController
     end
     
     def create_answer_remove
-      
-
       @answer = Answer.find(params[:ans_id]).destroy
-      #---------------------------------------------------------------------------------
+      
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
       respond_to do |format|
@@ -403,11 +576,8 @@ class FormsController < ApplicationController
     end
     
     def create_subanswer_remove
-      
-
       @subAnswer = Subanswer.find(params[:subAns_id]).destroy
       
-      #---------------------------------------------------------------------------------
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
       respond_to do |format|
@@ -415,11 +585,9 @@ class FormsController < ApplicationController
       end      
     end
     
-    def create_subquestion_remove
-      
+    def create_subquestion_remove   
       @subQ = Subquestion.where("id = ?", params[:subQuest_id]).destroy_all
       
-      #---------------------------------------------------------------------------------
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
       respond_to do |format|
@@ -431,7 +599,7 @@ class FormsController < ApplicationController
       
       @subQAnswer = Subquestionanswer.find(params[:subQuestAns_id])
       @subQAnswer.delete      
-      #---------------------------------------------------------------------------------
+      
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
       respond_to do |format|
@@ -441,6 +609,7 @@ class FormsController < ApplicationController
     
     def create_edit_answer
       @selectedAnswer = Answer.find(params[:ans_id])
+      
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
      
       respond_to do |format|
@@ -450,6 +619,7 @@ class FormsController < ApplicationController
     
     def create_edit_subanswer
       @selectedAnswer = Answer.find(params[:ans_id])
+      
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
       respond_to do |format|
@@ -460,6 +630,7 @@ class FormsController < ApplicationController
     
     def create_edit_subanswer_answer
       @selectedAnswer = Subanswer.find(params[:subAns_id])
+      
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
       respond_to do |format|
@@ -469,12 +640,8 @@ class FormsController < ApplicationController
 
     def create_edit_answer_subquestion
       @selectedAnswer = Answer.find(params[:ans_id])
-      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
-      
-      
-      #######################################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
-      
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id])       
       @subQuestionCount = Subquestion.where("answer_id = ?", params[:ans_id]).count
       
       respond_to do |format|
@@ -484,9 +651,9 @@ class FormsController < ApplicationController
         
     def create_edit_subquestion
       @selectedAnswer = Subquestion.find(params[:subQuest_id])
-      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
-
       
+      @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
+  
       respond_to do |format|
         format.js
       end     
@@ -494,6 +661,7 @@ class FormsController < ApplicationController
     
     def create_edit_subquestion_answer
       @selectedAnswer = Subquestionanswer.find(params[:subQuestAns_id])
+      
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
       respond_to do |format|
@@ -501,9 +669,10 @@ class FormsController < ApplicationController
       end            
     end
     
-
-    
-  #---------------------------------- FORM CREATION ----------------------------------#
+  
+  #------------------------------------------------------------------------------------#
+  #---------------------------------- FORM CREATION -----------------------------------#
+  #------------------------------------------------------------------------------------#
   
   # GET /forms
   # GET /forms.json
@@ -530,7 +699,7 @@ class FormsController < ApplicationController
   def create
     @form = Form.new(form_params)
     @form.FormDateTime = Time.now
-    @form.FormStatus = 'Published'
+    @form.FormStatus = 'Not Published'
     @form.user_id = current_user.id #change later
     respond_to do |format|
       if @form.save
@@ -571,7 +740,9 @@ class FormsController < ApplicationController
   end
   
   
+#---------------------------------- -------------------------------------------------#
 #---------------------------------- FORM ANSWERING ----------------------------------#
+#---------------------------------- -------------------------------------------------#
  def create_studanswer
    @studanswer = Studanswer.new(studanswer_params)
  end
@@ -581,7 +752,9 @@ class FormsController < ApplicationController
  def create_studsubquestionanswer
    @studsubquestionanswer = Studsubquestionanswer.new(studsubquestionanswer_params)   
  end
+#---------------------------------- -------------------------------------------------#
 #---------------------------------- FORM ANSWERING ----------------------------------#
+#---------------------------------- -------------------------------------------------#
 
 
 
@@ -591,9 +764,7 @@ class FormsController < ApplicationController
       @form = Form.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    
-    
+    # Never trust parameters from the scary internet, only allow the white list through.  
     def question_params
       params.require(:question).permit(:QuestionDesc, :QuestionNumber, :section_id)
     end
@@ -606,7 +777,9 @@ class FormsController < ApplicationController
     def section_params
       params.require(:section).permit(:SectionName, :SectionDescription, :form_id)
     end
+    #---------------------------------- -------------------------------------------------#
     #---------------------------------- FORM ANSWERING ----------------------------------#
+    #---------------------------------- -------------------------------------------------#
     def formanswer_params
       params.require(:formanswer).permit(:FormAnswer, :StudAnswerDateTime, :form_id)
     end
@@ -623,6 +796,10 @@ class FormsController < ApplicationController
     def studsubquestionanswer_params
       params.require(:studsubquestionanswer).permit(:subquestionanswer_id, :formanswer_id)
       
+    end
+    
+    def formassociate_params
+      params.require(:formassociate).permit( :yearofstudy_id, :levelofstudy_id, :faculty_id, :programme_id, :agefrom, :agecondition)
     end
     
     def obtain_question
@@ -703,5 +880,7 @@ class FormsController < ApplicationController
         @completedQuestionArr << get_current_count_status(fSection.id, @formanswer_id)
       end
     end
+    #---------------------------------- -------------------------------------------------#
     #---------------------------------- FORM ANSWERING ----------------------------------#   
+    #---------------------------------- -------------------------------------------------#
 end

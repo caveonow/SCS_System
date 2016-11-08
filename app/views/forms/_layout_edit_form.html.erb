@@ -1,0 +1,36 @@
+<html>
+	<head></head>
+	<body>
+<%= form_for @form, :id => "form_edit" ,  :url => submit_edit_survey_forms_path, method: "POST", remote: true do |f| %>
+ 	<%= hidden_field_tag 'form_id' , @form.id %> 
+ 	
+	<div class="row">
+		<div class="large-12 columns new_form">
+	        <%= f.label :FormName, 'Form Name' %>
+	        <%= f.text_field :FormName%>
+    	</div>
+	</div>  
+ 
+	<div class="row">
+ 		<div class="large-12 columns">
+		    <%= f.label :FormDescription, 'Form Description' %>
+		    <%= f.text_field :FormDescription%>
+		</div>  
+ 	</div>	
+ 	
+	<div class="row">
+ 		<div class="large-12 columns">
+		    <%= f.label :FormStatus, 'Form Status' %>
+			<%= f.select :FormStatus, options_for_select(@statusArr , f.object.FormStatus)%>
+		</div>  
+ 	</div>	 	
+	<div class="row">
+	<div class="large-6 columns" style="color:black">
+		<%= f.submit data: { confirm: 'Are you sure?' }, :value => "Edit" %>
+	</div>
+  </div>
+
+<% end %>
+</body>
+</html>
+

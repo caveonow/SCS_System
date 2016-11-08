@@ -1,0 +1,6 @@
+$('#updateStatusForForm').html("");
+<% if @save%>
+	$('#updateStatusForForm').html("Form Details Updated.");
+<% else %>
+	$('#updateStatusForForm').html("Error, do not leave fields blank");
+<%end%>

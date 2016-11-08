@@ -5,21 +5,48 @@
 			<h2>Surveys</h2>
 		</div>
 		</br></br>
-		<div class="row">
-			<div class="12-large column">
+		<div class="row " >
+			<div class="12-large column" >
 				<p>Sort By :<%= select_tag "status", options_for_select(@statusArr), data: {url: admin_sort_forms_path,  remote: true}%></p>				
 			</div>
-			<div class="12-large column">
+			<div class="12-large column" >
 				<div id ="display_form_title">
-					<h2>Available Surveys</h2>
+					<h2 >Available Surveys</h2>
 				</div>	
-				<div id="display_form_for_admin">
+				<div id="display_form_for_admin"> 
 					<%= render ('layout_display_admin_forms')%>
 				</div>
 			</div>
 			<div class="12-large column">
-				<%= link_to "Display Deleted Forms", admin_display_removed_forms_path, remote: true %> |	<%= link_to "Display Available Forms", admin_sort_forms_path, remote: true %>			
+				<%= link_to "Display Available Forms", admin_sort_forms_path, remote: true %> | <%= link_to "Display Deleted Forms", admin_display_removed_forms_path, remote: true %> | <%= link_to "Display Form Info", admin_information_forms_path, remote: true %>			
+			</div>
+			<div class="12-large column" id="information_for_admin" style="display:none">
+				</br>
+				<h3><u>Survey Form Information</u></h3>
+				<p>
+					<b>Note on Form Status:</b></br>
+					<i>"Not Published"</i> = Survey Forms which are not published are able to change the questions and answers.</br>
+					<i>"Published"</i> = Survey Forms which are currently published. </br>
+					<i>"Completed"</i> = Survey Forms which were published before. </br>
+					<i>"Removed"</i> = Survey Forms which are deleted</br>
+					</br>
+					<b>Note on Publishing:</b></br>
+					Survey Forms which are under <i>"Not Published"</i> OR <i>"Completed"</i> OR <i>"Removed"</i> status are able to be published.</br>
+                    Survey Forms which are <i>"Completed"</i> are able to be re-published changing its status to <i>"Published"</i> (records are kept).</br>		
+					</br>					
+					<b>Note on Editing:</b> <u><i style="color:red">*IMPORTANT*</i></u></br>
+					Editing a <i>"Completed"</i> OR <i>"Published"</i> Survey Form will results in losing pervious data.</br>      
+					Editing a Survey Form which were <i>"Removed"</i> causes the data to be wiped also.</br> 
+                    Survey Froms which are under <i>"Published"</i> status may not be edited.</br>                    
+                    <br/>
+					<b>Note on Deletion:</b></br>    
+					Deleting a Survey Form will change the status to "Removed".</br>
+					You are only allowed to delete a Survey Form when it's status is <i>"Not Published"</i> OR <i>"Completed"</i>.</br>
+					<i>"Published"</i> Survey Forms are unable to be deleted unless it's status is changed into <i>"Not Published"</i> Or <i>"Completed"</i>.</br>
+					</br>                    
+				</p>
 			</div>
 		</div>
+		</br></br>
 	</body>
 </html>
