@@ -77,7 +77,6 @@ class UsersController < ApplicationController
       flash[:success] = "Please select a field"
     else
       @useredits = User.find(params[:user_ids])
-        flash[:success] = "Profile updated"
     end
   end
   
@@ -89,8 +88,8 @@ class UsersController < ApplicationController
      @useredits.reject! do |user|
        user.update_attributes(update_user_params.reject {|k,v| v.blank?})
        user.save
+       flash[:success] = "Profile updated"
      end
-        flash[:success] = "Profile updated"
         redirect_to users_url 
    else
      @useredits = User.find(params[:translator_ids])

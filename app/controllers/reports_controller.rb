@@ -70,9 +70,8 @@ class ReportsController < ApplicationController
   def horizonbar
     @user = User.joins(:faculty)
     @faculty = Faculty.all
-    render json: @user.group(:gender).group(:facultyname).where(:faculty_id =>['2','3','4','5','6']).count.chart_json
-    #render json: @user.group(:gender).group(:facultyname).where(:faculty_id =>['2','3','4','5','6']).count
-    #render json: @user.group(:gender).count
+    render json: @user.group(:facultyname).where(:faculty_id =>['2','3','4','5','6']).count.chart_json
+    #render json: @user.group(:gender).count.chart_json
   end
   
   def displayHorizonBar
