@@ -8,12 +8,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @user_available_survey.each do |form| %>
+    <% @user_form_inProgress.each do |form| %>
       <tr>
         <td><%= form.FormName %></td>
         <td><%= form.FormDescription %></td>
-        <td>Available</td>
-        <td><%= link_to 'Begin Survey', user_selected_survey_forms_path(:form_id => form.id, :user_id => current_user.id) %>  </td>
+        <td>In Progress</td>
+        <td><%= link_to 'Continue Survey', user_selected_survey_forms_path(:form_id => form.id, :user_id => current_user.id) %>  </td>
       </tr>
     <% end %>
   </tbody>

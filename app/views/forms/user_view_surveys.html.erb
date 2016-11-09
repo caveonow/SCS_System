@@ -1,27 +1,8 @@
-
-<h1>Available Surveys</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Survey Name</th>
-      <th>Description</th>
-      <th>Formstatus</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @forms.each do |form| %>
-      <tr>
-        <td><%= form.FormName %></td>
-        <td><%= form.FormDescription %></td>
-        <td><%= form.FormStatus %></td>
-        <td><%= link_to 'user_selected_survey', user_selected_survey_forms_path(:form_id => form.id, :user_id => "1") %> <%= link_to 'admin_view_survey', admin_view_survey_forms_path(:form_id => form.id, :user_id => "1") %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-_layout_user_view_available_surveys.html.erb
-_layout_user_view_completed_surveys.html.erb
+<div class="row">
+	<h1>Available Surveys</h1>
+	<%= render('layout_user_view_available_surveys')%>
+</div>
+<div class="row">
+	<h1>Surveys In Progress</h1>
+	<%= render('layout_user_view_incomplete_surveys')%>
+</div>

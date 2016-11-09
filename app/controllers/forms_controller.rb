@@ -230,51 +230,76 @@ class FormsController < ApplicationController
     @formsInProgress = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "InProgress")
     @formsCompleted = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "Completed")
     @formsIncomplete = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "Incomplete")
-    
-    @user_details = User.find(current_user.id)
-    @user_details.programme_id
-    @user_details.yearofstudy_id
-    @user_details.levelofstudy_id
-    @user_details.faculty_id
-    @user_details.agecondition
-    @user_details.agefrom
-    @user_details.ageto
-    
-    @formConstraints = Formassociate.where("form_id = ?". form_id)
-       
+    @valueComplete = true
+    @valueinProgress = true
+    @addIfTrue = false
+    @user_available_survey = Array.new
+    @user_form_inProgress = Array.new
+    @user_form_completed = Array.new  
     @availableSurveys = Form.where("FormStatus = ?", "Published")
     
     @availableSurveys.each do |form|
-     @ageValidation = ageCheck(current_user.id,form.id)
-      @formConstraints.each do |constraints|
-      if @ageValidation == true
-        if constraints.facultyname == "All"
-            @facultyValidation = true ## HE PASSED
-        elsif constraints.faculty_id == @user_details.faculty_id
-          if
-          
-        end     
-      else 
-        # he failed no show
+     @formsCompleted.each do |complete|
+       if form.id == complete.form_id
+         @user_form_completed.push(form)
+         @valueComplete = false;
+         break          
+        end
       end
-      
-      if faculty = all = everyone
-        if faculty = 1 > level > year > programme
-          if faculty = 1 > level = all = everyone
-            if faculty = 1 > level = all = 1 > year > programme
-              if faculty = 1 > level = all = 1 > year = all > everyone
-              if faculty = 1 > level = all = 1 > year > 1 = programme 
-              if faculty = 1 > level = all = 1 > year > 1 = programme = all > everyone
-                if faculty = 1 > level = all = 1 > year > 1 = programme = 1 > everyone
-      
+     if @valueComplete == false
+       break
+     end
     end
-   
-      #AGE CONDITIONS => "All","Equal", "Less Than", "More Than","Between" 
     
-    ## where form = avaialbe = check for RSD CLASS DSHIT AND SHIT
+    @availableSurveys.each do |form|
+       @formsInProgress.each do |inprogress|
+         if form.id == inprogress.form_id
+           @user_form_inProgress.push(form)
+         @valueinProgress = false;
+         break           
+         end  
+       end
+       @formsCompleted.each do |complete|
+       if form.id == complete.form_id
+         @user_form_completed.push(form)
+         @valueComplete = false;
+         break          
+        end
+      end
+       if @valueinProgress == false ||  @valueComplete == false
+         break
+       else
+         @ageValidation = ageCheck(current_user.id,form.id)
+        if @ageValidation == true
+          @addIfTrue = otherChecks(current_user.id,form.id)
+        else
+          @addIfTrue = false
+        end
+        
+        if @addIfTrue
+            @user_available_survey.push(form)
+            puts @user_available_survey.first
+        end
+       end
+       
+     end
+         
+     
+      
+     # if faculty = all = everyone
+      #  if faculty = 1 > level > year > programme
+       #   if faculty = 1 > level = all = everyone
+        #    if faculty = 1 > level = all = 1 > year > programme
+         #     if faculty = 1 > level = all = 1 > year = all > everyone
+          #    if faculty = 1 > level = all = 1 > year > 1 = programme 
+           #   if faculty = 1 > level = all = 1 > year > 1 = programme = all > everyone
+            #    if faculty = 1 > level = all = 1 > year > 1 = programme = 1 > everyone
+      
+
     
     @formsAnsweredStatus = Array.new
     @formsAnsweredStatus.push("Inprogress","Completed", "Incomplete")
+    
   end
   
 
@@ -958,35 +983,64 @@ class FormsController < ApplicationController
     
     def ageCheck(user_id, form_id)
       @user_details = User.find(user_id)
-       @formConstraints = Formassociate.where("form_id = ?". form_id)
+       @formConstraints = Formassociate.where("form_id = ?", form_id)
       @formConstraints.each do |constraints|
-        if constraints.agecondition == "All"
-            return true          
-        elsif constraints.agecondition == "Equal"
-          if @user_details.age == constraints.agefrom
-            return true
-          else 
-            return false
-          end        
-        elsif constraints.agecondition == "Less Than"
-          if @user_details.age < constraints.agefrom
-            return true
-          else 
-            return false
-          end          
-        elsif constraints.agecondition == "More Than"
-          if @user_details.age > constraints.agefrom
-            return true
-          else 
-            return false
-          end                    
-        elsif constraints.agecondition == "Between"
-          if @user_details.age >= constraints.agefrom || @user_details.age <= constraints.ageto
-            return true
-          else 
-            return false
-          end                    
+          if constraints.agecondition == "All"
+              return true          
+          elsif constraints.agecondition == "Equal"
+            if @user_details.age == constraints.agefrom
+              return true
+            else 
+              return false
+            end        
+          elsif constraints.agecondition == "Less Than"
+            if @user_details.age < constraints.agefrom
+              return true
+            else 
+              return false
+            end          
+          elsif constraints.agecondition == "More Than"
+            if @user_details.age > constraints.agefrom
+              return true
+            else 
+              return false
+            end                    
+          elsif constraints.agecondition == "Between"
+            if @user_details.age >= constraints.agefrom || @user_details.age <= constraints.ageto
+              return true
+            else 
+              return false
+            end                    
+          end
         end
+    end
+    def otherChecks(user_id, form_id)
+       @user_details = User.find(user_id)
+       @formConstraints = Formassociate.where("form_id = ?", form_id)
+        @formConstraints.each do |constraints|#
+          if constraints.faculty.facultyname == "All"##
+           
+              return true
+          elsif constraints.faculty_id == @user_details.faculty_id##
+            if constraints.levelofstudy.levelname == "All"###
+             
+             return true
+            elsif constraints.levelofstudy_id == @user_details.levelofstudy_id###
+              if constraints.yearofstudy.year == "All"####
+                return true
+              elsif constraints.yearofstudy_id ==  @user_details.yearofstudy_id####
+                if constraints.programme.programmename = "All"#####
+                  return true
+                elsif constraints.programme_id = @user_details.programme_id#####
+                  return true                  
+                end#####               
+              end####
+            end###
+          else##
+            return false
+          end##
+        end#
+        return false
     end
     #---------------------------------- -------------------------------------------------#
     #---------------------------------- FORM ANSWERING ----------------------------------#   
