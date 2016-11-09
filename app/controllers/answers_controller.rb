@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  before_filter :authenticate_user!
+  load_and_authorize_resource
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
 
 

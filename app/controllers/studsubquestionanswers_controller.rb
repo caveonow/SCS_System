@@ -1,6 +1,7 @@
 class StudsubquestionanswersController < ApplicationController
   before_action :set_studsubquestionanswer, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
+  load_and_authorize_resource
   # GET /studsubquestionanswers
   # GET /studsubquestionanswers.json
   def index
