@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
+  load_and_authorize_resource
 
 
   def new_create

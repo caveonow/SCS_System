@@ -9,14 +9,19 @@ class Ability
         if user.admin?
           can :manage, :all
         elsif user.staff?
-          can :read, :all
-          can :create, :all
-          can :update, :all
+          can :manage, :all
+          cannot :destroy, Role
+          cannot :destroy, Faculty
+          cannot :destroy, Yearofstudy
+          cannot :destroy, Levelofstudy
+          cannot :destroy, Programme
+          cannot :destroy, User
           #can :destroy, Item do |item|
           #  item.try(:user) == user
           #end
         elsif user.student?
-          can :read, :all    
+          can :read, Advertisment
+          can :manage, Form    
         else
            can :read, Advertisement
         end

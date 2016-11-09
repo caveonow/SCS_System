@@ -1,6 +1,8 @@
 class BackgroundsController < ApplicationController
   before_action :set_background, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  
+    before_filter :authenticate_user!
+  load_and_authorize_resource
   # GET /backgrounds
   # GET /backgrounds.json
   def index

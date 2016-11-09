@@ -1,7 +1,8 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy]
   respond_to :html, :js
-
+  before_filter :authenticate_user!
+  load_and_authorize_resource
 
   # GET /reports
   # GET /reports.json

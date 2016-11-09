@@ -1,7 +1,8 @@
 class AdvertisementsController < ApplicationController
   before_filter :authenticate_user!
-  #before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
+  #before_action :set_advertisement, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /advertisements
   # GET /advertisements.json

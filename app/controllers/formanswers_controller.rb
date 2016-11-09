@@ -1,6 +1,7 @@
 class FormanswersController < ApplicationController
   before_action :set_formanswer, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
+  load_and_authorize_resource
   # GET /formanswers
   # GET /formanswers.json
   def index

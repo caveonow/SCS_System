@@ -1,6 +1,7 @@
 class StudanswersController < ApplicationController
   before_action :set_studanswer, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+    before_filter :authenticate_user!
+  load_and_authorize_resource
   # GET /studanswers
   # GET /studanswers.json
   def index

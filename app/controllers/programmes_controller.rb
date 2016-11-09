@@ -1,6 +1,7 @@
 class ProgrammesController < ApplicationController
   before_action :set_programme, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
+  load_and_authorize_resource
   # GET /programmes
   # GET /programmes.json
   def index
