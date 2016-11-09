@@ -14,7 +14,7 @@
             },
             scale: 3,
             fallbackToExportServer: false
-        },
+        	},
 	        chart: {
 	        renderTo: 'previewgraph',
             type: 'bar'
@@ -63,6 +63,20 @@
 	
 <%elsif $Graphtype == "vertical"%>
 	<%= column_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+        exporting: {
+            chartOptions: { 
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                }
+            },
+            scale: 3,
+            fallbackToExportServer: false
+        },
+        
         chart: {
             type: 'column'
         	},
@@ -94,6 +108,20 @@
 	%> 
 <%elsif $Graphtype == "pie"%>		
 	<%= pie_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+        exporting: {
+            chartOptions: { 
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                }
+            },
+            scale: 3,
+            fallbackToExportServer: false
+        },
+        
         pie_chart: {
             type: 'column'
         	},

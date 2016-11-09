@@ -58,7 +58,9 @@ $(function(){
   // underline text subtitle
   $("#undersubtitle").click(function() {
     $(".changeMe1").toggleClass("underline");
-  });	
+  });
+  
+
 	
 });
 
