@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :advertisements
   has_one :welcome
   
-  validates_presence_of :name, :faculty_id, :yearofstudy_id, :levelofstudy_id, :programme_id, :age, :DateOfBirth
+  validates_presence_of :name, :faculty_id, :yearofstudy_id, :levelofstudy_id, :programme_id, :age
   validates_uniqueness_of :ICNo, :email
   validates_format_of :ICNo, :with => /\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])-\d{2}-\d{4}/, :message => "invalid format"
   before_save :assign_role
