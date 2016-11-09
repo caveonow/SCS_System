@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       get 'horizonbar'
       post 'gettitle'
       post 'seriesdata'
+      get 'testing'
     end
   end
   resources :forms do
