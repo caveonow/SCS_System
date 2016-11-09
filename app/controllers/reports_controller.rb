@@ -70,11 +70,16 @@ class ReportsController < ApplicationController
   def horizonbar
     @user = User.joins(:faculty)
     @faculty = Faculty.all
-    render json: @user.group(:gender).group(:facultyname).where(:faculty_id =>['2','3','4','5','6']).count.chart_json
-    #render json: @user.group(:gender).group(:facultyname).where(:faculty_id =>['2','3','4','5','6']).count
-    #render json: @user.group(:gender).count
+    @formTry = Form.joins(:answer)
+    @section = Section.joins(:form)
+    @answer = Answer.all
+    render json: @formTry.group(:QuestionDesc).group(:AnswerDesc).where("IsSubAnswer = 0 and IsSubQuestion = 0 and section_id = 2").sum(:AnswerCount).chart_json
+    #render json: @answer.group(:AnswerDesc).where("question_id = ?", "1").sum(:AnswerCount).chart_json
+#    render json: @user.group(:gender).group(:facultyname).where(:faculty_id =>['2','3','4','5','6']).count.chart_json
   end
-  
+
+    
+
   def displayHorizonBar
      @user = User.all
      $Graphtype = "horizon"
