@@ -20,8 +20,9 @@ class Ability
           #  item.try(:user) == user
           #end
         elsif user.student?
-          can :read, Advertisment
-          can :manage, Form    
+          #can :read, Advertisment
+          #can :manage, Form    
+          can :manage, :all
         else
            can :read, Advertisement
         end
