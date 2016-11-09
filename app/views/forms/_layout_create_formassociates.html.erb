@@ -32,9 +32,7 @@
 						<%= f.label :agecondition , "Age Condition"%>
 						<%= f.select :agecondition, options_for_select(@ageConditionArr), {prompt: true} , { data: { :remote => true, :url => admin_agecondition_change_forms_path(:value => params[:agecondition])}  }%>	
  
-					<div class="large-6 columns">
-					    <%= f.label :agefrom, "Age" %>
-					    <%= f.select :agefrom, (1..100), prompt: true%>
+					<div class="large-6 columns" id="display_agefrom">
 					</div>
 					  
 					<div class="large-6 columns" id="display_ageto">		

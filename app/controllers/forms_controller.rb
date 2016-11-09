@@ -9,16 +9,7 @@ class FormsController < ApplicationController
 #------------------------------------------------------------------------------------#
 #---------------------------------- FORM ANSWERING ----------------------------------#
 #------------------------------------------------------------------------------------#
-  def user_view_surveys
-    @forms = Form.all
-    @formsInProgress = Formanswer.where("user_id = ? AND FormStatus = ?", 1, "InProgress")#current_user.id)
-    @availableForms = Form.where("FormStatus = ?", "Published")
-    ## where form = avaialbe = check for RSD CLASS DSHIT AND SHIT
-    
-    @formsAnsweredStatus = Array.new
-    @formsAnsweredStatus.push("Inprogress","Completed", "Incomplete")
-  end
-  
+
   #-------------------------------------------------------------------------------#
   #---------------------------------- ADMIN SIDE----------------------------------#
   #-------------------------------------------------------------------------------#
@@ -97,7 +88,7 @@ class FormsController < ApplicationController
     
     def admin_create_associates
       @ageConditionArr = Array.new
-      @ageConditionArr.push("Equal", "Less Than", "More Than","Between") 
+      @ageConditionArr.push("All","Equal", "Less Than", "More Than","Between") 
       @formassociate = Formassociate.new
       @form_id = params[:form_id]
       respond_to do |format|
@@ -233,6 +224,59 @@ class FormsController < ApplicationController
   #-------------------------------------------------------------------------------#
   #---------------------------------- USER SIDE-----------------------------------#
   #-------------------------------------------------------------------------------#
+#user main page
+  def user_view_surveys
+    @forms = Form.all
+    @formsInProgress = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "InProgress")
+    @formsCompleted = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "Completed")
+    @formsIncomplete = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "Incomplete")
+    
+    @user_details = User.find(current_user.id)
+    @user_details.programme_id
+    @user_details.yearofstudy_id
+    @user_details.levelofstudy_id
+    @user_details.faculty_id
+    @user_details.agecondition
+    @user_details.agefrom
+    @user_details.ageto
+    
+    @formConstraints = Formassociate.where("form_id = ?". form_id)
+       
+    @availableSurveys = Form.where("FormStatus = ?", "Published")
+    
+    @availableSurveys.each do |form|
+     @ageValidation = ageCheck(current_user.id,form.id)
+      @formConstraints.each do |constraints|
+      if @ageValidation == true
+        if constraints.facultyname == "All"
+            @facultyValidation = true ## HE PASSED
+        elsif constraints.faculty_id == @user_details.faculty_id
+          if
+          
+        end     
+      else 
+        # he failed no show
+      end
+      
+      if faculty = all = everyone
+        if faculty = 1 > level > year > programme
+          if faculty = 1 > level = all = everyone
+            if faculty = 1 > level = all = 1 > year > programme
+              if faculty = 1 > level = all = 1 > year = all > everyone
+              if faculty = 1 > level = all = 1 > year > 1 = programme 
+              if faculty = 1 > level = all = 1 > year > 1 = programme = all > everyone
+                if faculty = 1 > level = all = 1 > year > 1 = programme = 1 > everyone
+      
+    end
+   
+      #AGE CONDITIONS => "All","Equal", "Less Than", "More Than","Between" 
+    
+    ## where form = avaialbe = check for RSD CLASS DSHIT AND SHIT
+    
+    @formsAnsweredStatus = Array.new
+    @formsAnsweredStatus.push("Inprogress","Completed", "Incomplete")
+  end
+  
 
  #viewselected Form
   def user_selected_survey
@@ -240,12 +284,12 @@ class FormsController < ApplicationController
     @formName = Form
     .select("forms.FormName, forms.id")
     .where("id = ?", params[:form_id]).first 
-    @formAnswer =  Formanswer.where("user_id = ? AND form_id = ?",params[:user_id],params[:form_id])    
+    @formAnswer =  Formanswer.where("user_id = ? AND form_id = ?",current_user.id,params[:form_id])    
       if @formAnswer.empty?
         @formCreate = Formanswer.new do |fa|
           fa.FormStatus = "InProgress"
           fa.StudAnswerDateTime = Time.now
-          fa.user_id = params[:user_id]
+          fa.user_id = current_user.id
           fa.form_id = params[:form_id]
         end
         @formCreate.save
@@ -425,6 +469,35 @@ class FormsController < ApplicationController
   
   def save_complete_survey
     @formanswer = Formanswer.find(params[:formanswer_id])
+    
+    @studAnswer = Studanswer.where("formanswer_id = ?", params[:formanswer_id])
+    @studSubAnswer = Studsubanswer.where("formanswer_id = ?", params[:formanswer_id])
+    @studSubQuestionAnswer = Studsubquestionanswer.where("formanswer_id = ?", params[:formanswer_id])
+    
+    
+    @studAnswer.each do |ans|
+      @tempAnswer = Answer.new
+      @tempAnswer = ans.answer
+      @value = @tempAnswer.AnswerCount + 1
+      @tempAnswer.update_attributes(:AnswerCount => @value)
+         
+    end
+    
+     @studSubAnswer.each do |ans|
+      @tempAnswer = Subanswer.new
+      @tempAnswer = ans.subanswer
+      @value = @tempAnswer.SACount + 1
+      @tempAnswer.update_attributes(:SACount => @value)
+         
+    end
+    
+     @studSubQuestionAnswer.each do |ans|
+      @tempAnswer = Subquestionanswer.new
+      @tempAnswer = ans.subquestionanswer
+      @value = @tempAnswer.SQAnswerCount + 1
+      @tempAnswer.update_attributes(:SQAnswerCount => @value)
+         
+    end
     
     @formanswer.update_attributes(:FormStatus => "Completed")
      ## compelte it here
@@ -881,6 +954,39 @@ class FormsController < ApplicationController
         @totalQuestionArr << fSection.question.count
         @completedQuestionArr << get_current_count_status(fSection.id, @formanswer_id)
       end
+    end
+    
+    def ageCheck(user_id, form_id)
+      @user_details = User.find(user_id)
+       @formConstraints = Formassociate.where("form_id = ?". form_id)
+      @formConstraints.each do |constraints|
+        if constraints.agecondition == "All"
+            return true          
+        elsif constraints.agecondition == "Equal"
+          if @user_details.age == constraints.agefrom
+            return true
+          else 
+            return false
+          end        
+        elsif constraints.agecondition == "Less Than"
+          if @user_details.age < constraints.agefrom
+            return true
+          else 
+            return false
+          end          
+        elsif constraints.agecondition == "More Than"
+          if @user_details.age > constraints.agefrom
+            return true
+          else 
+            return false
+          end                    
+        elsif constraints.agecondition == "Between"
+          if @user_details.age >= constraints.agefrom || @user_details.age <= constraints.ageto
+            return true
+          else 
+            return false
+          end                    
+        end
     end
     #---------------------------------- -------------------------------------------------#
     #---------------------------------- FORM ANSWERING ----------------------------------#   
