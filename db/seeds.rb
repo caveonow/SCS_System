@@ -38,13 +38,13 @@ r1 = Role.create({name: "Student", description: "Can read items"})
 r2 = Role.create({name: "Staff", description: "Can read and create items. Can update and destroy own items"})
 r3 = Role.create({name: "Admin", description: "Can perform any CRUD operation on any resource"})
 
-u1 = User.create({name: "Sally" ,age: '23' ,gender: 'Male', email: "caveon_5759@hotmail.com",ICNo:"930219-14-5252",  password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r2.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
+u1 = User.create({name: "Sally" ,age: '23' ,gender: 'Female', email: "sally@example.com",ICNo:"930219-14-5252",  password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r2.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
 u1.confirm
-#u2 = User.create({name: "Sue" ,age: '22',gender: 'Female', email: "sue@example.com",ICNo:"930219-14-5251", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r1.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
-#u2.confirm
-#u3 = User.create({name: "Kev" ,age: '21',gender: 'Male', email: "kev@example.com",ICNo:"930219-14-5253", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r3.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
-#u3.confirm
-#u4 = User.create({name: "Jack" ,age: '24',gender: 'Male', email: "jack@example.com",ICNo:"930219-14-5254", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r3.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
-#u4.confirm
+u2 = User.create({name: "Sue" ,age: '22',gender: 'Female', email: "sue@example.com",ICNo:"930219-14-5251", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r1.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
+u2.confirm
+u3 = User.create({name: "Kev" ,age: '21',gender: 'Male', email: "kev@example.com",ICNo:"930219-14-5253", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r3.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
+u3.confirm
+u4 = User.create({name: "Jack" ,age: '24',gender: 'Male', email: "jack@example.com",ICNo:"930219-14-5254", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r3.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
+u4.confirm
 
 
