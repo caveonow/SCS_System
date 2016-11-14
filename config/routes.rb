@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       post 'gettitle'
       post 'seriesdata'
       get 'testing'
+      get 'testing2'
     end
   end
   resources :forms do
