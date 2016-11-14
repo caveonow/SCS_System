@@ -80,7 +80,7 @@ Rails.application.configure do
   # setup heroku mailer
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'survey-diamond.heroku.com' }
+  config.action_mailer.default_url_options = { :host => 'survey-diamond.herokuapp.com' }
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.delivery_method = :smtp
   
@@ -91,7 +91,7 @@ Rails.application.configure do
   :enable_starttls_auto => true,
   :user_name      => 'app57772936@heroku.com',
   :password       => 'fe6967j50597',
-  :domain         => 'survey-diamond.heroku.com'
+  :domain         => 'herokuapp.com'
 }
 
 end
