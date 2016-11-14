@@ -5,11 +5,15 @@
   <thead>
     <tr>
       <th>id</th>
+      <th>Advertisment Image</th>
       <th>advertisment name</th>
       <th>programe name</th>
       <th>faculty name </th>
       <th>year of study</th>
       <th>level of study</th>
+      <th>age from</th>
+      <th>age to</th>
+      <th>age condition</th>
       <th colspan="1"></th>
     </tr>
   </thead>
@@ -18,11 +22,15 @@
     <% @advertisementassociate.each do |asso| %>
       <tr>
         <td><%= asso.id %></td>
+        <td><%= image_tag asso.advertisement.imageAd_url(:thumb),:style=>"height:100px; width:350px;"%>	</td>
         <td><%= asso.advertisement.AdvertisementName %></td>
         <td><%= asso.programme.programmename %></td>
         <td><%= asso.faculty.facultyname %></td>
         <td><%= asso.yearofstudy.year %></td>
         <td><%= asso.levelofstudy.levelname %></td>
+        <td><%= asso.agefrom %></td>
+        <td><%= asso.ageto %></td>
+        <td><%= asso.agecondition %></td>
        	<td><%= link_to 'Delete', deleteassoc_advertisements_path(:asso_id => asso.id, :id => asso.advertisement.id), data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
