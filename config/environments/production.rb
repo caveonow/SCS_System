@@ -83,6 +83,14 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'survey-diamond.heroku.com' }
   config.action_mailer.delivery_method = :smtp
   
-  
+  ActionMailer::Base.smtp_settings = {
+  :address        => "smtp.sendgrid.net",
+  :port           => "25",
+  :authentication => :plain,
+  :enable_starttls_auto => true,
+  :user_name      => 'app57772936@heroku.com',
+  :password       => 'fe6967j50597',
+  :domain         => 'heroku.com'
+}
 
 end
