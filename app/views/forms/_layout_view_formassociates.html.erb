@@ -4,11 +4,11 @@
   <thead>
     <tr>
       <th>No.</th>
-      <th>programe name</th>
-      <th>faculty name </th>
-      <th>year of study</th>
-      <th>level of study</th>
-      <th>Age Type</th>
+      <th>Programme</th>
+      <th>Faculty </th>
+      <th>Year </th>
+      <th>Study Levels</th>
+      <th>Age Condition</th>
       <th>Age From</th>
       <th>Age To</th>
       <th colspan="1"></th>
@@ -24,8 +24,20 @@
         <td><%= asso.yearofstudy.year %></td>
         <td><%= asso.levelofstudy.levelname %></td>
         <td><%= asso.agecondition %></td>
-        <td><%= asso.agefrom %></td>
-        <td><%= asso.ageto %></td>
+        <td>
+        <%if asso.agefrom.blank?%>
+        		<%= "-"%>
+        <%else%>
+        	<%= asso.agefrom %>
+    	<%end%>
+    	</td>
+        <td>
+        <%if asso.ageto.blank?%>
+        		<%= "-"%>
+        <%else%>
+        	<%= asso.ageto %>
+    	<%end%>
+		</td>
        	<td><%= link_to 'Delete', admin_delete_associate_forms_path(:asso_id => asso.id, :id => asso.form_id), data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

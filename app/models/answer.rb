@@ -1,6 +1,6 @@
 class Answer < ActiveRecord::Base
   belongs_to :question
-  has_many :studanswer
+  has_many :studanswer,  :dependent => :destroy
   
   has_many :subanswer, :dependent => :destroy
   has_many :subquestion, :dependent => :destroy

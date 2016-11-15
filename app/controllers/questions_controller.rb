@@ -15,10 +15,8 @@ class QuestionsController < ApplicationController
       if @question.save
         @save = true;  
        @getQuestions = Question.where("section_id = ?", @question.section_id) 
-        puts "success"
       else
         @save = false;
-        puts "fail"
       end
         format.html
         format.json
@@ -36,7 +34,6 @@ class QuestionsController < ApplicationController
     @subQuestion = false
     @subAnswer = false
 
-    puts @questionCount
     @newQuestion = Question.new    
     @newQuestion.QuestionDesc = @getQuestionToClone.QuestionDesc
     @newQuestion.QuestionNumber = @count    

@@ -20,31 +20,25 @@ end
       if params[:choice]=="IsSubQuestion"
         @answer.IsSubQuestion = 1
         @answer.IsSubAnswer = 0
-        puts "is sub question"
       elsif params[:choice]=="IsSubAnswer"
         @answer.IsSubQuestion = 0
         @answer.IsSubAnswer = 1
-        puts "is sub answer"
       elsif params[:choice]=="None"
         @answer.IsSubQuestion = 0
         @answer.IsSubAnswer = 0
-        puts "its none"
       end
       
       if params[:SADesc_values].present?
-        puts "SubAnswer ada"
         @subAnsValid = true
         @arr_SADesc = params[:SADesc_values]    
       end
       
       if params[:SQAnswer_values].present?
-        puts "SubQuestionAnswer ada"
         @subQAnsValid = true 
         @arr_SQAnswer = params[:SQAnswer_values]  
       end
          
       if !params[:SQDesc].nil?
-        puts "SubQuestion ada"
         @subQValid = true 
         @SADescBlank =true
       end           
@@ -55,7 +49,6 @@ end
       if @subQValid
         if params[:SQDesc].blank?
           @save = false;
-          puts "fail"
         else
           if @answer.save      
             if @subQAnsValid          
@@ -65,7 +58,6 @@ end
               @subQuestion.answer_id = @answer.id
               @subQuestion.save
               (0..@arr_SQAnswer.size).each do |i|
-              puts @arr_SQAnswer[i]
                 if !@arr_SQAnswer[i].blank?            
                   @subQAnswer = Subquestionanswer.new
                   @subQAnswer.SQAnswerCount = 0
@@ -78,18 +70,16 @@ end
             @save = true;          
             @getAnswers = Answer.where("question_id = ?", @answer.question_id) 
             @getQuestions = Question.where("section_id = ?", @answer.question.section_id)
-            puts "success"
+        
           else
             @SADescBlank = false
-            @save = false;
-            puts "fail"                     
+            @save = false;               
           end 
         end     
       elsif !@subQValid
         if @answer.save                    
           if @subAnsValid    
             (0..@arr_SADesc.size).each do |i|
-              puts @arr_SADesc[i]
               if !@arr_SADesc[i].blank?            
                 @subAnswer = Subanswer.new
                 @subAnswer.SACount = 0
@@ -103,10 +93,9 @@ end
           @getAnswers = Answer.where("question_id = ?", @answer.question_id) 
           @getQuestions = Question.where("section_id = ?",   @answer.question.section_id)
         
-          puts "success"
         else
           @save = false;
-          puts "fail"
+
         end
       end      
       format.html
@@ -158,7 +147,6 @@ end
             if params[:SADesc_values].present?      
               @arr_SADesc = params[:SADesc_values]  
                 (0..@arr_SADesc.size).each do |i|
-                  puts @arr_SADesc[i]
                   if !@arr_SADesc[i].blank?            
                     @subAnswer = Subanswer.new
                     @subAnswer.SACount = 0
@@ -198,12 +186,10 @@ end
         @SADescBlank = false
         
         if params[:SQAnswer_values].present?
-            puts "SubQuestionAnswer ada"
             @subQAnsValid = true 
             @arr_SQAnswer = params[:SQAnswer_values]  
         end   
         if !params[:SQDesc].nil?
-          puts "SubQuestion ada"
           @subQValid = true 
           @SADescBlank = true
         end           
@@ -216,10 +202,8 @@ end
                 end
            else
               @answer = Answer.find(params[:ans_id])  
-                puts "edit answer is not blank = true"
                 
               if @subQValid
-                puts "subQvalid = true"
                 if params[:SQDesc].blank?
                     @save = false;
                     @SADescBlank =true
@@ -239,15 +223,12 @@ end
                           @subQAnswer.save
                         end
                       end
-                   puts "subqans ADDED +++"
                     end
-                puts "theres subQ and it runs "
                    @answer.update_attributes(:AnswerDesc => params[:edit_answer]) 
                   @getQuestions = Question.where("section_id = ?", @answer.question.section_id)  
                    @save = true
                 end
               else        
-                puts "subQvalid = false"     
                 @save = true
                 @answer.update_attributes(:AnswerDesc => params[:edit_answer])
                 @getQuestions = Question.where("section_id = ?", @answer.question.section_id)  
@@ -276,7 +257,6 @@ end
             if params[:SQAnswer_values].present?   
               @arr_SQAnswer = params[:SQAnswer_values] 
                (0..@arr_SQAnswer.size).each do |i|
-              puts @arr_SQAnswer[i]
                 if !@arr_SQAnswer[i].blank?            
                   @subQAnswer = Subquestionanswer.new
                   @subQAnswer.SQAnswerCount = 0

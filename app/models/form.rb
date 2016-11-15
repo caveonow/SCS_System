@@ -13,5 +13,6 @@ class Form < ActiveRecord::Base
   has_many :studsubanswer, through: :subanswer
   has_many :studsubquestionanswer, through: :subquestionanswer
   
+  
   validates_presence_of :FormName, :FormDescription
 end

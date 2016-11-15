@@ -1,3 +1,4 @@
+<% if !@user_available_survey.empty?%>
 <table>
   <thead>
     <tr>
@@ -8,6 +9,7 @@
     </tr>
   </thead>
   <tbody>
+  	
     <% @user_available_survey.each do |form| %>
       <tr>
         <td><%= form.FormName %></td>
@@ -18,3 +20,9 @@
     <% end %>
   </tbody>
 </table>
+
+<%else%>
+<br />
+<h3>No Available Surveys at the moment! :D</h3>
+<br /><br /><br /><br />
+<%end%>

@@ -3,8 +3,14 @@
 	<tbody>
 		<% @selectedSections.each do |s| %>	
 		<tr>
-			<td>
-				<%= s.SectionName %></td>
+			<th style="width:50%">
+				<br/><br /><br /><br /><br /><br /><br />
+				<%= s.SectionName %>
+			</td>
+				<th style="width:50%">
+				<br/><br /><br /><br /><br /><br /><br />
+					Answers
+				</th>
 			<td> 
 				<% obtain_questions(s.id).each do |q| %>
 				<tr>
@@ -18,7 +24,7 @@
 							<br/>
 							<%= a.AnswerDesc%>
 								<%if a.IsSubQuestion or a.IsSubQuestion == 1%>
-									<br/>				
+									
 									<% obtain_subquestion(a.id).each do |sq| %>
 									<table>
 										<tr>
@@ -35,13 +41,16 @@
 									<%end%>
 								<%end%>
 						<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
-							<br/>
-							<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]
-							<br/>
+
+							<b><%= a.AnswerDesc%></b>
+
+							<table>			
 							<% obtain_subanswers(a.id).each do |sa|%>
-								<br/>
-								<%= sa.SADesc%>
-						<%end%>
+							<tr>
+								<td><%= sa.SADesc%> </td>
+							</tr>					
+						<%end%>									
+						</table>
 					<%end%>
 				<%end%>
 				</td>

@@ -4,8 +4,6 @@ class FormsController < ApplicationController
   before_action :set_form, only: [:show, :edit, :update, :destroy]
   respond_to :html, :js
 
-
-
 #------------------------------------------------------------------------------------#
 #---------------------------------- FORM ANSWERING ----------------------------------#
 #------------------------------------------------------------------------------------#
@@ -66,10 +64,8 @@ class FormsController < ApplicationController
       if params[:form][:FormStatus] == ""
         @proceed = false
       end
-      puts params[:form][:FormDescription] 
       
       if params[:form][:FormDescription] == ""
-        puts " FUCK U DOG"
         @proceed = false
       end
   
@@ -81,7 +77,6 @@ class FormsController < ApplicationController
           @save = false;
         end
         
-        puts @save
         format.js
       end
     end
@@ -137,7 +132,6 @@ class FormsController < ApplicationController
             @save = false
           end
         else    #ageTo dont have
-          puts "ageto x ada"
           if @formassociate.save #not blank = save try
             @save = true        #save success
           else
@@ -151,7 +145,7 @@ class FormsController < ApplicationController
     
     def admin_delete_associate
       @formassociate = Formassociate.find(params[:asso_id])
-      @formassociate.delete
+      @formassociate.destroy
     
       respond_to do |format|
         format.html { redirect_to admin_edit_survey_forms_path(:form_id => params[:id]) }
@@ -211,7 +205,7 @@ class FormsController < ApplicationController
     def admin_edit_remove_section_confirm
       @removeSection = Section.find(params[:section_id])
       @getSection = Section.where("form_id = ?", @removeSection.form_id)
-      @removeSection.delete
+      @removeSection.destroy
       respond_to do |format|
         format.js
       end
@@ -230,8 +224,7 @@ class FormsController < ApplicationController
     @formsInProgress = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "InProgress")
     @formsCompleted = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "Completed")
     @formsIncomplete = Formanswer.where("user_id = ? AND FormStatus = ?", current_user.id, "Incomplete")
-    @valueComplete = true
-    @valueinProgress = true
+
     @addIfTrue = false
     
     @f_choice = false
@@ -242,85 +235,88 @@ class FormsController < ApplicationController
     @user_available_survey = Array.new
     @user_form_inProgress = Array.new
     @user_form_completed = Array.new  
-    @availableSurveys = Form.where("FormStatus = ?", "Not Published")
+    @availableSurveys = Form.where("FormStatus = ?", "Published")
+    
     
     
     @availableSurveys.each do |form|
+    @valueComplete = true
+    @valueinProgress = true      
     #obtain  forms in progress
        @formsInProgress.each do |inprogress|
          if form.id == inprogress.form_id
            @user_form_inProgress.push(form)
-         @valueinProgress = false;
-         break           
+           @valueinProgress = false;
+           break      
          end  
        end
        @formsCompleted.each do |complete|
        if form.id == complete.form_id
          @user_form_completed.push(form)
          @valueComplete = false;
-         break          
+         break
+                   
         end
       end
       
        if @valueinProgress == false ||  @valueComplete == false
-         break
+         next
        else
          @ageValidation = ageCheck(current_user.id,form.id)
          
         if @ageValidation == true
-          @addIfTrue = true
-          @formConstraints = Formassociate.where("form_id = ?", form.id).first
-            if @formConstraints.faculty.facultyname == "All"##         
+          @formConstraints = Formassociate.where("form_id = ?", form.id)    
+          @formConstraints.each do |constraints|#
+          @addIfTrue = true      
+            if constraints.faculty.facultyname == "All"##         
               @addIfTrue = true
               #FACULTY IS ALL
-            elsif @formConstraints.faculty_id != current_user.faculty_id## 
+            elsif constraints.faculty_id != current_user.faculty_id## 
               @addIfTrue = false      
-              break
+              next
               #FACULTY IS SPECIFIC
             end##
             
-            if @formConstraints.levelofstudy.levelname == "All"###     
+            if constraints.levelofstudy.levelname == "All"###     
               @addIfTrue = true
              #LEVEL IS ALL
              
-            elsif @formConstraints.levelofstudy_id != current_user.levelofstudy_id###
+            elsif constraints.levelofstudy_id != current_user.levelofstudy_id###
               @addIfTrue = false      
-              break 
+              next 
               #LEVEL IS SPECIFIC            
             end###
           
-            if @formConstraints.yearofstudy.year == "All"####
+            if constraints.yearofstudy.year == "All"####
               @addIfTrue = true
               #return true #YEAR IS ALL
               
-            elsif @formConstraints.yearofstudy_id !=  current_user.yearofstudy_id####
+            elsif constraints.yearofstudy_id !=  current_user.yearofstudy_id####
               @addIfTrue = false      
-              break
+              next
               #YEAR IS SPECIFIC                    
             end####
                  
-            if @formConstraints.programme.programmename == "All"#####    
+            if constraints.programme.programmename == "All"#####    
               @addIfTrue = true              
               #return true #PROGRAMME IS ALL
               
-            elsif @formConstraints.programme_id != current_user.programme_id#####
+            elsif constraints.programme_id != current_user.programme_id#####
               @addIfTrue = false      
-              break
+              next
               #PROGRAMME IS SPECIFIC               
-            end#####    
+            end#####   
+            if @addIfTrue
+              @user_available_survey.push(form)
+              puts @user_available_survey.first
+            end
+          end
         else
           @addIfTrue = false
         end
-        
-        if @addIfTrue
-            @user_available_survey.push(form)
-            puts @user_available_survey.first
-        end
-       end
-       
+       end     
      end
          
-     
     @formsAnsweredStatus = Array.new
     @formsAnsweredStatus.push("Inprogress","Completed", "Incomplete")
     
@@ -429,12 +425,8 @@ class FormsController < ApplicationController
     @getQuestionAnswers.each do |getQA|
       @getAnswer =  Studanswer.where("answer_id = ? AND formanswer_id = ?", getQA.id ,params[:formanswer_id])
       if @getAnswer.empty?
-        puts "empty"
-        puts @value
-        puts getQA.id
         if @value.to_i == getQA.id
            #save answer
-           puts "I ADDS"
            @answer = Studanswer.new do |a|
              a.answer_id = params[:answer_id]
              a.formanswer_id = params[:formanswer_id]
@@ -442,10 +434,8 @@ class FormsController < ApplicationController
            @answer.save
          end
       else !@getAnswer.empty?
-        puts "not empty"
          #remove the answer
          if @value.to_i != getQA.id
-           puts "I REMOVES"
             @getAnswer.first.destroy       
             if getQA.IsSubAnswer
               @getSubAnswer = Subanswer.where("answer_id = ?", getQA.id)
@@ -583,11 +573,9 @@ class FormsController < ApplicationController
       if @form.save
         @save = true;  
         @section = Section.new
-        @counter =  "0"   
-        puts "success"
+        @counter =  "0"  
       else
         @save = false;
-        puts "fail"
       end
       format.html
       format.json
@@ -601,10 +589,8 @@ class FormsController < ApplicationController
     respond_to do |format|
       if @section.save
         @save = true; 
-        puts "success"
       else
         @save = false;
-        puts "fail"
       end
       format.js  
     end
@@ -670,9 +656,6 @@ class FormsController < ApplicationController
       @getQuestionUnderSection = Question.order("questions.QuestionNumber").where("section_id = ?", params[:selected_section_id])     
       @getQuestionUnderSection.each do |question|
         if question.QuestionNumber > @selectedQuestion.QuestionNumber
-          puts question.QuestionNumber
-          puts "and"
-          puts @selectedQuestion.QuestionNumber
           question.QuestionNumber = @tempNumber
           @updateQuestion = Question.find(question.id)
           @updateQuestion.update_attributes(:QuestionNumber => @tempNumber)
@@ -722,7 +705,7 @@ class FormsController < ApplicationController
     def create_subquestionanswer_remove
       
       @subQAnswer = Subquestionanswer.find(params[:subQuestAns_id])
-      @subQAnswer.delete      
+      @subQAnswer.destroy  
       
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
       
@@ -960,36 +943,55 @@ class FormsController < ApplicationController
     end  
     
     def get_current_count_status(section_id, fa_id)
-      obtain_all_questions(section_id)
-      @counter = 0;
-        @existingAnswer = Studanswer.where(formanswer_id: fa_id)
-        @existingSubAnswer = Studsubanswer.where(formanswer_id: fa_id)
-        @existingSubQuestionAnswer = Studsubquestionanswer.where(formanswer_id: fa_id)
-            @allQuestions.each do |sectionQuestions|  
-              @existingAnswer.each do |studAns|   
-                if studAns.answer.IsSubQuestion                               ### 
-                  @existingSubQuestionAnswer.each do |studSubQuestAns|
-                    if studSubQuestAns.subquestionanswer.subquestion.answer.question_id == sectionQuestions.id
-                      @counter += 1                                           
-                      break
-                    end
-                  end
-                elsif studAns.answer.IsSubAnswer           
-                  @existingSubAnswer.each do |studSubAns|##
-                    if studSubAns.subanswer.answer.question_id == sectionQuestions.id
-                      @counter += 1                                           
-                      break
-                    end
-                  end                                    ##
-                else                                                          ###  
-                  if studAns.answer.question_id == sectionQuestions.id  ##
-                    @counter += 1                                       ##    
-                    break
-                  end                                                   ##
-                end                                                           ###                    
-              end 
-            end      
-      #  end         
+          obtain_all_questions(section_id)
+          @counter = 0;
+            @existingAnswer = Studanswer.where(formanswer_id: fa_id)
+            @existingSubAnswer = Studsubanswer.where(formanswer_id: fa_id)
+            @existingSubQuestionAnswer = Studsubquestionanswer.where(formanswer_id: fa_id)
+                @allQuestions.each do |sectionQuestions|  
+                  @existingAnswer.each do |studAns|   
+                    if studAns.answer.IsSubQuestion                               ### 
+                      @existingSubQuestionAnswer.each do |studSubQuestAns|
+                        if studSubQuestAns.subquestionanswer.subquestion.answer.question_id == sectionQuestions.id
+                          @counter += 1                                           
+                          break
+                        end
+                      end
+                    elsif studAns.answer.IsSubAnswer          
+
+                      @existingSubAnswer.each do |studSubAns|##              
+                        if studAns.answer.question_id == sectionQuestions.id
+                          if studAns.answer_id == studSubAns.subanswer.answer.id                          
+                          @counter += 1                                           
+                          break
+                          end
+                        end
+                      end       ##
+                    else                                                          ###  
+                      if studAns.answer.question_id == sectionQuestions.id  ##
+                        @counter += 1                                       ##    
+                        break
+                      end                                                   ##
+                    end                                                           ###                    
+                  end 
+                end      
+      #  end       
+      
+      ##check for answer under subanswer  without subanswers
+      @allQuestions.each do |sectionQuestions|
+        @existingAnswer.each do |studAns|
+          ##sub answer ++                                             
+          if sectionQuestions.id == studAns.answer.question_id
+          @selected_id = Answer.where("IsSubAnswer = ? AND id = ?", 1, studAns.answer_id)
+          if !@selected_id.empty?
+              @SearchSubAnswer = Subanswer.where("answer_id = ? ", @selected_id.first.id)                      
+              if @SearchSubAnswer.empty?
+                @counter += 1                                         
+              end
+          end            
+        end
+      end
+      end
         return @counter
     end
     

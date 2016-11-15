@@ -98,7 +98,7 @@
 				<% @value = true%>			
 			<%end%> 											
 				<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: {url: user_selected_survey_display_subAnswer_forms_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id]), remote: true }  -%>
-				<%= a.AnswerDesc%> [[[SubAnswer here YES/NO]]]</p>	
+				<%= a.AnswerDesc%> </p>	
 					<!-- translator  !-->
 						<% answerdescresult = a.AnswerDesc.split(/ /||/,/||/./)%>
 							<% $tran = 0%>	
@@ -114,7 +114,6 @@
 											<%end%>
 										<%end%>
 									<%if $checkword == true%>
-										<%= answerdescresult[$tran]%>
 								<%end%>
 							<% $tran += 1%>
 						<%end%>

@@ -2,11 +2,11 @@ $('#display_ageto').html("");
 $('#display_agefrom').html("");
 
 <%if params[:formassociate][:agecondition] == "Between"%>
-    $('#display_ageto').append("<%= j label_tag :ageto, 'To' %>");
-    $('#display_ageto').append("<%= j select_tag :ageto, options_for_select(1..100), prompt: "Please Select" %>");
-    $('#display_agefrom').append("<%= j label_tag :agefrom, 'To' %>");
+    $('#display_agefrom').append("<%= j label_tag :agefrom, 'From' %>");
     $('#display_agefrom').append("<%= j select_tag :agefrom, options_for_select(1..100), prompt: "Please Select" %>");
+    $('#display_ageto').append("<%= j label_tag :ageto, 'To' %>");
+    $('#display_ageto').append("<%= j select_tag :ageto, options_for_select(1..100), prompt: "Please Select" %>");s
 <%elsif params[:formassociate][:agecondition] != "All"%>
-    $('#display_agefrom').append("<%= j label_tag :agefrom, 'To' %>");
+    $('#display_agefrom').append("<%= j label_tag :agefrom, 'From' %>");
     $('#display_agefrom').append("<%= j select_tag :agefrom, options_for_select(1..100), prompt: "Please Select" %>");
 <% end%>	

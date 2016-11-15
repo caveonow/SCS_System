@@ -47,7 +47,6 @@
         transition: all 0.35s ease-in-out; }
 
 .container{
-    height: 85vh;
     width: 100%;
     background-color : rgba(10,10, 10,0.7); 
     border: 2px solid white;
@@ -55,25 +54,32 @@
     position : relative;
     margin: 0 auto;
     top : 50px;
+    display: flex;
+    flex-direction: column;
+    min-height: 85vh;
     padding: 10px 10px 10px 10px;
+    padding-bottom:60px;
     box-shadow: 10px 10px 5px black;
 
     h1{
       color: silver;
       font-size: 30px;
+    padding-right:110px;
     }
     h2{
       color: silver;
       font-size: 25px;
+    padding-right:110px;
     }
     p{
       color: rgb(242, 242, 242);
       font-family:monospace;
       font-size: 15px;
+    padding-right:110px;
     }
 }
 .side_container{
-    height: 85vh;
+    min-height: 85vh;
     width: 100%;
     background-color : rgba(10,10, 10,0.7); 
     border: 2px solid white;

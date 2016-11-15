@@ -3,4 +3,6 @@ $('#updateStatusForForm').html("");
 	$('#updateStatusForForm').html("Form Details Updated.");
 <% else %>
 	$('#updateStatusForForm').html("Error, do not leave fields blank");
+	$('#form_FormName').val("<%= @form.FormName%>");
+	$('#form_FormDescription').val("<%= @form.FormDescription%>");
 <%end%>

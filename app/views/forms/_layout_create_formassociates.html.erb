@@ -8,29 +8,29 @@
 				<div class="row">
 					<div class="large-6 field field-padding columns" >				
 						<%= f.label :faculty_id, "Faculty" %>
-						<%= collection_select(:formassociate, :faculty_id, Faculty.all, :id, :facultyname, {prompt: true}) %>  
+						<%= collection_select(:formassociate, :faculty_id, Faculty.all, :id, :facultyname) %>  
 					</div>
 					
 					<div class=" large-6 field field-padding columns">
 						<%= f.label :programme_id , "Programme"%>
-						<%= collection_select(:formassociate, :programme_id, Programme.all, :id, :programmename, {prompt: true}) %>  
+						<%= collection_select(:formassociate, :programme_id, Programme.all, :id, :programmename) %>  
 					</div>
 				</div>
 				<div class="row">
 					<div class="field field-padding large-6 columns" >
 						<%= f.label :levelofstudy_id ,"Level"%>
-						<%= collection_select(:formassociate, :levelofstudy_id, Levelofstudy.all, :id, :levelname, {prompt: true}) %>  
+						<%= collection_select(:formassociate, :levelofstudy_id, Levelofstudy.all, :id, :levelname) %>  
 					</div>
 					
 					<div class="field field-padding large-6 columns">
 						<%= f.label :yearofstudy_id , "Year"%>
-						<%= collection_select(:formassociate, :yearofstudy_id, Yearofstudy.all, :id, :year, {prompt: true}) %>  
+						<%= collection_select(:formassociate, :yearofstudy_id, Yearofstudy.all, :id, :year) %>  
 					</div>
 				</div>
 					
 				<div class="row field-padding">
 						<%= f.label :agecondition , "Age Condition"%>
-						<%= f.select :agecondition, options_for_select(@ageConditionArr), {prompt: true} , { data: { :remote => true, :url => admin_agecondition_change_forms_path(:value => params[:agecondition])}  }%>	
+						<%= f.select :agecondition, options_for_select(@ageConditionArr), {} , { data: { :remote => true, :url => admin_agecondition_change_forms_path(:value => params[:agecondition])}  }%>	
  
 					<div class="large-6 columns" id="display_agefrom">
 					</div>
