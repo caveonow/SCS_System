@@ -92,7 +92,7 @@ class UsersController < ApplicationController
      end
         redirect_to users_url 
    else
-     @useredits = User.find(params[:translator_ids])
+     @useredits = User.find(params[:user_ids])
      @useredits.reject! do |user|
        user.destroy   
      end 
