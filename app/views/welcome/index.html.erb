@@ -3,14 +3,13 @@
 </head>
 <div class="tabs-content" data-tabs-content="example-tabs">
 	
+	<% $list = 0 %>
 	<% if user_signed_in? && @checkadverdfirst.present?%>
 	<% $tab = 1 %>
 	<div class="row ">
 		<ul class="tabs" data-tabs id="example-tabs">	
 
-			<% @tabAd = "panel"%>
-				<% @tabAd << $tab.to_s %>  
-					<%if @checkadverdsecond.present? == true%>
+							<%if @checkadverdfirst.present? == true%>
 							<%if @checkadverdfirsttest.present? == true%>
 								<% @checkadverdfirsttest.each do |advertisement| %>
 									<%if $tab == 1%>
@@ -29,6 +28,7 @@
 									<% $tab += 1 %>
 									<%end%>
 								<%end%>
+								<% $list += 1 %>
 							<%end%>
 							
 							<%if @checkadverdfirsttest1.present? == true%>
@@ -49,6 +49,7 @@
 									<% $tab += 1 %>
 									<%end%>
 								<%end%>
+								<% $list += 1 %>
 							<%end%>
 							
 							<%if @checkadverdfirsttest2.present? == true%>
@@ -69,6 +70,7 @@
 									<% $tab += 1 %>
 									<%end%>
 						  		<%end%>
+						  		<% $list += 1 %>
 							<%end%>
 							
 							<%if @checkadverdfirsttest3.present? == true%>
@@ -89,49 +91,139 @@
 									<% $tab += 1 %>
 									<%end%>
 						  		<%end%>
+						  		<% $list += 1 %>
 							<%end%>
-						  
-					<%else%>  
-					  <% $tab += 1 %>
 					<%end%>
-			
 		</ul>
+		
 		<% $panel = 1 %>
-		<% until $panel > 2%>
-			<% @panelAd = "panel"%>
-	    	<% @panelAd << $panel.to_s %>
-	    	<% if $panel == 1 %>
-	    	  <div class="tabs-panel is-active" id="<%= @panelAd %>">		  	
-					<div class="columns medium-8">
-					<%= image_tag @welcomeAd.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
-				    </div>
-				    <div class="columns medium-4">
-					<p><%= @welcomeAd.AdvertisementDescription%></p>
-				  </div>
-		  	  </div>
-			  <% $panel += 1 %>
-			<%elsif @welcomeAd1.present? == true%>
-			    <% @welcomeAd1.each do |advertisement| %>
-				<% @panelAd = "panel"%>
-		    	<% @panelAd << $panel.to_s %>
-			    		<div class="tabs-panel" id="<%= @panelAd %>">
-				    	<div class="columns medium-8">
-							<%= image_tag advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
-				    	</div>
-				    	<div class="columns medium-4">
-							<p><%= advertisement.AdvertisementDescription%></p>
-					    </div>
-			    		</div>
-			    		<% $panel += 1 %>
-			    <%end%>
-			<%else%>
-			  <% $panel += 1 %>
+	    	<% if @checkadverdfirst.present? == true%>
+	    		<%if @checkadverdfirsttest.present? == true%>
+		    		<% @checkadverdfirsttest.each do |advertisement| %>
+		    			<%if $panel == 1%>			
+							<% @panelAd = "panel"%>
+					    	<% @panelAd << $panel.to_s %>
+					    	  <div class="tabs-panel is-active" id="<%= @panelAd %>">		  	
+									<div class="columns medium-8">
+									<%= image_tag advertisement.advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+								    </div>
+								    <div class="columns medium-4">
+									<p><%= advertisement.advertisement.AdvertisementDescription%></p>
+								  </div>
+						  	  </div>
+						  	  <% $panel += 1 %>
+						 <%else%> 	  
+						    <% @panelAd = "panel"%>
+					    	<% @panelAd << $panel.to_s %>
+					    	  <div class="tabs-panel" id="<%= @panelAd %>">		  	
+									<div class="columns medium-8">
+									<%= image_tag advertisement.advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+								    </div>
+								    <div class="columns medium-4">
+									<p><%= advertisement.advertisement.AdvertisementDescription%></p>
+								  </div>
+						  	  </div>
+						  	  <% $panel += 1 %>
+						 <%end%>
+					 <%end%> 	 
+				<%end%>  
+				<%if @checkadverdfirsttest1.present? == true%>
+		    		<% @checkadverdfirsttest1.each do |advertisement| %>
+		    			<%if $panel == 1%>			
+							<% @panelAd = "panel"%>
+					    	<% @panelAd << $panel.to_s %>
+					    	  <div class="tabs-panel is-active" id="<%= @panelAd %>">		  	
+									<div class="columns medium-8">
+									<%= image_tag advertisement.advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+								    </div>
+								    <div class="columns medium-4">
+									<p><%= advertisement.advertisement.AdvertisementDescription%></p>
+								  </div>
+						  	  </div>
+						  	  <% $panel += 1 %>
+						 <%else%> 	  
+						    <% @panelAd = "panel"%>
+					    	<% @panelAd << $panel.to_s %>
+					    	  <div class="tabs-panel" id="<%= @panelAd %>">		  	
+									<div class="columns medium-8">
+									<%= image_tag advertisement.advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+								    </div>
+								    <div class="columns medium-4">
+									<p><%= advertisement.advertisement.AdvertisementDescription%></p>
+								  </div>
+						  	  </div>
+						  	  <% $panel += 1 %>
+						 <%end%>
+					 <%end%> 	 
+				<%end%>  
+				
+				<%if @checkadverdfirsttest2.present? == true%>
+		    		<% @checkadverdfirsttest2.each do |advertisement| %>
+		    			<%if $panel == 1%>			
+							<% @panelAd = "panel"%>
+					    	<% @panelAd << $panel.to_s %>
+					    	  <div class="tabs-panel is-active" id="<%= @panelAd %>">		  	
+									<div class="columns medium-8">
+									<%= image_tag advertisement.advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+								    </div>
+								    <div class="columns medium-4">
+									<p><%= advertisement.advertisement.AdvertisementDescription%></p>
+								  </div>
+						  	  </div>
+						  	  <% $panel += 1 %>
+						 <%else%> 	  
+						    <% @panelAd = "panel"%>
+					    	<% @panelAd << $panel.to_s %>
+					    	  <div class="tabs-panel" id="<%= @panelAd %>">		  	
+									<div class="columns medium-8">
+									<%= image_tag advertisement.advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+								    </div>
+								    <div class="columns medium-4">
+									<p><%= advertisement.advertisement.AdvertisementDescription%></p>
+								  </div>
+						  	  </div>
+						  	  <% $panel += 1 %>
+						 <%end%>
+					 <%end%> 	 
+				<%end%> 
+				
+				<%if @checkadverdfirsttest3.present? == true%>
+		    		<% @checkadverdfirsttest3.each do |advertisement| %>
+		    			<%if $panel == 1%>			
+							<% @panelAd = "panel"%>
+					    	<% @panelAd << $panel.to_s %>
+					    	  <div class="tabs-panel is-active" id="<%= @panelAd %>">		  	
+									<div class="columns medium-8">
+									<%= image_tag advertisement.advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+								    </div>
+								    <div class="columns medium-4">
+									<p><%= advertisement.advertisement.AdvertisementDescription%></p>
+								  </div>
+						  	  </div>
+						  	  <% $panel += 1 %>
+						 <%else%> 	  
+						    <% @panelAd = "panel"%>
+					    	<% @panelAd << $panel.to_s %>
+					    	  <div class="tabs-panel" id="<%= @panelAd %>">		  	
+									<div class="columns medium-8">
+									<%= image_tag advertisement.advertisement.imageAd_url(:thumb),:style=>"height:400px; width:800px;"%>	
+								    </div>
+								    <div class="columns medium-4">
+									<p><%= advertisement.advertisement.AdvertisementDescription%></p>
+								  </div>
+						  	  </div>
+						  	  <% $panel += 1 %>
+						 <%end%>
+					 <%end%> 	 
+				<%end%>   
+				
 			<%end%>  
-		<%end%>	
+		
 		</div>
 	</div>  	
 </div>  
-	<% elsif (user_signed_in? && @signoutAd.present?)||@signoutAd.present? %>	
+<%end%>
+	<%if ((user_signed_in? && @signoutAd.present?)||@signoutAd.present?) && ($list == 0) %>	
 <!-- Advertisement -->
 	<div class="row align-center">
 	  	<%if @signoutAd != nil%>

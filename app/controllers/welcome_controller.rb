@@ -8,9 +8,8 @@ class WelcomeController < ApplicationController
     
     @signoutAd = Advertisement.where(:statusAd => 'active')
     @welcomeAd = Advertisement.first
-    @welcomeAd1 = Advertisement.all
+    @welcomeAd1 = Advertisement.all.offset(1)
     @AdvertAsso = Advertisementassociate.all
-    @AdvertAssoAge = Advertisementassociate.where("agefrom=?", 12)
     
 
     if (user_signed_in?)

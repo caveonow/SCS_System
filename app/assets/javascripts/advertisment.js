@@ -9,7 +9,7 @@ $(function(){
 			$('#advertisement_ageto').prop('disabled', false);
 		}else {
 			$('#advertisement_ageto').prop('disabled', true);
-			$('#advertisement_ageto').val("0");
+			$('#advertisement_ageto').val("");
 		}
 	     
 	});
