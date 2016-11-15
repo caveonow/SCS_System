@@ -146,6 +146,17 @@ class ReportsController < ApplicationController
     @subtitledata = params[:subtitle]
     @ytitledata = params[:ytitle]
     @xtitledata = params[:xtitle]
+    @chartbackground = params[:chartbackground]
+    @bordercolor = params[:bordercolor]
+    @borderradius = params[:borderradius]
+    @borderwidth = params[:borderwidth]
+    @plotimage = params[:plotimage]
+    @plotbordercolor = params[:plotbordercolor]
+    @plotborderwidth = params[:plotborderwidth]
+    @valueprefix = params[:valueprefix]
+    @valuesuffix = params[:valuesuffix]
+    
+    
     $Graphtype
   end
   

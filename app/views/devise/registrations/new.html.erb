@@ -66,6 +66,7 @@
 	  <%= label :gender, 'Female' %>
 	</div>	
 	
+	
 	<div class="field field-padding">
 		<%= f.label :faculty_id, "Faculty" %><br>
 		<%= collection_select(:user, :faculty_id, Faculty.where.not(facultyname: "All"), :id, :facultyname, {prompt: true}, :required => true) %>  
@@ -95,6 +96,7 @@
   </div>
 <% end %>
 </div>
+
 
 <!--
 <%= render "devise/shared/links" %>-->
