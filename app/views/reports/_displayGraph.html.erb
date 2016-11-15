@@ -1,7 +1,10 @@
-
-<%if $Graphtype == "horizon"%>
-
-<%= bar_chart horizonbar_reports_path , library: {
+ASKLHJLFK
+<%= @formClass%>
+<%= @form_id%>
+<%= @section_id%>
+<%= @Graphtype%>
+<%if @Graphtype == "horizon"%>
+	<%= bar_chart horizonbar_reports_path(:class => @class , :firstGroup => @form_id, :secondGroup => @section_id) , library: {
 			exporting: {
             chartOptions: { 
                 plotOptions: {
@@ -68,7 +71,7 @@
 	
 	
 	
-<%elsif $Graphtype == "vertical"%>
+<%elsif @Graphtype == "vertical"%>
 	<%= column_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
         exporting: {
             chartOptions: { 
@@ -122,7 +125,7 @@
         	}
 	    }
 	%> 
-<%elsif $Graphtype == "pie"%>		
+<%elsif @Graphtype == "pie"%>		
 	<%= pie_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
         exporting: {
             chartOptions: { 
@@ -177,7 +180,7 @@
     %> 
 <%end%>
 
-<%if $Graphtype == "horizon1"%>
+<%if @Graphtype == "horizon1"%>
 <%= bar_chart testing2_reports_path() , library: {
 			exporting: {
             chartOptions: { 
@@ -238,7 +241,7 @@
 	
 	
 	
-<%elsif $Graphtype == "vertical1"%>
+<%elsif @Graphtype == "vertical1"%>
 	<%= column_chart testing2_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
         exporting: {
             chartOptions: { 
@@ -283,7 +286,7 @@
         	}
 	    }
 	%> 
-<%elsif $Graphtype == "pie1"%>		
+<%elsif @Graphtype == "pie1"%>		
 	<%= pie_chart testing2_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
         exporting: {
             chartOptions: { 

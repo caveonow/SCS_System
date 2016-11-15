@@ -19,6 +19,22 @@ class ReportsController < ApplicationController
   def new
     @report = Report.new
     @user = User.all
+    
+    @form = Form.column_names
+    @section = Section.column_names
+    @question = Question.column_names
+    @answer = Answer.column_names
+    @subAnswer = Subanswer.column_names
+    @subQuestion = Subquestion.column_names
+    @subQuestionAnswer = Subquestionanswer.column_names
+    @formanswer = Formanswer.column_names
+    @studAns = Studanswer.column_names
+    @studSubAns = Studsubanswer.column_names
+    @studSubQuestAns = Studsubquestionanswer.column_names
+    
+    @GraphTypes = Array.new
+    
+    @GraphTypes.push("horizon", "vertical", "pie")
   end
 
   # GET /reports/1/edit
@@ -69,10 +85,25 @@ class ReportsController < ApplicationController
   end
   
   def horizonbar
-    @user = User.joins(:faculty)
-    @faculty = Faculty.all
-
-    render json: @user.group(:gender).group(:facultyname).count.chart_json
+    #@user = User.joins(:faculty)
+    #@faculty = Faculty.all
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
+    #render json: @user.group(:gender).group(:facultyname).count.chart_json
+    puts params[:class]
+    
+    if params[:class] == "form"
+      @class = Form.all
+    end
+    render json: @class.group(:FormName).group(:FormDescription).count.chart_json
     #render json: @user.group(:gender).count.chart_json
 
   end
@@ -98,6 +129,20 @@ class ReportsController < ApplicationController
     #render json: @answer.group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum(:AnswerCount).chart_json
     
   end
+  
+  def testing_post
+    @Graphtype = params[:GraphType]
+    
+    #@form_id = params[:form_id]
+    #@section_id = params[:section_id]
+    #@question_id = params[:question_id]
+    @form_id = "form"
+    @section_id = "section"
+    @question_id ="question"
+    
+    @class = "form"
+
+  end
 
     def testing
     @formTry = Form.joins(:answer)
@@ -111,7 +156,7 @@ class ReportsController < ApplicationController
     @subanswer = Subanswer.all
     @subqanswer = Subquestionanswer.all
     @user = User.all
-    $Graphtype = "horizon1"
+    @Graphtype = "horizon1"
     
    # render json: @section.group(:SectionName).group(:QuestionDesc).group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0 AND form_id = 1").sum(:AnswerCount).chart_json
     #answer which is answered by people
@@ -132,17 +177,17 @@ class ReportsController < ApplicationController
 
   def displayHorizonBar
      @user = User.all
-     $Graphtype = "horizon"
+     @Graphtype = "horizon"
   end
   
   def displayVerticalBar 
     @user = User.all 
-    $Graphtype = "vertical"
+    @Graphtype = "vertical"
   end
   
   def displayPie 
     @user = User.all
-    $Graphtype = "pie"
+    @Graphtype = "pie"
   end
   
   def gettitle
@@ -150,6 +195,7 @@ class ReportsController < ApplicationController
     @subtitledata = params[:subtitle]
     @ytitledata = params[:ytitle]
     @xtitledata = params[:xtitle]
+<<<<<<< HEAD
     @chartbackground = params[:chartbackground]
     @bordercolor = params[:bordercolor]
     @borderradius = params[:borderradius]
@@ -162,6 +208,9 @@ class ReportsController < ApplicationController
     
     
     $Graphtype
+=======
+    @Graphtype
+>>>>>>> b95d890be21bd3e876d48b59843faf5cf3c59e0c
   end
   
   def seriesdata
