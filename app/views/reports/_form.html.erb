@@ -54,13 +54,15 @@
 			  </div>
 			  <div class="tabs-panel" id="panel3">
 			  	<div class="row collapse">
-			  		<!--
 				  <div class="medium-4 columns">
 				    <ul class="tabs vertical" id="example-vert-tabs" data-tabs>
 				      <li class="tabs-title is-active"><a href="#panel1v" aria-selected="true">Title</a></li>
-				      <li class="tabs-title"><a href="#panel2v">Appearence</a></li>      
+				      <li class="tabs-title"><a href="#panel2v">Appearence</a></li>
+				      <li class="tabs-title"><a href="#panel3v">Data Series</a></li>
+				      <li class="tabs-title"><a href="#panel4v">Appearence</a></li>   
 				    </ul>
-				    </div>-->
+				    </div>
+				    
 				    <div class="medium-8 columns">
 				    <div class="tabs-content vertical" data-tabs-content="example-vert-tabs">
 				     <%= form_tag(gettitle_reports_path, remote: true) do %>
@@ -78,12 +80,34 @@
 				           <br/>
 				           	<label>Y Axis Title: </label>
 				        	<input type="text" name="ytitle" id="ytitle">
+				           <br/>	
 				        </p>
-				      <%= submit_tag "Change" %>
+				      
 				      </div>
-				      <% end %>
-				      <!--
 				      <div class="tabs-panel" id="panel2v">
+				      	
+				      	Chart Area
+				            <label>Background Color: </label>
+				        	<input value="#ffffff" type="color" name="chartbackground" id="chartbackground" />
+				        	
+				        	<label>Border Color: </label>
+				        	<input value="#ffffff" type="color" name="bordercolor" id="bordercolor" />
+				        	
+				        	<label>Border Radius: </label>
+				        	<input value="" type="text" name="borderradius" id="borderradius" />
+				        	
+				        	<label>Border Width: </label>
+				        	<input value="" type="text" name="borderwidth" id="borderwidth" />
+				        	Prot Area
+				        	<label>Plot Image Url: </label>
+				        	<input value="" type="text" name="plotimage" id="plotimage" />
+				        	
+				        	<label>Border Color: </label>
+				        	<input value="#ffffff" type="color" name="plotbordercolor" id="plotbordercolor" />
+				        	
+				        	<label>Border Width: </label>
+				        	<input value="" type="text" name="plotborderwidth" id="plotborderwidth" />
+				      	<!--
 				       <p>Title Size:
 				       <input type="number" name="title-size" id="sizetitle" min="12" max="50" value="12"></p>
 				       <button type="button" id="boldtitle" class="secondary button" style="font-style: bold">B</button>
@@ -94,9 +118,20 @@
 				       <button type="button" id="boldsubtitle" class="secondary button" style="font-style: bold">B</button>
 				       <button type="button" id="italicsubtitle" class="secondary button" style="font-style: italic">I</button>
 				       <button type="button" id="undersubtitle" class="secondary button" style="font-style: underline">U</button>
-				      </div>
 				      -->
+				      </div>
+				      <div class="tabs-panel" id="panel3v">
+				      		Data Series
+				        	<label>Prefix in tooltips: </label>
+				        	<input value="" type="text" name="valueprefix" id="valueprefix" />
+				        	
+				        	<label>Suffix in tooltips: </label>
+				        	<input value="" type="text" name="valuesuffix" id="valuesuffix" />
+						
+				      </div>
 				    </div>
+				     <%= submit_tag "Change" %>
+				      <% end %>
 				  </div>
 				</div>
 			  </div>

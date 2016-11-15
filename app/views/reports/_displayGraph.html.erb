@@ -16,8 +16,14 @@
             fallbackToExportServer: false
         	},
 	        chart: {
-	        renderTo: 'previewgraph',
-            type: 'bar'
+		        renderTo: 'previewgraph',
+	            type: 'bar',
+	            backgroundColor: @chartbackground,
+	            borderColor: @bordercolor,
+				borderRadius: @borderradius,
+				borderWidth: @borderwidth,
+				plotBackgroundImage: @plotimage
+				
         	},
 	        title: {text: @titledata, x: -20
 	        },
@@ -38,7 +44,8 @@
 	            }
 	        },
 	        tooltip: {
-            valueSuffix: ' values'
+            valueSuffix: @valuesuffix,
+            valuePrefix: @valueprefix
 	        },
 	        plotOptions: {
 	            bar: {
@@ -78,11 +85,20 @@
         },
         
         chart: {
-            type: 'column'
+            type: 'column',
+            	backgroundColor: @chartbackground,
+	            borderColor: @bordercolor,
+				borderRadius: @borderradius,
+				borderWidth: @borderwidth,
+				plotBackgroundImage: @plotimage
         	},
 	        title: {text: @titledata, x: -20
 	        },
 	        subtitle: {text: @subtitledata , x:-20
+	        },
+	        tooltip: {
+            valueSuffix: @valuesuffix,
+            valuePrefix: @valueprefix
 	        },
 	        yAxis: {
 	            title: {
@@ -121,9 +137,17 @@
             scale: 3,
             fallbackToExportServer: false
         },
-        
+        tooltip: {
+            valueSuffix: @valuesuffix,
+            valuePrefix: @valueprefix
+	        },
         pie_chart: {
-            type: 'column'
+	            type: 'column',
+	            backgroundColor: @chartbackground,
+	            borderColor: @bordercolor,
+				borderRadius: @borderradius,
+				borderWidth: @borderwidth,
+				plotBackgroundImage: @plotimage
         	},
 	        title: {text: @titledata, x: -20
 	        },
