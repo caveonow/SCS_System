@@ -2,7 +2,7 @@
 <div class="row" id="row_for_edit">
 	<div class="profile-card">
 		<%= hidden_field_tag 'subQuestAns_id' , @selectedAnswer.id %>
-		<div class="medium-12 column">
+		<div class="medium-12 column"  style="position:relative;z-index:1">
 	        <%= label_tag 'ans', 'Edit Answer' %>
 	        <%= text_field_tag 'edit_answer', @selectedAnswer.SQAnswer %>
 		</div>

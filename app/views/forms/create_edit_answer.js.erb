@@ -1,8 +1,7 @@
-$("#edit_answer").prop('enabled', true);
+
 $("#question_view").html("");
-$("#question_view").html("<%= j render('layout_questionList')%>")
+$("#question_view").html("<%= j render('layout_questionList')%>");
 $("#editanswer_<%= @selectedAnswer.id%>").css('background-color', '#5198db');
 
 
-$("#panel_create").html("<%= j render ('answers/layout_editAnswer')%>")
-
+$("#panel_create").html("<%= j render ('answers/layout_editAnswer')%>");

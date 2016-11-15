@@ -90,8 +90,11 @@ class ReportsController < ApplicationController
     @subanswer = Subanswer.all
     @subqanswer = Subquestionanswer.all
     @user = User.joins(:answer)
-    render json: @user.group(:name).group(:AnswerDesc).sum(:AnswerCount).chart_json
-    #render json: @formTry.group(:formName).group(:QuestionDesc).group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum(:AnswerCount).chart_json
+
+    @value1 = "formName"
+    @value2 = "QuestionDesc"
+   # render json: @user.group(:name).group(:AnswerDesc).sum(:AnswerCount).chart_json
+    render json: @formTry.group(@value1).group(@value2).group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum("AnswerCount").chart_json
     #render json: @answer.group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum(:AnswerCount).chart_json
     
   end
@@ -109,6 +112,7 @@ class ReportsController < ApplicationController
     @subqanswer = Subquestionanswer.all
     @user = User.all
     $Graphtype = "horizon1"
+    
    # render json: @section.group(:SectionName).group(:QuestionDesc).group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0 AND form_id = 1").sum(:AnswerCount).chart_json
     #answer which is answered by people
    # render json: @formans.group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum(:AnswerCount).chart_json

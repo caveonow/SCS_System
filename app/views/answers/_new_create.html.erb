@@ -9,7 +9,44 @@
 	            <h4 class="subheader">Answer</h4>
 	            <p>Answer Creation</p>
 	            	<div id="create_answer_div"> 
-		            	<%= render 'answers/newAnswer'%>
+						<%= form_tag(submit_create_answers_path, :id => "answer_creation_form", remote: true) do %>
+						  <%= hidden_field_tag "AnswerCount", "0" %> 
+						  <%= hidden_field_tag "question_id", params[:question_id] %>
+							<div class="row">
+								<div class="large-12 columns new_form">
+							        <%= label_tag "AnswerDesc", 'Answer' %>
+							        <%= text_field_tag "AnswerDesc"%>
+						    	</div>
+							</div>  
+							
+							<div class="row">
+								<div class="large-12 columns new_form">
+									
+						  			<%= radio_button_tag 'choice' ,"IsSubAnswer" ,false, data: { url: create_subAnswer_answers_path, remote: true}  -%>
+									<%= label_tag "choice", 'Is Sub Answer?' %>	</br>
+									
+									
+									<%= radio_button_tag 'choice', "IsSubQuestion",false, data: { url: create_subQuestion_answers_path, remote: true}  %>
+									<%= label_tag "choice", 'Is Sub Question?' %> </br>	
+											
+									<%= radio_button_tag 'choice', "None" , true, data: { url: remove_createSub_answers_path, remote: true}  %>			
+									<%= label_tag "choice", 'None', :value => 'None' %>
+									
+									<div id="create_sub" style="display:none"></div>
+						    	</div>
+							</div>  	
+								
+							<div class="row">
+							<div class="large-6 columns">
+								<%= submit_tag "Create" , data: { confirm: 'Are you sure?'}%>
+							</div>
+								<div class="large-6 columns">
+							<%= submit_tag "clear", :type => "reset" %>
+							</div>
+						  </div>
+						
+						<% end %>
+
 		            </div>
 		            <div id="display_answer_div">
 		            	

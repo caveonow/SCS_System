@@ -3,7 +3,7 @@
 	<div class="profile-card">
 		<%= hidden_field_tag 'ans_id' , @selectedAnswer.id %>
 		<%= hidden_field_tag 'question_id' , @selectedAnswer.question_id %>
-		<div class="medium-12 column">
+		<div class="medium-12 column"  style="position:relative;z-index:1">
 	        <%= label_tag 'ans', 'Edit Answer' %>
 	        <%= text_field_tag 'edit_answer', @selectedAnswer.AnswerDesc %>
 		</div>

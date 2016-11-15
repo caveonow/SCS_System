@@ -233,25 +233,20 @@ class FormsController < ApplicationController
     @valueComplete = true
     @valueinProgress = true
     @addIfTrue = false
+    
+    @f_choice = false
+    @l_choice = false
+    @y_choice = false
+    @p_choice = false
+    
     @user_available_survey = Array.new
     @user_form_inProgress = Array.new
     @user_form_completed = Array.new  
-    @availableSurveys = Form.where("FormStatus = ?", "Published")
+    @availableSurveys = Form.where("FormStatus = ?", "Not Published")
+    
     
     @availableSurveys.each do |form|
-     @formsCompleted.each do |complete|
-       if form.id == complete.form_id
-         @user_form_completed.push(form)
-         @valueComplete = false;
-         break          
-        end
-      end
-     if @valueComplete == false
-       break
-     end
-    end
-    
-    @availableSurveys.each do |form|
+    #obtain  forms in progress
        @formsInProgress.each do |inprogress|
          if form.id == inprogress.form_id
            @user_form_inProgress.push(form)
@@ -266,12 +261,53 @@ class FormsController < ApplicationController
          break          
         end
       end
+      
        if @valueinProgress == false ||  @valueComplete == false
          break
        else
          @ageValidation = ageCheck(current_user.id,form.id)
+         
         if @ageValidation == true
-          @addIfTrue = otherChecks(current_user.id,form.id)
+          @addIfTrue = true
+          @formConstraints = Formassociate.where("form_id = ?", form.id).first
+            if @formConstraints.faculty.facultyname == "All"##         
+              @addIfTrue = true
+              #FACULTY IS ALL
+            elsif @formConstraints.faculty_id != current_user.faculty_id## 
+              @addIfTrue = false      
+              break
+              #FACULTY IS SPECIFIC
+            end##
+            
+            if @formConstraints.levelofstudy.levelname == "All"###     
+              @addIfTrue = true
+             #LEVEL IS ALL
+             
+            elsif @formConstraints.levelofstudy_id != current_user.levelofstudy_id###
+              @addIfTrue = false      
+              break 
+              #LEVEL IS SPECIFIC            
+            end###
+          
+            if @formConstraints.yearofstudy.year == "All"####
+              @addIfTrue = true
+              #return true #YEAR IS ALL
+              
+            elsif @formConstraints.yearofstudy_id !=  current_user.yearofstudy_id####
+              @addIfTrue = false      
+              break
+              #YEAR IS SPECIFIC                    
+            end####
+                 
+            if @formConstraints.programme.programmename == "All"#####    
+              @addIfTrue = true              
+              #return true #PROGRAMME IS ALL
+              
+            elsif @formConstraints.programme_id != current_user.programme_id#####
+              @addIfTrue = false      
+              break
+              #PROGRAMME IS SPECIFIC               
+            end#####    
         else
           @addIfTrue = false
         end
@@ -285,18 +321,6 @@ class FormsController < ApplicationController
      end
          
      
-      
-     # if faculty = all = everyone
-      #  if faculty = 1 > level > year > programme
-       #   if faculty = 1 > level = all = everyone
-        #    if faculty = 1 > level = all = 1 > year > programme
-         #     if faculty = 1 > level = all = 1 > year = all > everyone
-          #    if faculty = 1 > level = all = 1 > year > 1 = programme 
-           #   if faculty = 1 > level = all = 1 > year > 1 = programme = all > everyone
-            #    if faculty = 1 > level = all = 1 > year > 1 = programme = 1 > everyone
-      
-
-    
     @formsAnsweredStatus = Array.new
     @formsAnsweredStatus.push("Inprogress","Completed", "Incomplete")
     
@@ -713,7 +737,7 @@ class FormsController < ApplicationController
       @getQuestions = Question.where("section_id = ?", params[:selected_section_id]) 
      
       respond_to do |format|
-        format.js
+        format.js 
       end       
     end
     
@@ -988,25 +1012,25 @@ class FormsController < ApplicationController
           if constraints.agecondition == "All"
               return true          
           elsif constraints.agecondition == "Equal"
-            if @user_details.age == constraints.agefrom
+            if @user_details.age.to_i == constraints.agefrom
               return true
             else 
               return false
             end        
           elsif constraints.agecondition == "Less Than"
-            if @user_details.age < constraints.agefrom
+            if @user_details.age.to_i < constraints.agefrom
               return true
             else 
               return false
             end          
           elsif constraints.agecondition == "More Than"
-            if @user_details.age > constraints.agefrom
+            if @user_details.age.to_i > constraints.agefrom
               return true
             else 
               return false
             end                    
           elsif constraints.agecondition == "Between"
-            if @user_details.age >= constraints.agefrom || @user_details.age <= constraints.ageto
+            if @user_details.age.to_i >= constraints.agefrom || @user_details.age <= constraints.ageto
               return true
             else 
               return false
@@ -1014,16 +1038,15 @@ class FormsController < ApplicationController
           end
         end
     end
+    
     def otherChecks(user_id, form_id)
        @user_details = User.find(user_id)
        @formConstraints = Formassociate.where("form_id = ?", form_id)
         @formConstraints.each do |constraints|#
-          if constraints.faculty.facultyname == "All"##
-           
-              return true
+          if constraints.faculty.facultyname == "All"##             
+              return true         
           elsif constraints.faculty_id == @user_details.faculty_id##
-            if constraints.levelofstudy.levelname == "All"###
-             
+            if constraints.levelofstudy.levelname == "All"###            
              return true
             elsif constraints.levelofstudy_id == @user_details.levelofstudy_id###
               if constraints.yearofstudy.year == "All"####

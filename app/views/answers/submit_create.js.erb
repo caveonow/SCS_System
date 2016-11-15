@@ -1,14 +1,13 @@
 
+	$('#display_answer_div').html("");
 <% if @save%>
-	
 	$('#answer_create').css('background-color', '#44e251');
 	$('#answer_error_message').html("");
-	$('#create_answer_div').slideUp(350);
-	$('#create_answer_div').hide();
+	$('#answer_creation_form')[0].reset();
 	$('#display_answer_div').slideDown(350);
 	$('#display_answer_div').append("Answer Creation Success!");
 	
-	$("#question_view").html("<%= j render('forms/layout_questionList')%>") 
+	$("#question_view").html("<%= j render('forms/layout_questionList')%>");
 	
 <%else%>
 	$('#answer_create').css('background-color', 'red');
