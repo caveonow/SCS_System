@@ -105,6 +105,8 @@ class ReportsController < ApplicationController
   def testing2
     
     @formTry = Form.joins(:answer)
+    @formTry2 = Form.joins(:subanswer)
+    @formTry3 = Form.joins(:subquestionanswer)
     @section = Section.joins(:answer)
     @sectiontosubans = Section.joins(:subanswer)
     @sectiontosuquestionanswer = Section.joins(:subquestionanswer)
@@ -116,11 +118,19 @@ class ReportsController < ApplicationController
     @subanswer = Subanswer.all
     @subqanswer = Subquestionanswer.all
     @user = User.joins(:answer)
+    @user2 = User.joins(:subanswer)
+    @user3 = User.joins(:studsubquestionanswer)
 
     @value1 = "formName"
     @value2 = "QuestionDesc"
-   # render json: @user.group(:name).group(:AnswerDesc).sum(:AnswerCount).chart_json
-    render json: @questions.group("AnswerDesc").group("QuestionDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum("AnswerCount").chart_json
+   # render json: @user.group(:name).group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum(:AnswerCount).chart_json
+    #render json: @user2.group(:name).group(:SADesc).where("IsSubAnswer = 1 AND IsSubQuestion = 0").order("question_id").sum(:SACount).chart_json
+   render json: @user3.group(:name).group(:SQDesc).group(:SQAnswer).where("IsSubAnswer = 0 AND IsSubQuestion = 1").order("question_id").sum(:SQAnswerCount).chart_json
+  
+   #render json: @formTry.group("QuestionNumber").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum("AnswerCount").chart_json
+    
+   # render json: @formTry2.group("AnswerDesc").group("SADesc").where("IsSubAnswer = 1 AND IsSubQuestion = 0").order("question_id").sum("AnswerCounts").chart_json
+    #render json: @formTry3.group("AnswerDesc").group("SQDesc").group("SQAnswer").where("IsSubAnswer = 0 AND IsSubQuestion = 1").order("question_id").sum("AnswerCount").chart_json
     
     #render json: @formTry.group(@value1).group(@value2).group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum("AnswerCount").chart_json
    
