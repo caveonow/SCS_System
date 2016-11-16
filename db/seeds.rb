@@ -156,7 +156,7 @@ subquestion2_6_2_1 = Subquestion.create({ SQDesc: "If No, because,", SQChar: "b"
 
 
 
-formassociate1 = Formassociate.create({ form_id: form1.id, yearofstudy_id: 1, levelofstudy_id: 1, faculty_id: 1, programme_id: 1 , agecondition: "All"})
+#formassociate1 = Formassociate.create({ form_id: form1.id, yearofstudy_id: 1, levelofstudy_id: 1, faculty_id: 1, programme_id: 1 , agecondition: "All"})
 
 
 
