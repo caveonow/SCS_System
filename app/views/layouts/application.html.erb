@@ -4,8 +4,8 @@
     
     <title><%= content_for?(:title) ? yield(:title) : "Survey Diamond" %></title>
 
-    <%= stylesheet_link_tag    "application" , media: 'all'%>
-    <%= javascript_include_tag "application"%>
+    <%= stylesheet_link_tag    "application" , media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
     <%= csrf_meta_tags %>
   </head>
