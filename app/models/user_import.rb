@@ -1,4 +1,4 @@
-class UserImport < ActiveRecord::Base
+class UserImport
   belongs_to :role
   belongs_to :faculty
   belongs_to :yearofstudy
