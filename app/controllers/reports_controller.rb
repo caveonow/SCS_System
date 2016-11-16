@@ -195,7 +195,6 @@ class ReportsController < ApplicationController
     @subtitledata = params[:subtitle]
     @ytitledata = params[:ytitle]
     @xtitledata = params[:xtitle]
-<<<<<<< HEAD
     @chartbackground = params[:chartbackground]
     @bordercolor = params[:bordercolor]
     @borderradius = params[:borderradius]
@@ -206,11 +205,7 @@ class ReportsController < ApplicationController
     @valueprefix = params[:valueprefix]
     @valuesuffix = params[:valuesuffix]
     
-    
-    $Graphtype
-=======
     @Graphtype
->>>>>>> b95d890be21bd3e876d48b59843faf5cf3c59e0c
   end
   
   def seriesdata
