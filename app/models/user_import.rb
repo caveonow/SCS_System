@@ -1,11 +1,5 @@
 class UserImport
   include ActiveModel::Model
-  
-  belongs_to :role
-  belongs_to :faculty
-  belongs_to :yearofstudy
-  belongs_to :levelofstudy
-  belongs_to :programme
   attr_accessor :file
   validates_inclusion_of :file, :in => %w( csv ), :message => "extension %s is not included in the list"
 
