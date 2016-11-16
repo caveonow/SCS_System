@@ -39,28 +39,6 @@ $(function(){
             break;
     }
 	});
-
-/*
-$('#user_ICNo').keyup(function () {
-    var ic = '090303086521';
-
-	if(ic.match(/^(\d{2})(\d{2})(\d{2})-?\d{2}-?\d{4}$/)) {
-	    var year = RegExp.$1;
-	    var month = RegExp.$2;
-	    var day = RegExp.$3;
-	    console.log(year, month, day);
-	    
-	    var now = new Date().getFullYear().toString();
-	
-	    var decade = now.substr(0, 2);
-	    if (now.substr(2,2) > year) {
-	        year = parseInt(decade.concat(year.toString()), 10);
-	    }
-	
-	    var date = new Date(year, (month - 1), day, 0, 0, 0, 0);
-	    console.log(date);
-	}
-});*/
     
 
   $('#user_DateOfBirth').datepicker({

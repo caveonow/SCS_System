@@ -19,7 +19,7 @@ $(function(){
   $('#xtitle').on("change paste keyup mouseleave",function(){
      $('#xxtitle').text($(this).val());
   });
-*/
+
   // text size title
   $("#sizetitle").on("change paste keyup",function() {
 	 $('.changeMe').css("font-size", $(this).val() + "px");
@@ -59,7 +59,7 @@ $(function(){
   $("#undersubtitle").click(function() {
     $(".changeMe1").toggleClass("underline");
   });
-  
+  */
 
 	
 });
