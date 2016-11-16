@@ -88,16 +88,16 @@ class ReportsController < ApplicationController
   end
   
   def horizonbar
-    #@user = User.joins(:faculty)
-    #@faculty = Faculty.all
-    #render json: @user.group(:gender).group(:facultyname).count.chart_json
+    @user = User.joins(:faculty)
+    @faculty = Faculty.all
+    render json: @user.group(:gender).group(:facultyname).count.chart_json
     
     
     
-    if params[:class] == "form"
-      @class = Form.all
-    end
-    render json: @class.group(:FormName).group(:FormDescription).count.chart_json
+    #if params[:class] == "form"
+    #  @class = Form.all
+    #end
+    #render json: @class.group(:FormName).group(:FormDescription).count.chart_json
     #render json: @user.group(:gender).count.chart_json
 
   end
@@ -186,17 +186,17 @@ class ReportsController < ApplicationController
 
   def displayHorizonBar
      @user = User.all
-     @Graphtype = "horizon"
+     $Graphtype = "horizon"
   end
   
   def displayVerticalBar 
     @user = User.all 
-    @Graphtype = "vertical"
+    $Graphtype = "vertical"
   end
   
   def displayPie 
     @user = User.all
-    @Graphtype = "pie"
+    $Graphtype = "pie"
   end
   
   def gettitle
@@ -213,7 +213,7 @@ class ReportsController < ApplicationController
     @plotborderwidth = params[:plotborderwidth]
     @valueprefix = params[:valueprefix]
     @valuesuffix = params[:valuesuffix]
-    @Graphtype
+    $Graphtype
   end
   
   def seriesdata
