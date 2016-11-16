@@ -18,9 +18,10 @@
 			  		<%= form_tag(testing_post_reports_path, :method => "GET", remote: true) do %> 
 			  		<%= link_to "try", testing_reports_path , remote: true%>
 			  		<p>Graph Type :<%= select_tag "GraphType", options_for_select(@GraphTypes)%></p>     
+					<p>Select a class: <%= select_tag "class", options_for_select(@classArr) ,  {prompt: "Please Select "}%> </p>
 					<p>Select a Form: <%= select_tag "form_column", options_for_select(@form) ,  {prompt: "Please Select "}%> </p> 
-					<p>Select a Section: <%= select_tag "section_id", options_from_collection_for_select(@section, :id, :SectionName) ,  {prompt: "Please Select "}%> </p> 
-					<p>Select a Question: <%= select_tag "question_id", options_from_collection_for_select(@question, :id, :QuestionDesc) ,  {prompt: "Please Select "}%> </p> 
+					<p>Select a Section: <%= select_tag "section_column", options_for_select(@section) ,  {prompt: "Please Select "}%> </p> 
+					<p>Select a Question: <%= select_tag "question_column", options_for_select(@question) ,  {prompt: "Please Select "}%> </p> 
 						<%= submit_tag "Edit" , data: { confirm: 'Are you sure?' }%>
 					<%end%>
 			  	</p>

@@ -34,6 +34,9 @@ class ReportsController < ApplicationController
     
     @GraphTypes = Array.new
     
+    @classArr = Array.new
+    
+    @classArr.push("form","section","question","answer","subanswer","subquestion","subquestionanswer")
     @GraphTypes.push("horizon", "vertical", "pie")
   end
 
@@ -118,6 +121,7 @@ class ReportsController < ApplicationController
     @formsans = Studsubanswer.joins(:subanswer)
     @formsqans = Studsubquestionanswer.joins(:subquestionanswer)
     @answer = Answer.all
+    @questions = Question.joins(:answer)
     @subanswer = Subanswer.all
     @subqanswer = Subquestionanswer.all
     @user = User.joins(:answer)
@@ -125,7 +129,11 @@ class ReportsController < ApplicationController
     @value1 = "formName"
     @value2 = "QuestionDesc"
    # render json: @user.group(:name).group(:AnswerDesc).sum(:AnswerCount).chart_json
-    render json: @formTry.group(@value1).group(@value2).group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum("AnswerCount").chart_json
+    render json: @questions.group("AnswerDesc").group("QuestionDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum("AnswerCount").chart_json
+    
+    #render json: @formTry.group(@value1).group(@value2).group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum("AnswerCount").chart_json
+   
+   
     #render json: @answer.group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum(:AnswerCount).chart_json
     
   end
@@ -136,11 +144,11 @@ class ReportsController < ApplicationController
     #@form_id = params[:form_id]
     #@section_id = params[:section_id]
     #@question_id = params[:question_id]
-    @form_id = "form"
+    @formColumn = params[:form_column]
     @section_id = "section"
     @question_id ="question"
     
-    @class = "form"
+    @class = params[:class]
 
   end
 
