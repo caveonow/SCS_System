@@ -176,7 +176,7 @@
 <%end%>
 
 <%if @Graphtype == "horizon1"%>
-<%= bar_chart testing2_reports_path() , library: {
+<%= bar_chart testing2_reports_path(:value => @aStringTest) , library: {
 			exporting: {
             chartOptions: { 
                 plotOptions: {
@@ -237,7 +237,7 @@
 	
 	
 <%elsif @Graphtype == "vertical1"%>
-	<%= column_chart testing2_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+	<%= column_chart testing2_reports_path(:value => @aStringTest) ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
         exporting: {
             chartOptions: { 
                 plotOptions: {

@@ -35,9 +35,11 @@ class ReportsController < ApplicationController
     @GraphTypes = Array.new
     
     @classArr = Array.new
-    
     @classArr.push("form","section","question","answer","subanswer","subquestion","subquestionanswer")
-    @GraphTypes.push("horizon", "vertical", "pie")
+    
+    @choices = Array.new
+    @choices.push("Answer", "SubAnswer", "SubQuestion Answer")
+    @GraphTypes.push("horizon1", "vertical1")
   end
 
   # GET /reports/1/edit
@@ -120,14 +122,31 @@ class ReportsController < ApplicationController
     @user = User.joins(:answer)
     @user2 = User.joins(:subanswer)
     @user3 = User.joins(:studsubquestionanswer)
+    
+    
+    @quest = Question.joins(:answer)
+    @quest2 = Question.joins(:subanswer)
+    @quest3 = Question.joins(:studsubquestionanswer)
 
-    @value1 = "formName"
-    @value2 = "QuestionDesc"
+    
+    if params[:value] == "Answer"
+      render json: @quest.group("QuestionNumber").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum(:AnswerCount).chart_json
+    elsif params[:value] == "SubAnswer"
+      render json: @quest2.group("QuestionNumber").group(:SADesc).where("IsSubAnswer = 1 AND IsSubQuestion = 0").order("question_id").sum(:SACount).chart_json
+    elsif params[:value] == "SubQuestion Answer"
+      render json: @quest3.group("QuestionNumber").group("SQAnswer").where("IsSubAnswer = 0 AND IsSubQuestion = 1").order("question_id").sum("SQAnswerCount").chart_json
+    end
    # render json: @user.group(:name).group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum(:AnswerCount).chart_json
     #render json: @user2.group(:name).group(:SADesc).where("IsSubAnswer = 1 AND IsSubQuestion = 0").order("question_id").sum(:SACount).chart_json
-   render json: @user3.group(:name).group(:SQDesc).group(:SQAnswer).where("IsSubAnswer = 0 AND IsSubQuestion = 1").order("question_id").sum(:SQAnswerCount).chart_json
+   #render json: @user3.group(:name).group(:SQDesc).group(:SQAnswer).where("IsSubAnswer = 0 AND IsSubQuestion = 1").order("question_id").sum(:SQAnswerCount).chart_json
   
-   #render json: @formTry.group("QuestionNumber").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum("AnswerCount").chart_json
+   #render json: @formTry.group("QuestionDesc").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum("AnswerCount").chart_json
+    
+  
+    
+   
+   
+    
     
    # render json: @formTry2.group("AnswerDesc").group("SADesc").where("IsSubAnswer = 1 AND IsSubQuestion = 0").order("question_id").sum("AnswerCounts").chart_json
     #render json: @formTry3.group("AnswerDesc").group("SQDesc").group("SQAnswer").where("IsSubAnswer = 0 AND IsSubQuestion = 1").order("question_id").sum("AnswerCount").chart_json
@@ -165,8 +184,9 @@ class ReportsController < ApplicationController
     @subanswer = Subanswer.all
     @subqanswer = Subquestionanswer.all
     @user = User.all
-    @Graphtype = "horizon1"
+    @Graphtype = params[:GraphType]
     
+    @aStringTest = params[:class]
    # render json: @section.group(:SectionName).group(:QuestionDesc).group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0 AND form_id = 1").sum(:AnswerCount).chart_json
     #answer which is answered by people
    # render json: @formans.group(:AnswerDesc).where("IsSubAnswer = 0 AND IsSubQuestion = 0").sum(:AnswerCount).chart_json

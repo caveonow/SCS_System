@@ -15,13 +15,9 @@
 
 			  		<input type="checkbox" name="gender" value=":gender" id="checkboxa">gender<br>
 			  		<input type="checkbox" name="facultyname" value=":facultyname" id="checkboxb">faculty<br>
-			  		<%= form_tag(testing_post_reports_path, :method => "GET", remote: true) do %> 
-			  		<%= link_to "try", testing_reports_path , remote: true%>
+			  		<%= form_tag(testing_reports_path, :method => "GET", remote: true) do %> 
 			  		<p>Graph Type :<%= select_tag "GraphType", options_for_select(@GraphTypes)%></p>     
-					<p>Select a class: <%= select_tag "class", options_for_select(@classArr) ,  {prompt: "Please Select "}%> </p>
-					<p>Select a Form: <%= select_tag "form_column", options_for_select(@form) ,  {prompt: "Please Select "}%> </p> 
-					<p>Select a Section: <%= select_tag "section_column", options_for_select(@section) ,  {prompt: "Please Select "}%> </p> 
-					<p>Select a Question: <%= select_tag "question_column", options_for_select(@question) ,  {prompt: "Please Select "}%> </p> 
+					<p>Select: <%= select_tag "class", options_for_select(@choices) ,  {prompt: "Please Select "}%> </p>
 						<%= submit_tag "Edit" , data: { confirm: 'Are you sure?' }%>
 					<%end%>
 			  	</p>
