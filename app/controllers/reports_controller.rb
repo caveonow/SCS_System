@@ -90,18 +90,9 @@ class ReportsController < ApplicationController
   def horizonbar
     #@user = User.joins(:faculty)
     #@faculty = Faculty.all
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
-    puts "WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf"
     #render json: @user.group(:gender).group(:facultyname).count.chart_json
-    puts params[:class]
+    
+    
     
     if params[:class] == "form"
       @class = Form.all
@@ -203,7 +194,7 @@ class ReportsController < ApplicationController
     @subtitledata = params[:subtitle]
     @ytitledata = params[:ytitle]
     @xtitledata = params[:xtitle]
-<<<<<<< HEAD
+    
     @chartbackground = params[:chartbackground]
     @bordercolor = params[:bordercolor]
     @borderradius = params[:borderradius]
@@ -213,12 +204,8 @@ class ReportsController < ApplicationController
     @plotborderwidth = params[:plotborderwidth]
     @valueprefix = params[:valueprefix]
     @valuesuffix = params[:valuesuffix]
-    
-    
-    $Graphtype
-=======
+
     @Graphtype
->>>>>>> b95d890be21bd3e876d48b59843faf5cf3c59e0c
   end
   
   def seriesdata
