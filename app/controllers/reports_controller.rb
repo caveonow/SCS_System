@@ -117,6 +117,32 @@ class ReportsController < ApplicationController
   #  render json: @quest.group("answers.id").where("answers.ParentID = 0  #{@test}").order("question_id").count.chart_json
     
     render json: @quest.group("QuestionNumber , QuestionDesc").group("answers.id , answers.AnswerDesc").where("answers.ParentID = 0").sum("AnswerCount").chart_json
+  
+    @totalGroup = params[:totalGroup]
+    @group1Amount = params[:group1Amount]
+    @group2Amount = params[:group2Amount]
+    @firstGroup = params[:group2Amount]    
+    @secondGroup = params[:group2Amount]
+    
+    if @group1Amount > 1
+      @firstGroupValue = @firstGroup.join(",")
+    else
+      @firstGroupValue = @firstGroup[0]
+    end
+    
+    if @group2Amount > 1
+      @secondGroup.join(",")
+    else
+      @secondGroupValue = @secondGroup[0]      
+    end
+  
+  if @totalGroup == 1
+    @className.group(@firstGroupValue).count.chart_json
+  else
+    @className.group(@firstGroupValue).group(@secondGroupValue).count.chart_json  
+  end
+  
+  
   end
   
   def testing_post
@@ -184,7 +210,62 @@ class ReportsController < ApplicationController
     
   end
   
+  def getdata
+    
+  end
+  
+  def get_joins
+    
+    @joinsValue = Array.new
+    @proceed = true
+    puts params[:optiontable]
+    if params[:optiontable] == "0"
+      @proceed = false
+    
+    elsif params[:optiontable] == "1"
+      puts "in here"
+      @joinsValue.push("None","Form","Section","Question","Answer")
+ 
+    elsif params[:optiontable] == "2"
+      @joinsValue.push("None","Section","Question","Answer")
+      
+    elsif params[:optiontable] == "3"
+      @joinsValue.push("None","Question","Answer")
+      
+    elsif params[:optiontable] == "4"
+      @joinsValue.push("None","Answer")
+      
+    elsif params[:optiontable] == "5"  
+      @joinsValue.push("None")
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+  end
 
+  def get_other_data
+    
+    @group1 = Array.new
+    @group1.push("name","gender", "facultyname", "programmename","year","levelname","age")
+    
+    
+    @group2 = Array.new
+    @group2.push("FormName", "facultyname", "programmename","year","levelname","age")
+    
+    if params[:joinsTable] == "Form"
+      
+    elsif params[:joinsTable] == "Section"
+      
+    elsif params[:joinsTable] == "Question"
+      
+    elsif params[:joinsTable] == "Answer"
+      
+    end
+    respond_to do |format|
+      format.js
+    end    
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report

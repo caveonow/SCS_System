@@ -1,3 +1,4 @@
+
 $(function(){
   
  	$('#select_all').on('click',function(){
@@ -39,6 +40,9 @@ $(function(){
             break;
     }
 	});
+	
+
+	
 
 /*
 $('#user_ICNo').keyup(function () {
@@ -127,7 +131,3 @@ $('#user_ICNo').keyup(function () {
 	});
 	
 });
-
-
-
-

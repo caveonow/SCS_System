@@ -1,0 +1,4 @@
+$('#joinsfieldtag').html("");
+<% if @proceed == true%>
+	$('#joinsfieldtag').html("<%= j select_tag :joinsTable, options_for_select(@joinsValue), data: {url: get_other_data_reports_path,  remote: true} %>");
+<%end %>
