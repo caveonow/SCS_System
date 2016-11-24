@@ -24,7 +24,10 @@
 			<%end%>	
 		</h1>
 	<br/>
+	<div class="row">
+		
 	<% obtain_answers(@question.id).each do |a|%>	
+	<div class="small-6 columns">
 	<%-#Assuming that  IF it is NOT a SubAnswer, it could have a subquestion -%>
 		<%if !a.IsSubAnswer or a.IsSubAnswer == 0%>
 
@@ -92,13 +95,16 @@
 					<%end%>											
 			<%end%>
 		<%elsif  a.IsSubAnswer or a.IsSubAnswer == 1%>
+			
 			<% if check_answer(params[:formanswer_id], a.id).empty? %>
 				<% @value = false%>																		
 			<%else%>
 				<% @value = true%>			
-			<%end%> 											
+			<%end%> 
+													
 				<p><%= radio_button_tag  'radio_answer_id', a.id, @value , data: {url: user_selected_survey_display_subAnswer_forms_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id]), remote: true }  -%>
 				<%= a.AnswerDesc%> </p>	
+				
 					<!-- translator  !-->
 						<% answerdescresult = a.AnswerDesc.split(/ /||/,/||/./)%>
 							<% $tran = 0%>	
@@ -117,17 +123,19 @@
 								<%end%>
 							<% $tran += 1%>
 						<%end%>
-						</p>
+					
 
+			
 				<% if @value%>
 					<div id="displaySubAnswerButton" ><%= button_tag 'Display SubAnswers', :class => "button", data: { url: user_selected_survey_display_subAnswer_forms_path(:radio_answer_id => a.id, :formanswer_id => params[:formanswer_id], :q_id => @question.id ), remote: true} %> </div>
 				<%end%>
 			<br/>
 		<%end%>
+		</div>
 	<%end%>
 	<div id="displaySubQuestion" style="display:none"></div>
 	<div id="displaySubAnswer"  style="display:none"></div>
-
+</div>
 
 </div>
 			
