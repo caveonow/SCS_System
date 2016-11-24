@@ -90,16 +90,25 @@ class ReportsController < ApplicationController
   end
   
   def horizonbar
-    #@user = User.joins(:faculty)
-    #@faculty = Faculty.all
-    #render json: @user.group(:gender).group(:facultyname).count.chart_json
+    @user = User.joins(:faculty).joins(:programme).joins(:levelofstudy).joins(:yearofstudy)  
+    
+    @gender = params[:gender]
+    @facultyname = params[:facultyname]
+    
+    @group1 = "gender"
+    @group2 = "facultyname"
+    
+   
+   
+   
+    render json: @user.group(@group1).group(@group2).count.chart_json
     
     
     
-    if params[:class] == "form"
-      @class = Form.all
-    end
-    render json: @class.group(:FormName).group(:FormDescription).count.chart_json
+    #if params[:class] == "form"
+    #  @class = Form.all
+    #end
+    #render json: @class.group(:FormName).group(:FormDescription).count.chart_json
     #render json: @user.group(:gender).count.chart_json
 
   end
@@ -130,7 +139,7 @@ class ReportsController < ApplicationController
 
     
     if params[:value] == "Answer"
-      render json: @quest.group("QuestionNumber").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum(:AnswerCount).chart_json
+      render json: @quest.group("QuestionDesc").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum(:AnswerCount).chart_json
     elsif params[:value] == "SubAnswer"
       render json: @quest2.group("QuestionNumber").group(:SADesc).where("IsSubAnswer = 1 AND IsSubQuestion = 0").order("question_id").sum(:SACount).chart_json
     elsif params[:value] == "SubQuestion Answer"
@@ -205,7 +214,8 @@ class ReportsController < ApplicationController
     end
 
   def displayHorizonBar
-     @user = User.all
+     @user = User.joins(:faculty)
+     @abc ="gender"
      @Graphtype = "horizon"
   end
   
@@ -235,6 +245,12 @@ class ReportsController < ApplicationController
     @valueprefix = params[:valueprefix]
     @valuesuffix = params[:valuesuffix]
 
+    @Graphtype
+  end
+  
+  def getdata
+    @gender = params[:gender]
+    @facultyname = params[:facultyname]
     @Graphtype
   end
   

@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css" />
 </head>
 <div class="tabs-content" data-tabs-content="example-tabs">
-	
+	<%$exists = 0%>
 	<% $list = 0 %>
 	<% if user_signed_in? && @checkadverdfirst.present?%>
 	<% $tab = 1 %>
@@ -216,13 +216,14 @@
 						 <%end%>
 					 <%end%> 	 
 				<%end%>   
-				
 			<%end%>  
-		
 		</div>
 	</div>  	
 </div>  
+<%$exists +=1%>
 <%end%>
+	
+	<%if $exists == 0%>
 	<%if ((user_signed_in? && @signoutAd.present?)||@signoutAd.present?) && ($list == 0) %>	
 <!-- Advertisement -->
 	<div class="row align-center">
@@ -243,6 +244,7 @@
 		<img src="http://placehold.it/800x400&text=[img]" />
 	</div>	
 	<% end %>
+		<%end%>
 <hr/>
 <!-- First Banners (Slider) -->
 	<% if user_signed_in? && @welcomeBs.present?%>

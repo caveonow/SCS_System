@@ -39,7 +39,182 @@ $(function(){
             break;
     }
 	});
-
+	
+	
+	$('#optiontable').on('change', function(){
+		
+		if($('#usertable').length > 0){
+		var el = document.getElementById( 'usertable' );
+		el.parentNode.removeChild( el );
+		}
+		
+		if($('#usertable1').length > 0){
+		var el = document.getElementById( 'usertable1' );
+		el.parentNode.removeChild( el );
+		}
+		
+        if ( $(this).val() == "1"){
+        	var para = document.createElement("select");
+        		para.id = "usertable";
+			var element = document.getElementById("selectfieldtag");
+				element.appendChild(para);
+		
+			var  select = document.getElementById('usertable');
+			var userattribute = ["Please Select","gender", "facultyname", "programmename","year","levelname","age"];
+			
+			for (var i = 0; i<userattribute.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = userattribute[i];
+			    opt.innerHTML = userattribute[i];
+			    select.appendChild(opt);
+			}
+			
+			var para1 = document.createElement("select");
+        		para1.id = "usertable1";
+			var element1 = document.getElementById("selectfieldtag1");
+				element1.appendChild(para1);
+		
+			var  select1 = document.getElementById('usertable1');
+			var userattribute1 = ["Please Select","gender", "facultyname", "programmename","year","levelname","age"];
+			
+			for (var a = 0; a<userattribute1.length; a++){
+			    var opt1 = document.createElement('option');
+			    opt1.value = userattribute1[a];
+			    opt1.innerHTML = userattribute1[a];
+			    select1.appendChild(opt1);
+			}
+					        
+        }else if ( $(this).val() == "2"){
+        	var para = document.createElement("select");
+        		para.id = "usertable";
+			var element = document.getElementById("selectfieldtag");
+				element.appendChild(para);
+		
+			var  select = document.getElementById('usertable');
+			var userattribute = ["Please Select","FormName"];
+			
+			for (var i = 0; i<userattribute.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = userattribute[i];
+			    opt.innerHTML = userattribute[i];
+			    select.appendChild(opt);
+			}
+        	
+        	
+        	var para1 = document.createElement("select");
+        		para1.id = "usertable1";
+			var element1 = document.getElementById("selectfieldtag1");
+				element1.appendChild(para1);
+		
+			var  select1 = document.getElementById('usertable1');
+			var userattribute1 = ["Please Select","FormName"];
+			
+			for (var a = 0; a<userattribute1.length; a++){
+			    var opt1 = document.createElement('option');
+			    opt1.value = userattribute1[a];
+			    opt1.innerHTML = userattribute1[a];
+			    select1.appendChild(opt1);
+			}
+        	
+        }else if ( $(this).val() == "3"){
+        	
+        	var para = document.createElement("select");
+        		para.id = "usertable";
+			var element = document.getElementById("selectfieldtag");
+				element.appendChild(para);
+		
+			var  select = document.getElementById('usertable');
+			var userattribute = ["Please Select","SectionName"];
+			
+			for (var i = 0; i<userattribute.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = userattribute[i];
+			    opt.innerHTML = userattribute[i];
+			    select.appendChild(opt);
+			}
+			
+			var para1 = document.createElement("select");
+        		para1.id = "usertable1";
+			var element1 = document.getElementById("selectfieldtag1");
+				element1.appendChild(para1);
+		
+			var  select1 = document.getElementById('usertable1');
+			var userattribute1 = ["Please Select","SectionName"];
+			
+			for (var a = 0; a<userattribute1.length; a++){
+			    var opt1 = document.createElement('option');
+			    opt1.value = userattribute1[a];
+			    opt1.innerHTML = userattribute1[a];
+			    select1.appendChild(opt1);
+			}
+        	
+        }else if ( $(this).val() == "4"){
+        	var para = document.createElement("select");
+        		para.id = "usertable";
+			var element = document.getElementById("selectfieldtag");
+				element.appendChild(para);
+		
+			var  select = document.getElementById('usertable');
+			var userattribute = ["Please Select","QuestionDesc", "QuestionNumber"];
+			
+			for (var i = 0; i<userattribute.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = userattribute[i];
+			    opt.innerHTML = userattribute[i];
+			    select.appendChild(opt);
+			}
+			
+			
+			var para1 = document.createElement("select");
+        		para1.id = "usertable1";
+			var element1 = document.getElementById("selectfieldtag1");
+				element1.appendChild(para1);
+		
+			var  select1 = document.getElementById('usertable1');
+			var userattribute1 = ["Please Select","QuestionDesc", "QuestionNumber"];
+			
+			for (var a = 0; a<userattribute1.length; a++){
+			    var opt1 = document.createElement('option');
+			    opt1.value = userattribute1[a];
+			    opt1.innerHTML = userattribute1[a];
+			    select1.appendChild(opt1);
+			}
+        	
+        }else if ( $(this).val() == "5"){
+        	var para = document.createElement("select");
+        		para.id = "usertable";
+			var element = document.getElementById("selectfieldtag");
+				element.appendChild(para);
+		
+			var  select = document.getElementById('usertable');
+			var userattribute = ["Please Select","AnswerDesc", "AnswerCount"];
+			
+			for (var i = 0; i<userattribute.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = userattribute[i];
+			    opt.innerHTML = userattribute[i];
+			    select.appendChild(opt);
+			}
+			
+			var para1 = document.createElement("select");
+        		para1.id = "usertable1";
+			var element1 = document.getElementById("selectfieldtag1");
+				element1.appendChild(para1);
+		
+			var  select1 = document.getElementById('usertable1');
+			var userattribute1 = ["Please Select","AnswerDesc", "AnswerCount"];
+			
+			for (var a = 0; a<userattribute1.length; a++){
+			    var opt1 = document.createElement('option');
+			    opt1.value = userattribute1[a];
+			    opt1.innerHTML = userattribute1[a];
+			    select1.appendChild(opt1);
+			}
+        	
+        	
+        }
+    });
+	
 /*
 $('#user_ICNo').keyup(function () {
     var ic = '090303086521';

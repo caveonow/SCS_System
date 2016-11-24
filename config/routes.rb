@@ -44,6 +44,8 @@ Rails.application.routes.draw do
       get 'displayVerticalBar'
       get 'horizonbar'
       post 'gettitle'
+      post 'getdata'
+      
       post 'seriesdata'
       get 'testing'
       get 'testing2'

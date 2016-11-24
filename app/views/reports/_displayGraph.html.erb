@@ -1,5 +1,7 @@
 <%if @Graphtype == "horizon"%>
-	<%= bar_chart horizonbar_reports_path(:class => @class , :firstGroup => @form_id, :secondGroup => @section_id) , library: {
+
+
+	<%= bar_chart @user.group(@abc).group(:facultyname).count , library: {
 			exporting: {
             chartOptions: { 
                 plotOptions: {

@@ -47,8 +47,7 @@ u3.confirm
 u4 = User.create({name: "Jack" ,age: '24',gender: 'Male', email: "jack@example.com",ICNo:"930219-14-5254", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r3.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
 u4.confirm
 
-
-form1 = Form.create({FormName: "Student Survey Questionnaire on Student Counselling Services", FormDescription: "In order to make our services more relevent to TAR UC students, we would like to seek your assistance in helping us to develop and improve our existing services.", FormDateTime: "2016-11-15 18:27:03" ,FormStatus: "Published", user_id: u1.id })
+form1 = Form.create({FormName: "Student Survey Questionnaire on Student Counselling Services", FormDescription: "In order to make our services more relevent to TAR UC students, we would like to seek your assistance in helping us to develop and improve our existing services.", FormDateTime: "2016-11-15 18:27:03" ,FormStatus: "Published" })
 
 section1 = Section.create({ SectionName: "Section A: Campus Life Experience", SectionDescription: "Please indicate the answers by selecting the boxes given", form_id: form1.id})
 section2 = Section.create({ SectionName: "Section B: Student Counselling Service", SectionDescription: "Please indicate the answers by selecting the boxes given", form_id: form1.id})
@@ -156,7 +155,7 @@ subquestion2_6_2_1 = Subquestion.create({ SQDesc: "If No, because,", SQChar: "b"
 
 
 
-formassociate1 = Formassociate.create({ form_id: form1.id, yearofstudy_id: 1, levelofstudy_id: 1, faculty_id: 1, programme_id: 1 , agecondition: "All"})
+#formassociate1 = Formassociate.create({ form_id: form1.id, yearofstudy_id: 1, levelofstudy_id: 1, faculty_id: 1, programme_id: 1 , agecondition: "All"})
 
 
 
