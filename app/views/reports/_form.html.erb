@@ -13,13 +13,10 @@
 			  <div class="tabs-panel is-active" id="panel1" >
 			  	<p>
 			  		<%= form_tag(getdata_reports_path, remote: true) do %> 
-			  		
-			  		<%= select_tag(:song_id,options_for_select(@choices),{multiple: true, size: 5})
-					%>
-			  		
+			  					  		
 			  		<p>Data Table</p>
 			  		<%= select_tag :optiontable, options_for_select([['Please Select',0],['User', 1], ['Form', 2], ['Section', 3], ['Question', 4], ['Answer', 5]], selected: :option ), data: {url: get_joins_reports_path,  remote: true}%>
-			  		<%= hidden_field_tag 'optiondata'%>
+
 			  		
 			  		<p>Joins </p>
 			  		<div id="joinsfieldtag">
@@ -35,15 +32,27 @@
 			  		<div id="selectfieldtag1">
 						
 					</div>		
+					
+	  				<p>Constrains</p>
+			  		<div id="constrainsfieldtag">
+						
+					</div>		  				
+					<p>Graph Type</p>	  		
+			  		<%= select_tag "GraphType", options_for_select(@graphs)%>
 			  			
+			  			
+	  				
 			  		<%= submit_tag "add" %>
 					<%end%>
 			  		
 			  		
+			  		
+			  		
+			  		<br /><br /><br /><br /><br /><br /><br /><br />
+			  		### dis for test
 			  		<%= form_tag(testing_reports_path, :method => "GET", remote: true) do %> 
 			  		
 			  		<p>Graph Type :<%= select_tag "GraphType", options_for_select(@GraphTypes)%></p>     
-					<p>Select: <%= select_tag "class", options_for_select(@choices) ,  {prompt: "Please Select "}%> </p>
 						<%= submit_tag "Edit" , data: { confirm: 'Are you sure?' }%>
 					<%end%>
 			  	</p>

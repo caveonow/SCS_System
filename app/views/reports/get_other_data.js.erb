@@ -1,0 +1,23 @@
+$('#selectfieldtag').html("");
+$('#selectfieldtag1').html("");
+$('#constrainsfieldtag').html("");
+
+$('#selectfieldtag').html("<%= j select_tag :Group1, options_for_select(@group1),{multiple: true , class: 'js-example-basic-multiple-limit' } %>");
+
+$(".js-example-basic-multiple-limit").select2({
+  maximumSelectionLength: 2
+});
+
+$('#selectfieldtag1').html("<%= j select_tag :Group2, options_for_select(@group1),{multiple: true , class: 'js-example-basic-multiple-limit2' } %>");
+
+$(".js-example-basic-multiple-limit2").select2({
+  maximumSelectionLength: 2
+});
+
+
+<% if @answerConstrain == true%>
+$('#constrainsfieldtag').html("<%= j select_tag :constrain, options_for_select(Array[*@group2.collect {|v,i| [v,@group2.index(v)] }]),{multiple: true , class: 'js-example-basic-multiple-limit3' } %>");
+$(".js-example-basic-multiple-limit3").select2({
+
+});
+<%end%>

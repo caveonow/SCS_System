@@ -30,11 +30,16 @@ class ReportsController < ApplicationController
     @GraphTypes = Array.new
     
     @classArr = Array.new
-    @classArr.push("form","section","question","answer","subanswer","subquestion","subquestionanswer")
+    @classArr.push("form","section","question","answer")
     
     @choices = Array.new
-    @choices.push("Answer", "SubAnswer", "SubQuestion Answer")
+    @choices.push("Answer")
     @GraphTypes.push("horizon1", "vertical1")
+    
+    
+    @graphs = Array.new
+    @graphs.push("horizon", "vertical")
+    
   end
 
   # GET /reports/1/edit
@@ -85,17 +90,107 @@ class ReportsController < ApplicationController
   end
   
   def horizonbar
-    #@user = User.joins(:faculty)
-    #@faculty = Faculty.all
-    #render json: @user.group(:gender).group(:facultyname).count.chart_json
     
+    @user = User.joins(:yearofstudy, :levelofstudy, :faculty, :programme)
+    @userform = User.joins(:yearofstudy, :levelofstudy, :faculty, :programme, :form)
+    @usersection = User.joins(:yearofstudy, :levelofstudy, :faculty, :programme, :section)
+    @userquestion = User.joins(:yearofstudy, :levelofstudy, :faculty, :programme, :question)
+    @useranswer = User.joins(:yearofstudy, :levelofstudy, :faculty, :programme, :answer)
+       
+    @form = Form.all
+    @formsection = Form.joins(:section)
+    @formquestion = Form.joins(:question)
+    @formanswer = Form.joins(:answer)  
     
+    @section = Section.all
+    @sectionquestion = Section.joins(:question)
+    @sectionanswer = Section.joins(:answer)  
     
-    if params[:class] == "form"
-      @class = Form.all
+    @question = Question.all
+    @questionanswer = Question.joins(:answer)  
+    
+    @answer = Answer.all     
+    #render json: @quest.group("QuestionNumber").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum(:AnswerCount).chart_json
+
+  #  render json: @quest.group("answers.id").where("answers.ParentID = 0  #{@test}").order("question_id").count.chart_json
+   
+  #  render json: @quest.group("QuestionNumber , QuestionDesc").group("answers.id , answers.AnswerDesc").where("answers.ParentID = 0").sum("AnswerCount").chart_json
+  
+
+  
+  if params[:class] == "User"
+    if params[:joinclass] == "None"
+    @usedClass = @user
+    elsif  params[:joinclass] == "Form"
+    @usedClass = @userform
+    
+    elsif  params[:joinclass] == "Section"
+    @usedClass = @usersection
+      
+    elsif  params[:joinclass] == "Question"
+    @usedClass = @userquestion
+      
+    elsif  params[:joinclass] == "Answer"
+    @usedClass = @useranswer
     end
-    render json: @class.group(:FormName).group(:FormDescription).count.chart_json
-    #render json: @user.group(:gender).count.chart_json
+  elsif params[:class] == "Form"
+    if params[:joinclass] == "None"
+    @usedClass = @form
+    
+    elsif  params[:joinclass] == "Section"
+    @usedClass = @formsection
+      
+    elsif  params[:joinclass] == "Question"
+    @usedClass = @formquestion
+      
+    elsif  params[:joinclass] == "Answer"
+    @usedClass = @formanswer
+    end    
+  elsif params[:class] == "Section"
+    if params[:joinclass] == "None"
+    @usedClass = @section
+    
+    elsif  params[:joinclass] == "Question"
+    @usedClass = @sectionquestion
+      
+    elsif  params[:joinclass] == "Answer"
+    @usedClass = @sectionanswer
+    end      
+  elsif params[:class] == "Question"
+    if params[:joinclass] == "None"
+    @usedClass = @question
+
+    elsif  params[:joinclass] == "Answer"
+    @usedClass = @questionanswer
+    end    
+  elsif params[:class] == "Answer"
+    if params[:joinclass] == "None"
+    @usedClass = @answer         
+    end
+  end
+
+    @totalGroup = 2
+    @fgroup = params[:firstGroup]    
+    if @fgroup.blank?
+      @totalGroup -= 1
+      @fgroup = params[:secondGroup]
+     @firstGroup = @fgroup.join(",")
+    else
+     @firstGroup = @fgroup.join(",")   
+    end
+    @sgroup = params[:secondGroup]
+    if @sgroup.blank?
+      @totalGroup -= 1
+    else      
+    @secondGroup = @sgroup.join(",")
+    end    
+
+  if @totalGroup == 1
+    render json: @usedClass.group(@firstGroup).count.chart_json
+  else
+    render json: @usedClass.group(@firstGroup).group(@secondGroup).count.chart_json  
+  end
+
 
   end
   
@@ -107,7 +202,8 @@ class ReportsController < ApplicationController
     @answer = Answer.all
     @questions = Question.joins(:answer)
     @user = User.joins(:answer)
-    
+    @user2 = User.joins(:faculty)
+    @test2 = User.all
      
     @quest = Question.joins(:answer)
 
@@ -115,33 +211,9 @@ class ReportsController < ApplicationController
     #render json: @quest.group("QuestionNumber").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum(:AnswerCount).chart_json
 
   #  render json: @quest.group("answers.id").where("answers.ParentID = 0  #{@test}").order("question_id").count.chart_json
-    
-    render json: @quest.group("QuestionNumber , QuestionDesc").group("answers.id , answers.AnswerDesc").where("answers.ParentID = 0").sum("AnswerCount").chart_json
-  
-    @totalGroup = params[:totalGroup]
-    @group1Amount = params[:group1Amount]
-    @group2Amount = params[:group2Amount]
-    @firstGroup = params[:group2Amount]    
-    @secondGroup = params[:group2Amount]
-    
-    if @group1Amount > 1
-      @firstGroupValue = @firstGroup.join(",")
-    else
-      @firstGroupValue = @firstGroup[0]
-    end
-    
-    if @group2Amount > 1
-      @secondGroup.join(",")
-    else
-      @secondGroupValue = @secondGroup[0]      
-    end
-  
-  if @totalGroup == 1
-    @className.group(@firstGroupValue).count.chart_json
-  else
-    @className.group(@firstGroupValue).group(@secondGroupValue).count.chart_json  
-  end
-  
+    render json: @user2.group("gender").group("facultyname").count
+    #render json: @quest.group("QuestionNumber , QuestionDesc").group("answers.id , answers.AnswerDesc").where("answers.ParentID = 0").sum("AnswerCount").chart_json
+   # render json: @user2.group("name").count.chart_json
   
   end
   
@@ -212,33 +284,67 @@ class ReportsController < ApplicationController
   
   def getdata
     
+    if params[:optiontable] == "1"
+      @className = "User"
+    elsif params[:optiontable] == "2"
+      @className = "Form"
+    elsif params[:optiontable] == "3"
+      @className = "Section"
+    elsif params[:optiontable] == "4"
+      @className = "Question"
+    elsif params[:optiontable] == "5"
+      @className = "Answer"
+    end
+     
+    @strGroup1 = params[:Group1]
+    @strGroup2 = params[:Group2]
+    ##################################################################################### 3
+  #  @index = params[:constrain]
+ #   @group3 = Array.new
+#    @group3.push("ParentID = 0", "IsSubAnswer = 1", "questions.IsSubQuestion = 1")
+    #####################################################################################3
+
+    @Graphtype = params[:GraphType]
+    
+    @joinName = params[:joinsTable]
+    
+    respond_to do |format|
+      format.js
+    end
   end
   
   def get_joins
     
     @joinsValue = Array.new
     @proceed = true
-    puts params[:optiontable]
+    @specialcase = false
+    @group1 = Array.new
+    
     if params[:optiontable] == "0"
       @proceed = false
     
     elsif params[:optiontable] == "1"
-      puts "in here"
       @joinsValue.push("None","Form","Section","Question","Answer")
+      @group1.push("name","gender", "facultyname", "programmename","year","levelname","age")  
  
     elsif params[:optiontable] == "2"
       @joinsValue.push("None","Section","Question","Answer")
+      @group1.push("forms.id", "FormName")
       
     elsif params[:optiontable] == "3"
       @joinsValue.push("None","Question","Answer")
+      @group1.push("sections.id", "SectionName")
       
     elsif params[:optiontable] == "4"
       @joinsValue.push("None","Answer")
+      @group1.push("questions.id" ,"QuestionDesc", "QuestionNumber") 
       
     elsif params[:optiontable] == "5"  
       @joinsValue.push("None")
+      @group1.push("answers.id" , "AnswerDesc")
+      @specialcase = true
     end
-    
+      
     respond_to do |format|
       format.js
     end
@@ -246,21 +352,60 @@ class ReportsController < ApplicationController
 
   def get_other_data
     
-    @group1 = Array.new
-    @group1.push("name","gender", "facultyname", "programmename","year","levelname","age")
-    
-    
     @group2 = Array.new
-    @group2.push("FormName", "facultyname", "programmename","year","levelname","age")
-    
-    if params[:joinsTable] == "Form"
-      
-    elsif params[:joinsTable] == "Section"
-      
-    elsif params[:joinsTable] == "Question"
-      
-    elsif params[:joinsTable] == "Answer"
-      
+    @group2.push("Select Only Answers","Select Only SubAnswers","Select Only Sub Question Answers")
+    @group1 = Array.new
+    @answerConstrain = false
+    ##user
+    if params[:className] == "1"
+      if params[:joinsTable] == "None"
+        @group1.push("name","gender", "facultyname", "programmename","year","levelname","age")      
+      elsif params[:joinsTable] == "Form"
+        @group1.push("name","gender", "facultyname", "programmename","year","levelname","age", "forms.id", "FormName")   
+      elsif params[:joinsTable] == "Section"
+        @group1.push("name","gender",  "facultyname", "programmename","year","levelname","age", "forms.id", "FormName", "sections.id", "SectionName")    
+      elsif params[:joinsTable] == "Question"
+        @group1.push("name","gender",  "facultyname", "programmename","year","levelname","age", "forms.id", "FormName", "sections.id", "SectionName", "questions.id" , "QuestionDesc", "QuestionNumber")        
+      elsif params[:joinsTable] == "Answer"
+        @group1.push("name","gender",  "facultyname", "programmename","year","levelname","age", "forms.id", "FormName", "sections.id", "SectionName", "questions.id" , "QuestionDesc", "QuestionNumber", "answers.id", "AnswerDesc")
+        @answerConstrain = true             
+      end
+    ##form
+    elsif params[:className] == "2"
+      if params[:joinsTable] == "None"
+        @group1.push("forms.id", "FormName")      
+      elsif params[:joinsTable] == "Section"
+        @group1.push("forms.id", "FormName", "sections.id", "SectionName")    
+      elsif params[:joinsTable] == "Question"
+        @group1.push("forms.id", "FormName", "sections.id", "SectionName", "questions.id" , "QuestionDesc", "QuestionNumber")        
+      elsif params[:joinsTable] == "Answer"
+        @group1.push("forms.id", "FormName", "sections.id", "SectionName", "questions.id" , "QuestionDesc", "QuestionNumber", "answers.id", "AnswerDesc") 
+         @answerConstrain = true            
+      end
+    ##section
+    elsif params[:className] == "3"
+      if params[:joinsTable] == "None"
+        @group1.push("sections.id", "SectionName")      
+      elsif params[:joinsTable] == "Question"
+        @group1.push("sections.id", "SectionName",  "questions.id" ,"QuestionDesc", "QuestionNumber")        
+      elsif params[:joinsTable] == "Answer"
+        @group1.push("sections.id", "SectionName",  "questions.id" ,"QuestionDesc", "QuestionNumber", "answers.id", "AnswerDesc")   
+        @answerConstrain = true         
+      end      
+    ##question
+    elsif params[:className] == "4"
+      if params[:joinsTable] == "None"
+        @group1.push("questions.id" ,"QuestionDesc", "QuestionNumber")         
+      elsif params[:joinsTable] == "Answer"
+        @group1.push("questions.id" ,"QuestionDesc", "QuestionNumber", "answers.id", "AnswerDesc")        
+         @answerConstrain = true     
+      end            
+    ##answer
+    elsif params[:className] == "5"
+      if params[:joinsTable] == "None"
+        @group1.push("answers.id" , "AnswerDesc")    
+         @answerConstrain = true     
+      end              
     end
     respond_to do |format|
       format.js

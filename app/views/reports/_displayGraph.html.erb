@@ -1,5 +1,5 @@
 <%if @Graphtype == "horizon"%>
-	<%= bar_chart horizonbar_reports_path(:class => @class , :firstGroup => @form_id, :secondGroup => @section_id) , library: {
+	<%= bar_chart horizonbar_reports_path(:class => @className , :joinclass => @joinName , :firstGroup => @strGroup1, :secondGroup => @strGroup2) , library: {
 			exporting: {
             chartOptions: { 
                 plotOptions: {
@@ -67,7 +67,7 @@
 	
 	
 <%elsif @Graphtype == "vertical"%>
-	<%= column_chart horizonbar_reports_path ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+	<%= column_chart horizonbar_reports_path(:class => @className, :joinclass => @joinName  , :firstGroup => @strGroup1, :secondGroup => @strGroup2) ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
         exporting: {
             chartOptions: { 
                 plotOptions: {

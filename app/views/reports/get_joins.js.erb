@@ -1,4 +1,32 @@
 $('#joinsfieldtag').html("");
+$('#selectfieldtag').html("");
+$('#selectfieldtag1').html("");
+$('#constrainsfieldtag').html("");
+
 <% if @proceed == true%>
-	$('#joinsfieldtag').html("<%= j select_tag :joinsTable, options_for_select(@joinsValue), data: {url: get_other_data_reports_path,  remote: true} %>");
+	$('#joinsfieldtag').html("<%= j select_tag :joinsTable, options_for_select(@joinsValue), data: {url: get_other_data_reports_path(:className => params[:optiontable]),  remote: true} %>");
+
 <%end %>
+
+<% if @specialcase == true%>
+
+$('#selectfieldtag').html("<%= j select_tag :Group1, options_for_select(@group1),{multiple: true , class: 'js-example-basic-multiple-limit' } %>");
+
+$(".js-example-basic-multiple-limit").select2({
+  maximumSelectionLength: 2
+});
+
+<%else%>
+
+$('#selectfieldtag').html("<%= j select_tag :Group1, options_for_select(@group1),{multiple: true , class: 'js-example-basic-multiple-limit' } %>");
+
+$(".js-example-basic-multiple-limit").select2({
+  maximumSelectionLength: 2
+});
+
+$('#selectfieldtag1').html("<%= j select_tag :Group2, options_for_select(@group1),{multiple: true , class: 'js-example-basic-multiple-limit2' } %>");
+
+$(".js-example-basic-multiple-limit2").select2({
+  maximumSelectionLength: 2
+});
+<%end%>

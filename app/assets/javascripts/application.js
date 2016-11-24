@@ -18,6 +18,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.foundation
 //= require foundation
+//= require select2
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
