@@ -20,7 +20,7 @@ default: &default
 #password for ow is caveon3845
 development:
   <<: *default
-  database: SCS_System_development
+  database: SCS_System_development2
 # database for nick is SCS_System_development2
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

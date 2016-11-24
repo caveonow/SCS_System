@@ -191,15 +191,18 @@
             fallbackToExportServer: false
         	},
 	        chart: {
+	        	height: 1000,
+	        	width: 600,
 	        renderTo: 'previewgraph',
-            type: 'bar'
+            type: 'bar',
+
         	},
 	        title: {text: @titledata, x: -20
 	        },
 	        subtitle: {text: @subtitledata , x:-20
 	        },
 	        yAxis: {
-	            title: {
+	            title: {            	
 	                text: @ytitledata, x:-30
 	            },
 	            labels: {
@@ -223,13 +226,20 @@
 	            }
 	        },
 	        legend: {
-	            layout: 'vertical',
-	            align: 'right',
+	            layout: 'horizontal',
+	            align: 'center',
 	            verticalAlign: 'top',
+	            floating: false,
 	            x: 0,
-	            y: 80,
+	            y: 0,
 	            borderWidth: 1,
-	            shadow: true
+	            shadow: true,
+	            
+			    itemStyle: {
+	            	width: '50px',
+	            	textOverflow: 'ellipsis',
+	            	overflow: 'hidden'
+	            }
 	        }
 	    }
 	%>
