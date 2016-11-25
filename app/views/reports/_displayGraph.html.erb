@@ -1,5 +1,5 @@
 <%if @Graphtype == "horizon"%>
-	<%= bar_chart horizonbar_reports_path(:class => @className , :joinclass => @joinName , :firstGroup => @strGroup1, :secondGroup => @strGroup2) , library: {
+	<%= bar_chart horizonbar_reports_path(:class => @className , :joinclass => @joinName , :firstGroup => @strGroup1, :secondGroup => @strGroup2, :constrains => @strTest) , library: {
 			exporting: {
             chartOptions: { 
                 plotOptions: {
@@ -14,6 +14,8 @@
             fallbackToExportServer: false
         	},
 	        chart: {
+	        	height: @chartHeight,
+	        	width: @chartWidth,
 		        renderTo: 'previewgraph',
 	            type: 'bar',
 	            backgroundColor: @chartbackground,
@@ -53,13 +55,20 @@
 	            }
 	        },
 	        legend: {
-	            layout: 'vertical',
-	            align: 'right',
+	            layout: 'horizontal',
+	            align: 'center',
 	            verticalAlign: 'top',
+	            floating: false,
 	            x: 0,
-	            y: 80,
+	            y: 0,
 	            borderWidth: 1,
-	            shadow: true
+	            shadow: true,
+	            
+			    itemStyle: {
+	            	width: '50px',
+	            	textOverflow: 'ellipsis',
+	            	overflow: 'hidden'
+	            }
 	        }
 	    }
 	%>
@@ -67,7 +76,7 @@
 	
 	
 <%elsif @Graphtype == "vertical"%>
-	<%= column_chart horizonbar_reports_path(:class => @className, :joinclass => @joinName  , :firstGroup => @strGroup1, :secondGroup => @strGroup2) ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
+	<%= column_chart horizonbar_reports_path(:class => @className, :joinclass => @joinName  , :firstGroup => @strGroup1, :secondGroup => @strGroup2, :constrains => @strTest) ,xtitle: @xtitledata, ytitle: @ytitledata, library: {
         exporting: {
             chartOptions: { 
                 plotOptions: {
@@ -83,6 +92,8 @@
         },
         
         chart: {
+	        	height: @chartHeight,
+	        	width: @chartWidth,
             type: 'column',
             	backgroundColor: @chartbackground,
 	            borderColor: @bordercolor,
@@ -170,7 +181,23 @@
                     },
                     showInLegend: true
                 }
-            }
+            },
+	        legend: {
+	            layout: 'horizontal',
+	            align: 'center',
+	            verticalAlign: 'top',
+	            floating: false,
+	            x: 0,
+	            y: 0,
+	            borderWidth: 1,
+	            shadow: true,
+	            
+			    itemStyle: {
+	            	width: '50px',
+	            	textOverflow: 'ellipsis',
+	            	overflow: 'hidden'
+	            }
+	        }
 	    }
     %> 
 <%end%>

@@ -38,6 +38,9 @@ r1 = Role.create({name: "Student", description: "Can read items"})
 r2 = Role.create({name: "Staff", description: "Can read and create items. Can update and destroy own items"})
 r3 = Role.create({name: "Admin", description: "Can perform any CRUD operation on any resource"})
 
+
+
+
 u1 = User.create({name: "Sally" ,age: '23' ,gender: 'Female', email: "sally@example.com",ICNo:"930219-14-5252",  password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r2.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
 u1.confirm
 u2 = User.create({name: "Sue" ,age: '22',gender: 'Female', email: "sue@example.com",ICNo:"930219-14-5251", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", role_id: r1.id, programme_id:p0.id, yearofstudy_id: ys0.id, levelofstudy_id:ls0.id, faculty_id:f0.id})
@@ -48,7 +51,7 @@ u4 = User.create({name: "Jack" ,age: '24',gender: 'Male', email: "jack@example.c
 u4.confirm
 
 
-form1 = Form.create({FormName: "Student Survey Questionnaire on Student Counselling Services", FormDescription: "In order to make our services more relevent to TAR UC students, we would like to seek your assistance in helping us to develop and improve our existing services.", FormDateTime: "2016-11-15 18:27:03" ,FormStatus: "Published", user_id: u1.id })
+form1 = Form.create({FormName: "Student Survey Questionnaire on Student Counselling Services", FormDescription: "In order to make our services more relevent to TAR UC students, we would like to seek your assistance in helping us to develop and improve our existing services.", FormDateTime: "2016-11-15 18:27:03" ,FormStatus: "Published", user_id: "1" })
 
 section1 = Section.create({ SectionName: "Section A: Campus Life Experience", SectionDescription: "Please indicate the answers by selecting the boxes given", form_id: form1.id})
 section2 = Section.create({ SectionName: "Section B: Student Counselling Service", SectionDescription: "Please indicate the answers by selecting the boxes given", form_id: form1.id})
@@ -135,8 +138,7 @@ question2_6 = Question.create({ QuestionDesc: "Would you consider seeking counse
 
 answer2_6_1 = Answer.create({ AnswerDesc: "Yes", IsSubAnswer: 0, ParentID: 0, AnswerCount: 5, question_id: question2_6.id})
 answer2_6_2 = Answer.create({ AnswerDesc: "No", IsSubAnswer: 0, ParentID: 0, AnswerCount: 5, question_id: question2_6.id})
-
-subquestion2_6_1_1 = Question.create({ QuestionDesc: "If Yes, the factors that encourage me to seek counselling are,", IsSubQuestion: 0, ParentID: question2_6.id, section_id: section2.id })
+subquestion2_6_1_1 = Question.create({ QuestionDesc: "If Yes, the factors that encourage me to seek counselling are,", IsSubQuestion: 0, ParentID: question2_6.id, QuestionNumber: "1" ,section_id: section2.id })
 
   subquestionanswer2_6_1_1_1 = Answer.create({ AnswerDesc: "Counsellor's friendliness", AnswerCount: 5, ParentID: 0, question_id: subquestion2_6_1_1.id })
   subquestionanswer2_6_1_1_2 = Answer.create({ AnswerDesc: "Encouraged by friends/family/lecturers", AnswerCount: 5, ParentID: 0, question_id: subquestion2_6_1_1.id })
@@ -147,7 +149,7 @@ subquestion2_6_1_1 = Question.create({ QuestionDesc: "If Yes, the factors that e
   subquestionanswer2_6_1_1_7 = Answer.create({ AnswerDesc: "Familiarity with the counsellor", AnswerCount: 5, ParentID: 0, question_id: subquestion2_6_1_1.id })  
   subquestionanswer2_6_1_1_8 = Answer.create({ AnswerDesc: "Others", AnswerCount: 5, ParentID: 0, question_id: subquestion2_6_1_1.id })
 
-subquestion2_6_2_1 = Question.create({ QuestionDesc: "If No, because,", IsSubQuestion: 0, ParentID: question2_6.id, section_id: section2.id })
+subquestion2_6_2_1 = Question.create({ QuestionDesc: "If No, because,", IsSubQuestion: 0, ParentID: question2_6.id, QuestionNumber: "2", section_id: section2.id })
 
   subquestionanswer2_6_2_1_1 = Answer.create({ AnswerDesc: "Too Shy", AnswerCount: 5, ParentID: 0, question_id: subquestion2_6_2_1.id })
   subquestionanswer2_6_2_1_2 = Answer.create({ AnswerDesc: "Worry about privacy issue", AnswerCount: 5, ParentID: 0, question_id: subquestion2_6_2_1.id })
@@ -161,9 +163,6 @@ subquestion2_6_2_1 = Question.create({ QuestionDesc: "If No, because,", IsSubQue
 
 
 formassociate1 = Formassociate.create({ form_id: form1.id, yearofstudy_id: 1, levelofstudy_id: 1, faculty_id: 1, programme_id: 1 , agecondition: "All"})
-
-
-
 
 
 

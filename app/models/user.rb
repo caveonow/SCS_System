@@ -12,9 +12,9 @@ class User < ActiveRecord::Base
   belongs_to :programme
   has_many :advertisements
   has_one :welcome
-  has_many :forms
+  has_many :form
   
-  has_many :section , through: :forms
+  has_many :section , through: :form
   has_many :question, through: :section
   has_many :answer, through: :question
   

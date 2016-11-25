@@ -72,10 +72,11 @@ class AdvertisementsController < ApplicationController
    def activeadvertisement
         #@advertisement = Advertisement.all
         if params[:update]
-        Advertisement.update_all(:statusAd => "deactive") 
-        Advertisement.where(id: params[:advertisement_id]).update_all(:statusAd => "active")
-        flash[:success] = "Default advertisement updated"
-        redirect_to root_url 
+          
+          Advertisement.update_all(:statusAd => "deactive") 
+          Advertisement.where(id: params[:advertid]).update_all(:statusAd => "active")
+          flash[:success] = "Default advertisement updated"
+          redirect_to root_url 
         else  
           @adAssociate = Advertisementassociate.new(avertassociate_params)
           if @adAssociate.save

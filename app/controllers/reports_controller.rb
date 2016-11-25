@@ -168,7 +168,7 @@ class ReportsController < ApplicationController
     @usedClass = @answer         
     end
   end
-
+    @constrainsIsThere = true
     @totalGroup = 2
     @fgroup = params[:firstGroup]    
     if @fgroup.blank?
@@ -184,11 +184,25 @@ class ReportsController < ApplicationController
     else      
     @secondGroup = @sgroup.join(",")
     end    
-
+    if params[:constrains].blank?
+      @constrainsIsThere = false
+    else
+      @contrains = params[:constrains]
+    end
+    
   if @totalGroup == 1
-    render json: @usedClass.group(@firstGroup).count.chart_json
+    if @constrainsIsThere
+      render json: @usedClass.group(@firstGroup).where(@contrains).sum("AnswerCount").chart_json
+    else
+      render json: @usedClass.group(@firstGroup).count.chart_json
+      
+    end
   else
-    render json: @usedClass.group(@firstGroup).group(@secondGroup).count.chart_json  
+    if @constrainsIsThere
+      render json: @usedClass.group(@firstGroup).group(@secondGroup).where(@constrains).sum("AnswerCount").chart_json
+    else
+      render json: @usedClass.group(@firstGroup).group(@secondGroup).count.chart_json  
+    end
   end
 
 
@@ -211,8 +225,8 @@ class ReportsController < ApplicationController
     #render json: @quest.group("QuestionNumber").group("AnswerDesc").where("IsSubAnswer = 0 AND IsSubQuestion = 0").order("question_id").sum(:AnswerCount).chart_json
 
   #  render json: @quest.group("answers.id").where("answers.ParentID = 0  #{@test}").order("question_id").count.chart_json
-    render json: @user2.group("gender").group("facultyname").count
-    #render json: @quest.group("QuestionNumber , QuestionDesc").group("answers.id , answers.AnswerDesc").where("answers.ParentID = 0").sum("AnswerCount").chart_json
+   # render json: @user2.group("gender").group("facultyname").count
+    render json: @quest.group(" answers.AnswerDesc").group(" QuestionDesc").where("answers.ParentID = 0").sum("AnswerCount").chart_json
    # render json: @user2.group("name").count.chart_json
   
   end
@@ -264,6 +278,8 @@ class ReportsController < ApplicationController
     @ytitledata = params[:ytitle]
     @xtitledata = params[:xtitle]
     
+    @chartWidth = params[:chartWidth]
+    @chartHeight = params[:chartHeight]
     @chartbackground = params[:chartbackground]
     @bordercolor = params[:bordercolor]
     @borderradius = params[:borderradius]
@@ -284,6 +300,26 @@ class ReportsController < ApplicationController
   
   def getdata
     
+    @titledata = params[:title]
+    @subtitledata = params[:subtitle]
+    @ytitledata = params[:ytitle]
+    @xtitledata = params[:xtitle]
+    @chartWidth = params[:chartWidth]
+    @chartHeight = params[:chartHeight]
+    
+    @chartbackground = params[:chartbackground]
+    @bordercolor = params[:bordercolor]
+    @borderradius = params[:borderradius]
+    @borderwidth = params[:borderwidth]
+    @plotimage = params[:plotimage]
+    @plotbordercolor = params[:plotbordercolor]
+    @plotborderwidth = params[:plotborderwidth]
+    @valueprefix = params[:valueprefix]
+    @valuesuffix = params[:valuesuffix]
+
+    
+    
+    
     if params[:optiontable] == "1"
       @className = "User"
     elsif params[:optiontable] == "2"
@@ -299,9 +335,29 @@ class ReportsController < ApplicationController
     @strGroup1 = params[:Group1]
     @strGroup2 = params[:Group2]
     ##################################################################################### 3
-  #  @index = params[:constrain]
- #   @group3 = Array.new
-#    @group3.push("ParentID = 0", "IsSubAnswer = 1", "questions.IsSubQuestion = 1")
+    
+    @strTest = ""
+    @group3 = Array.new
+    @group3.push("answers.ParentID = 0", "IsSubAnswer = 1", "questions.IsSubQuestion = 1")
+    puts @index
+    puts "^6^ indeX"
+    @counter = 1
+    if params[:constrain].blank?
+     
+    else
+      @index = params[:constrain]
+      @index.each do |test|
+      @strTest << @group3[test.to_i]
+      
+      if @counter < @index.size
+        @strTest << " AND "
+      end
+      @counter += 1  
+    end
+    end
+    
+    
+    puts @strTest
     #####################################################################################3
 
     @Graphtype = params[:GraphType]

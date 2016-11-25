@@ -68,14 +68,18 @@
 		      			<h5>Title: <%= link_to advertisement.AdvertisementName, advertisement %></h5>
 		      			<p class="para">Description: <%= advertisement.AdvertisementDescription %></p>
 		      			<br/>
-		      			<p>Select to active: <%= radio_button_tag 'advertisement_id[]', advertisement.id,true %></p>
-		    		</div>
+		      		   <%= hidden_field_tag :advertid, advertisement.id%>
+        
+        				<%= submit_tag "Active Default Advertisment" , data: { confirm: "Are you sure want this Advertisement as default page?" }, :name => 'update' %>
+   
+		      		
+		      		</div>
 		    	</div>
 			  <%end%>
         </div>
         </div>
-        <%= submit_tag "Active Default Advertisment" , data: { confirm: "Are you sure want this Advertisement as default page?" }, :name => 'update' %>
-    </div>
+        
+      </div>
     
 	   
     
